@@ -24,8 +24,6 @@
   },
   "variables": {
     "deploymentApiVersion": "2016-02-01",
-    "vNetApiVersion": "2015-06-15",
-    "nicApiVersion": "2015-06-15",
     "publicIpApiVersion": "2015-06-15",
     "_deploymentLink": "[deployment().properties.templateLink.uri]"
   },
@@ -41,7 +39,7 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
-          "nicApiVersion": { "value": "[variables('nicApiVersion')]" }
+
         }
       }
     }

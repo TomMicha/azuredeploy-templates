@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
       "baseTemplateUri": {
-        "value": "https://github.com/TomMicha/azuredeploy-templates/NSG"
+        "value": "https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/NSG"
       },
       "sharedTemplateNSG": {
         "value": "networkSecurityGroup.json"
