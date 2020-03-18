@@ -30,13 +30,13 @@
   },
   "resources": [
     {
+      "type": "Microsoft.Resources/deployments",
       "apiVersion": "2019-11-01",
       "name": "[parameters('nestedDeploymentNetworkSecurity')]",
-      "type": "Microsoft.Resources/deployments",
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "[concat(parameters('baseTemplateUri'), '/shared/', parameters('sharedTemplateNSG'))]",
+          "uri": "https://github.com/TomMicha/azuredeploy-templates/NSG/shared/networkSecurityGroup.json",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {

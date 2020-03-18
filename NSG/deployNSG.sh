@@ -17,5 +17,7 @@ az group deployment create \
     --name $DeployName \
     --resource-group $resourceGroup \
     --template-file $template \
-    --parameters $templateParams \ 
+    --parameters $templateParams \
     --verbose
+
+#     --parameters $templateParams \ need all params for this param file to work
