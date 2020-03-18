@@ -37,7 +37,7 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "[uri(variables('_deploymentLink'), 'shared/networkSecurityGroup.json')]",
+          "uri": "https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/NSG/shared/networkSecurityGroup.json",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {

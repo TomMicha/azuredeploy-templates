@@ -4,8 +4,8 @@ location="eastus"
 resourceGroup=ALAS-nsg
 DeployName=ALAS-nsg
 networkgroup=ALAS-nsg
-template="https://github.com/TomMicha/azuredeploy-templates/NSG/azuredeploy.json"
-templateParams="https://github.com/TomMicha/azuredeploy-templates/NSG/azuredeploy.parameters.json"
+template="https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/NSG/azuredeploy.json"
+templateParams="https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/NSG/azuredeploy.parameters.json"
 
 echo $location
 az group create -n $resourceGroup -l $location \
