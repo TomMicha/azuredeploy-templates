@@ -18,6 +18,6 @@ az group deployment create \
     --resource-group $resourceGroup \
     --template-uri $template \
     --parameters $templateParams \
-    --verbose
+    --debug
 
 #     --parameters $templateParams \ need all params for this param file to work

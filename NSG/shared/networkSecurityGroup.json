@@ -3,7 +3,6 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "networkSecurityGroupName": {
-            "defaultValue": "default-NSG",
             "type": "String"
         }
     },
@@ -19,7 +18,8 @@
             "location": "[resourceGroup().location]",
             "tags": {
                 "client": "alas",
-                "output_key": "[parameters('networkSecurityGroupName')]"
+                "output_key": "[parameters('networkSecurityGroupName')]",
+                "nsgID": "[variables('nsgName')]"
             },
             "properties": {
                 "securityRules": [

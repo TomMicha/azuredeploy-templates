@@ -10,6 +10,9 @@
       },
       "nestedDeploymentNetworkSecurity": {
         "value": "myNSG-default"
+      },
+      "networkSecurityGroupName": {
+        "value": "mytestNSG-default"
       }
     }
   }

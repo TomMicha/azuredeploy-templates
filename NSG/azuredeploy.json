@@ -10,7 +10,6 @@
     },
     "nestedDeploymentNetworkSecurity": {
       "type": "string",
-      "defaultValue": "nsg-default1",
       "metadata": {
         "description": "Name of the virtual network deployment."
         }
@@ -19,6 +18,12 @@
       "type": "string",
       "metadata": {
         "description": "Name of the virtual network deployment."
+        }
+    },
+    "networkSecurityGroupName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the NSG deployment."
         }
     }
   },
@@ -39,7 +44,7 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
-
+          "networkSecurityGroupName": { "value": "[parameters('networkSecurityGroupName')]"}
         }
       }
     }
