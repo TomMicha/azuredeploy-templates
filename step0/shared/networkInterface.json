@@ -1,5 +1,5 @@
 {
-    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
       "nicName": {
@@ -20,22 +20,39 @@
           "description": "Virtual network subnet reference."
         }
       },
-      "publicIpID": {
+      "publicIpID1": {
         "type": "string",
         "metadata": {
           "description": "ID of Public IP resource."
         }
+      },
+      "publicIpID2": {
+        "type": "string",
+        "metadata": {
+          "description": "ID of Public IP resource2."
+        }
+      },
+      "publicIpID3": {
+        "type": "string",
+        "metadata": {
+          "description": "ID of Public IP resource3."
+        }
       }
     },
     "variables": {
-  
+      "nicID1": "[concat(parameters('nicName'),'-1+')]",
+      "nicID2": "[concat(parameters('nicName'),'-2+')]",
+      "nicID3": "[concat(parameters('nicName'),'-3+')]"
     },
     "resources": [
       {
         "type": "Microsoft.Network/networkInterfaces",
-        "name": "[parameters('nicName')]",
+        "name": "[variables('nicID1')]",
         "apiVersion": "[parameters('nicApiVersion')]",
         "location": "[resourceGroup().location]",
+        "tags": {
+          "displayName": "[variables('nicID1')]"
+        },
         "properties": {
           "ipConfigurations": [
             {
@@ -46,7 +63,57 @@
                   "id": "[parameters('subnetID')]"
                 },
                 "publicIPAddress": {
-                  "id": "[parameters('publicIpID')]"
+                  "id": "[parameters('publicIpID1')]"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "Microsoft.Network/networkInterfaces",
+        "name": "[variables('nicID2')]",
+        "apiVersion": "[parameters('nicApiVersion')]",
+        "location": "[resourceGroup().location]",
+        "tags": {
+          "displayName": "[variables('nicID1')]"
+        },
+        "properties": {
+          "ipConfigurations": [
+            {
+              "name": "ipconfig1",
+              "properties": {
+                "privateIPAllocationMethod": "Dynamic",
+                "subnet": {
+                  "id": "[parameters('subnetID')]"
+                },
+                "publicIPAddress": {
+                  "id": "[parameters('publicIpID2')]"
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "type": "Microsoft.Network/networkInterfaces",
+        "name": "[variables('nicID3')]",
+        "apiVersion": "[parameters('nicApiVersion')]",
+        "location": "[resourceGroup().location]",
+        "tags": {
+          "displayName": "[variables('nicID1')]"
+        },
+        "properties": {
+          "ipConfigurations": [
+            {
+              "name": "ipconfig1",
+              "properties": {
+                "privateIPAllocationMethod": "Dynamic",
+                "subnet": {
+                  "id": "[parameters('subnetID')]"
+                },
+                "publicIPAddress": {
+                  "id": "[parameters('publicIpID3')]"
                 }
               }
             }
@@ -57,7 +124,15 @@
     "outputs": {
       "vmNic": {
         "type": "string",
-        "value": "[resourceId('Microsoft.Network/networkInterfaces', parameters('nicName'))]"
+        "value": "[resourceId('Microsoft.Network/networkInterfaces', variables('nicID1'))]"
+      },
+      "vmNic2": {
+        "type": "string",
+        "value": "[resourceId('Microsoft.Network/networkInterfaces', variables('nicID2'))]"
+      },
+      "vmNic3": {
+        "type": "string",
+        "value": "[resourceId('Microsoft.Network/networkInterfaces', variables('nicID3'))]"
       }
     }
   }

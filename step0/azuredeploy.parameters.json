@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
       "baseTemplateUri": {
-        "value": "add my github here"
+        "value": "https://github.com/TomMicha/azuredeploy-templates/step0/azuredeploy.json"
       },
       "nestedDeploymentNameVnet": {
         "value": "deploy-virtual-network"

@@ -1,5 +1,5 @@
 {
-    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
       "vNetName": {
@@ -8,7 +8,7 @@
           "description": "Name of the virtual network."
         }
       },
-      "deploymentType": {
+     "deploymentType": {
         "type": "string",
         "allowedValues": [ "dev", "prod" ],
         "defaultValue": "dev",
@@ -28,24 +28,41 @@
           "description": "IP range of the virtual network."
         }
       },
-      "subnetProdRange": {
+      "subnet1Range": {
         "type": "string",
         "metadata": {
           "description": "IP range of first subnet."
         }
       },
-      "subnetDevRange": {
+      "subnet2Range": {
         "type": "string",
         "metadata": {
           "description": "IP range of second subnet."
         }
+      },
+      "subnet3Range": {
+        "type": "string",
+        "metadata": {
+          "description": "IP range of third subnet."
+        }
+      },
+      "subnet4Range": {
+        "type": "string",
+        "metadata": {
+          "description": "IP range of fourth subnet."
+        }
       }
     },
     "variables": {
-      "subnetProdName": "subnet-prod",
-      "subnetDevName": "subnet-dev",
+      "subnet1": "subnet1",
+      "subnet2": "subnet2",
+      "subnet3dbz": "subnet3-dbz-public",
+      "subnet4dbz": "subnet4-dbz-private",
       "vNetID": "[resourceId('Microsoft.Network/virtualNetworks', parameters('vNetName'))]",
-      "vNetSubnetID": "[concat(variables('vNetID'), '/subnets/', 'subnet-', parameters('deploymentType'))]"
+      "vNetSubnetID": "[concat(variables('vNetID'), '/subnets/', 'subnet-', variables('subnet1'))]",
+      "vNetSubnetID2": "[concat(variables('vNetID'), '/subnets/', 'subnet-', variables('subnet2'))]",
+      "vNetSubnetID3": "[concat(variables('vNetID'), '/subnets/', 'subnet-', variables('subnet3dbz'))]",
+      "vNetSubnetID4": "[concat(variables('vNetID'), '/subnets/', 'subnet-', variables('subnet4dbz'))]"
     },
     "resources": [
       {
@@ -65,15 +82,27 @@
           },
           "subnets": [
             {
-              "name": "[variables('subnetProdName')]",
+              "name": "[variables('subnet1')]",
               "properties": {
-                "addressPrefix": "[parameters('subnetProdRange')]"
+                "addressPrefix": "[parameters('subnet1Range')]"
               }
             },
             {
-              "name": "[variables('subnetDevName')]",
+              "name": "[variables('subnet2')]",
               "properties": {
-                "addressPrefix": "[parameters('subnetDevRange')]"
+                "addressPrefix": "[parameters('subnet2Range')]"
+              }
+            },
+            {
+              "name": "[variables('subnet3dbz')]",
+              "properties": {
+                "addressPrefix": "[parameters('subnet3Range')]"
+              }
+            },
+            {
+              "name": "[variables('subnet4dbz')]",
+              "properties": {
+                "addressPrefix": "[parameters('subnet4Range')]"
               }
             }
           ]
@@ -84,6 +113,18 @@
       "subnetID": {
         "type": "string",
         "value": "[variables('vNetSubnetID')]"
+      },
+      "subnetID2": {
+        "type": "string",
+        "value": "[variables('vNetSubnetID2')]"
+      },
+      "subnetID3": {
+        "type": "string",
+        "value": "[variables('vNetSubnetID3')]"
+      },
+      "subnetID4": {
+        "type": "string",
+        "value": "[variables('vNetSubnetID4')]"
       }
     }
   }

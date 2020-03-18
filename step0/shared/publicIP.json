@@ -24,16 +24,42 @@
       }
     },
     "variables": {
-      "publicIpName": "[concat(parameters('publicIpNamePrefix'),'-',parameters('deploymentType'))]"
+      "publicIpName1": "[concat(parameters('publicIpNamePrefix'),'-1-',parameters('deploymentType'))]",
+      "publicIpName2": "[concat(parameters('publicIpNamePrefix'),'-2-',parameters('deploymentType'))]",
+      "publicIpName3": "[concat(parameters('publicIpNamePrefix'),'-3-',parameters('deploymentType'))]"
     },
     "resources": [
       {
-        "name": "[variables('publicIpName')]",
+        "name": "[variables('publicIpName1')]",
         "type": "Microsoft.Network/publicIPAddresses",
         "location": "[resourceGroup().location]",
         "apiVersion": "[parameters('publicIpApiVersion')]",
         "tags": {
-          "displayName": "[variables('publicIpName')]"
+          "displayName": "[variables('publicIpName1')]"
+        },
+        "properties": {
+          "publicIPAllocationMethod": "Dynamic"
+        }
+      },
+      {
+        "name": "[variables('publicIpName2')]",
+        "type": "Microsoft.Network/publicIPAddresses",
+        "location": "[resourceGroup().location]",
+        "apiVersion": "[parameters('publicIpApiVersion')]",
+        "tags": {
+          "displayName": "[variables('publicIpName2')]"
+        },
+        "properties": {
+          "publicIPAllocationMethod": "Dynamic"
+        }
+      },
+      {
+        "name": "[variables('publicIpName3')]",
+        "type": "Microsoft.Network/publicIPAddresses",
+        "location": "[resourceGroup().location]",
+        "apiVersion": "[parameters('publicIpApiVersion')]",
+        "tags": {
+          "displayName": "[variables('publicIpName3')]"
         },
         "properties": {
           "publicIPAllocationMethod": "Dynamic"
@@ -41,9 +67,17 @@
       }
     ],
     "outputs": {
-      "publicIpID": {
+      "publicIpID1": {
         "type": "string",
-        "value": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIpName'))]"
+        "value": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIpName1'))]"
+      },
+      "publicIpID2": {
+        "type": "string",
+        "value": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIpName2'))]"
+      },
+      "publicIpID3": {
+        "type": "string",
+        "value": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIpName3'))]"
       }
     }
   }

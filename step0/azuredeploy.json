@@ -19,7 +19,7 @@
     "nestedDeploymentNameVnet": {
       "type": "string",
       "metadata": {
-        "description": "Name of the virtual network deployment."
+        "description": "TResource name for the virtual network."
       }
     },
     "sharedTemplateNameVnet": {
@@ -40,16 +40,28 @@
         "description": "IP range of the virtual network."
       }
     },
-    "subnetProdRange": {
+    "subnet1Range": {
       "type": "string",
       "metadata": {
         "description": "IP range of first subnet."
       }
     },
-    "subnetDevRange": {
+    "subnet2Range": {
       "type": "string",
       "metadata": {
         "description": "IP range of second subnet."
+      }
+    },
+    "subnet3Range": {
+      "type": "string",
+      "metadata": {
+        "description": "IP range of thirdsubnet."
+      }
+    },
+    "subnet4Range": {
+      "type": "string",
+      "metadata": {
+        "description": "IP range of fourth subnet."
       }
     },
     "nestedDeploymentNameStorage": {
@@ -180,8 +192,10 @@
           "vNetName": { "value": "[parameters('vNetName')]" },
           "vNetApiVersion": { "value": "[variables('vNetApiVersion')]" },
           "vNetRange": { "value": "[parameters('vNetRange')]" },
-          "subnetProdRange": { "value": "[parameters('subnetProdRange')]" },
-          "subnetDevRange": { "value": "[parameters('subnetDevRange')]" },
+          "subnetProdRange": { "value": "[parameters('subnet1Range')]" },
+          "subnetDevRange": { "value": "[parameters('subnet2Range')]" },
+          "subnet3Range": { "value": "[parameters('subnet3Range')]" },
+          "subnet4Range": { "value": "[parameters('subnet4Range')]" },
           "deploymentType": { "value": "[parameters('deploymentType')]" }
         }
       }
@@ -238,7 +252,10 @@
           "nicName": { "value": "[parameters('nicName')]" },
           "nicApiVersion": { "value": "[variables('nicApiVersion')]" },
           "subnetID": { "value": "[reference(parameters('nestedDeploymentNameVnet')).outputs.subnetID.value]" },
-          "publicIpID": { "value": "[reference(parameters('nestedDeploymentNamePublicIp')).outputs.publicIpID.value]" }
+          "publicIpID1": { "value": "[reference(parameters('nestedDeploymentNamePublicIp')).outputs.publicIpID1.value]" },
+          "publicIpID2": { "value": "[reference(parameters('nestedDeploymentNamePublicIp')).outputs.publicIpID2.value]" },
+          "publicIpID3": { "value": "[reference(parameters('nestedDeploymentNamePublicIp')).outputs.publicIpID3.value]" }
+          
         }
       }
     },

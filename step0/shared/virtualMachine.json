@@ -72,7 +72,7 @@
       }
     },
     "variables": {
-      "vmName": "[concat(parameters('vmNamePrefix'),'-',parameters('deploymentType'))]",
+      "vmName": "[concat(parameters('vmNamePrefix'),'-',copyIndex(),'-',parameters('deploymentType'))]",
       "vmOSDiskName": "[concat(variables('vmName'),'-','osdisk')]"
     },
     "resources": [
@@ -82,7 +82,12 @@
         "location": "[resourceGroup().location]",
         "apiVersion": "[parameters('vmApiVersion')]",
         "tags": {
-          "displayName": "[variables('vmName')]"
+          "displayName": "[variables('vmName')]",
+          "createdBy": "Tommy"
+        },
+        "copy": {
+          "name": "vmCopy",
+          "count": 3
         },
         "properties": {
           "hardwareProfile": {

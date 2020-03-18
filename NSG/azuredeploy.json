@@ -1,0 +1,51 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "baseTemplateUri": {
+      "type": "string",
+      "metadata": {
+        "description": "Base URI of template resources."
+      }
+    },
+    "nestedDeploymentNetworkSecurity": {
+      "type": "string",
+      "defaultValue": "nsg-default1",
+      "metadata": {
+        "description": "Name of the virtual network deployment."
+        }
+    },
+    "sharedTemplateNSG": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the virtual network deployment."
+        }
+    }
+  },
+  "variables": {
+    "deploymentApiVersion": "2016-02-01",
+    "vNetApiVersion": "2015-06-15",
+    "nicApiVersion": "2015-06-15",
+    "publicIpApiVersion": "2015-06-15"
+  },
+  "resources": [
+    {
+      "apiVersion": "2019-11-01",
+      "name": "[parameters('nestedDeploymentNetworkSecurity')]",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('baseTemplateUri'), '/shared/', parameters('sharedTemplateNSG'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "nicApiVersion": { "value": "[variables('nicApiVersion')]" }
+        }
+      }
+    }
+  ],
+  "outputs": {
+
+  }
+}

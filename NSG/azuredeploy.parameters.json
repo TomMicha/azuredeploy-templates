@@ -1,0 +1,48 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "baseTemplateUri": {
+        "value": "https://github.com/TomMicha/azuredeploy-templates/NSG/azuredeploy.json"
+      },
+      "nestedDeploymentNameVnet": {
+        "value": "deploy-virtual-network"
+      },
+      "sharedTemplateNameVnet": {
+        "value": "virtualNetwork.json"
+      },
+      "sharedTemplateNSG": {
+        "value": "networkSecurityGroup.json"
+      },
+      "nestedDeploymentNetworkSecurity": {
+        "value": "myNSG-default"
+      },
+      "vNetName": {
+        "value": "virtual-network-01"
+      },
+      "vNetRange": {
+        "value": "10.0.0.0/16"
+      },
+      "subnetProdRange": {
+        "value": "10.0.1.0/24"
+      },
+      "nicName": {
+        "value": "vm-nic-0"
+      },
+      "nestedDeploymentNameNic": {
+        "value": "deploy-nic"
+      },
+      "sharedTemplateNameNic": {
+        "value": "networkInterface.json"
+      },
+      "sharedTemplateNamePublicIp": {
+        "value": "publicIP.json"
+      },
+      "publicIpNamePrefix": {
+        "value": "ip"
+      },
+      "nestedDeploymentNamePublicIp": {
+        "value": "deploy-public-ip"
+      }
+    }
+  }
