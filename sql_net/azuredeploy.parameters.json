@@ -18,7 +18,7 @@
         "value": "alas-NSG-default"
       },
       "vNetName": {
-        "value": "virtual-network-01"
+        "value": "virtual-network-dev"
       },
       "vNetRange": {
         "value": "10.0.0.0/18"
