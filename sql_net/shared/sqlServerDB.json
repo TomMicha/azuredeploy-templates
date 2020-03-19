@@ -1,0 +1,104 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "sqlAdministratorLogin": {
+        "type": "string"
+    },
+      "sqlAdministratorLoginPassword": {		
+        "type": "securestring",
+        "metadata": {
+          "description": "password for admin user for sql server"
+        }		
+    },
+      "sqlServerName": {
+        "type": "string",
+        "minLength": 1
+      },
+      "sqldb-alasdia-devCollation": {
+        "type": "string",
+        "minLength": 1,
+        "defaultValue": "SQL_Latin1_General_CP1_CI_AS"
+      },
+      "sqldb-alasdia-devEdition": {
+        "type": "string",
+        "defaultValue": "Basic",
+        "allowedValues": [
+          "Basic",
+          "Standard",
+          "Premium"
+        ]
+      },
+      "sqldb-alasdia-devRequestedServiceObjectiveName": {
+        "type": "string",
+        "defaultValue": "Basic",
+        "allowedValues": [
+          "Basic",
+          "S0",
+          "S1",
+          "S2",
+          "P1",
+          "P2",
+          "P3"
+        ],
+        "metadata": {
+          "description": "Describes the performance level for Edition"
+        }
+      }
+    },
+    "variables": {
+      "sqlserver-alasdia-devName": "[concat('sqlserver-alasdia-dev', uniqueString(resourceGroup().id))]",
+      "sqlDatabaseName": "mytest-sqldb88"
+    },
+    "resources": [
+      {
+        "name": "[parameters('sqlServerName')]",
+        "type": "Microsoft.Sql/servers",
+        "location": "[resourceGroup().location]",
+        "apiVersion": "2014-04-01-preview",
+        "dependsOn": [ ],
+        "tags": {
+          "displayName": "[parameters('sqlServerName')]"
+        },
+        "properties": {
+          "administratorLogin": "[parameters('sqlAdministratorLogin')]",
+          "administratorLoginPassword": "[parameters('sqlAdministratorLoginPassword')]"
+        },
+        "resources": [
+          {
+            "name": "AllowAllWindowsAzureIps",
+            "type": "firewallrules",
+            "location": "[resourceGroup().location]",
+            "apiVersion": "2014-04-01-preview",
+            "dependsOn": [
+              "[resourceId('Microsoft.Sql/servers', variables('sqlserver-alasdia-devName'))]"
+            ],
+            "properties": {
+              "startIpAddress": "0.0.0.0",
+              "endIpAddress": "0.0.0.0"
+            }
+          },
+          {
+            "name": "[variables('sqlDatabaseName')]",
+            "type": "databases",
+            "location": "[resourceGroup().location]",
+            "apiVersion": "2014-04-01-preview",
+            "dependsOn": [
+              "[resourceId('Microsoft.Sql/servers', variables('sqlserver-alasdia-devName'))]"
+            ],
+            "tags": {
+              "displayName": "[variables('sqlDatabaseName')]"
+            },
+            "properties": {
+              "collation": "[parameters('sqldb-alasdia-devCollation')]",
+              "edition": "[parameters('sqldb-alasdia-devEdition')]",
+              "maxSizeBytes": "1073741824",
+              "requestedServiceObjectiveName": "[parameters('sqldb-alasdia-devRequestedServiceObjectiveName')]"
+            }
+          }
+        ]
+      }
+    ],
+    "outputs": {
+    }
+  }

@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
       "baseTemplateUri": {
-        "value": "https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/step0"
+        "value": "https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/sql_net"
       },
       "nestedDeploymentNameVnet": {
         "value": "deploy-virtual-network"
@@ -49,6 +49,21 @@
       },
       "storageAccountNamePrefix": {
         "value": "storage"
+      },
+      "nestedDeploymentNameSql": {
+        "value": "deploy-sql-server"
+      },
+      "sharedTemplateNameSql": {
+        "value": "sqlServerDB.json"
+      },
+      "sqlServerName": {
+        "value": "mytest-sql-server88"
+      },
+      "sqlAdministratorLogin": {
+        "value": "GEN-UNIQUE-8"
+      },
+      "sqlAdministratorLoginPassword": {		
+        "value": "GEN-PASSWORD"		
       }
     }
   }

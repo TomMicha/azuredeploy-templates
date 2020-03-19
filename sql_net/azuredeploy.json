@@ -105,17 +105,36 @@
       "metadata": {
         "description": "Prefix string for storage account name."
       }
-    } 
+    },
+    "nestedDeploymentNameSql": {
+      "type": "string",
+      "metadata": {
+        "description": "nested deployment template for sql server"
+      }
+    },
+    "sharedTemplateNameSql": {
+      "type": "string",
+      "metadata": {
+        "description": "shared template location for sql server"
+      }
+    },
+    "sqlServerName": {
+      "type": "string",
+      "metadata": {
+        "description": "String name for sql server."
+      }
+    },
+    "sqlAdministratorLogin": {
+      "type": "string"
+    },
+    "sqlAdministratorLoginPassword": {		
+      "type": "string"		
+    }
   },
   "variables": {
     "deploymentApiVersion": "2016-02-01",
     "vNetApiVersion": "2015-06-15",
-    "storageApiVersion": "2015-06-15",
-    "nicApiVersion": "2015-06-15",
-    "vmApiVersion": "2015-06-15",
-    "publicIpApiVersion": "2015-06-15",
-    "vmImagePublisher": "MicrosoftWindowsServer",
-    "vmImageOffer": "WindowsServer"
+    "storageApiVersion": "2015-06-15"
   },
   "resources": [
     {
@@ -150,12 +169,29 @@
           "vNetName": { "value": "[parameters('vNetName')]" },
           "vNetApiVersion": { "value": "[variables('vNetApiVersion')]" },
           "vNetRange": { "value": "[parameters('vNetRange')]" },
-          "subnetProdRange": { "value": "[parameters('subnet1Range')]" },
-          "subnetDevRange": { "value": "[parameters('subnet2Range')]" },
+          "subnet1Range": { "value": "[parameters('subnet1Range')]" },
+          "subnet2Range": { "value": "[parameters('subnet2Range')]" },
           "subnet3Range": { "value": "[parameters('subnet3Range')]" },
           "subnet4Range": { "value": "[parameters('subnet4Range')]" },
           "deploymentType": { "value": "[parameters('deploymentType')]" },
           "networkSecurityGroupID": { "value": "[reference(parameters('nestedSecurityDeploymentName')).outputs.networkSecurityGroupID.value]" }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-11-01",
+      "name": "[parameters('nestedDeploymentNameSql')]",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('baseTemplateUri'), '/shared/', parameters('sharedTemplateNameSql'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "sqlServerName": { "value": "[parameters('sqlServerName')]"},
+          "sqlAdministratorLogin": { "value": "[parameters('sqlAdministratorLogin')]"},
+          "sqlAdministratorLoginPassword": { "value": "[parameters('sqlAdministratorLoginPassword')]"}
         }
       }
     },
