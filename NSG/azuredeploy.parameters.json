@@ -18,7 +18,7 @@
         "value": "networkSecurityGroup.json"
       },
       "nestedSecurityDeploymentName": {
-        "value": "myNSG-default"
+        "value": "deploy-NSG"
       },
       "networkSecurityGroupName": {
         "value": "mytestNSG-default"
@@ -37,18 +37,6 @@
       },
       "subnet4Range": {
         "value": "10.0.3.64/26"
-      },
-      "storageType": {
-        "value": "Standard_LRS"
-      },
-      "nestedDeploymentNameStorage": {
-        "value": "deploy-storage-account"
-      },
-      "sharedTemplateNameStorage": {
-        "value": "storageAccount.json"
-      },
-      "storageAccountNamePrefix": {
-        "value": "storage"
       }
     }
   }
