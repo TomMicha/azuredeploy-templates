@@ -114,8 +114,8 @@
           "vNetName": { "value": "[parameters('vNetName')]" },
           "vNetApiVersion": { "value": "[variables('vNetApiVersion')]" },
           "vNetRange": { "value": "[parameters('vNetRange')]" },
-          "subnetProdRange": { "value": "[parameters('subnet1Range')]" },
-          "subnetDevRange": { "value": "[parameters('subnet2Range')]" },
+          "subnet1Range": { "value": "[parameters('subnet1Range')]" },
+          "subnet2Range": { "value": "[parameters('subnet2Range')]" },
           "subnet3Range": { "value": "[parameters('subnet3Range')]" },
           "subnet4Range": { "value": "[parameters('subnet4Range')]" },
           "networkSecurityGroupID": { "value": "[reference(parameters('nestedSecurityDeploymentName')).outputs.networkSecurityGroupID.value]" }
