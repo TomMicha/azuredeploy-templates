@@ -71,7 +71,7 @@
             "location": "[resourceGroup().location]",
             "apiVersion": "2014-04-01-preview",
             "dependsOn": [
-              "[resourceId('Microsoft.Sql/servers', variables('sqlserver-alasdia-devName'))]"
+              "[resourceId('Microsoft.Sql/servers', parameters('sqlServerName'))]"
             ],
             "properties": {
               "startIpAddress": "0.0.0.0",
@@ -84,7 +84,7 @@
             "location": "[resourceGroup().location]",
             "apiVersion": "2014-04-01-preview",
             "dependsOn": [
-              "[resourceId('Microsoft.Sql/servers', variables('sqlserver-alasdia-devName'))]"
+              "[resourceId('Microsoft.Sql/servers', parameters('sqlServerName'))]"
             ],
             "tags": {
               "displayName": "[variables('sqlDatabaseName')]"
