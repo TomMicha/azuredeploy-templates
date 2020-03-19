@@ -34,10 +34,16 @@
         "description": "Template name for the virtual network."
       }
     },
-    "nestedSecurityGroupName": {
+    "networkSecurityGroupName": {
+        "type": "string",
+        "metadata": {
+          "description": "Template name for the network security group."
+      }
+    },
+    "nestedSecurityDeploymentName": {
       "type": "string",
       "metadata": {
-        "description": "Template name for the virtual network."
+        "description": "Template name for the NSG deployment."
       }
     },
     "vNetName": {
@@ -115,7 +121,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2019-11-01",
-      "name": "[parameters('nestedSecurityGroupName')]",
+      "name": "[parameters('nestedSecurityDeploymentName')]",
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -123,7 +129,7 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
-          "networkSecurityGroupName": { "value": "[parameters('nestedSecurityGroupName')]"}
+          "networkSecurityGroupName": { "value": "[parameters('networkSecurityGroupName')]"}
         }
       }
     },
@@ -132,7 +138,7 @@
       "name": "[parameters('nestedDeploymentNameVnet')]",
       "type": "Microsoft.Resources/deployments",
       "dependsOn": [
-        "[concat('Microsoft.Resources/deployments/', parameters('nestedDeploymentNameVnet'))]"
+        "[concat('Microsoft.Resources/deployments/', parameters('nestedSecurityDeploymentName'))]"
       ],
       "properties": {
         "mode": "Incremental",
@@ -149,7 +155,7 @@
           "subnet3Range": { "value": "[parameters('subnet3Range')]" },
           "subnet4Range": { "value": "[parameters('subnet4Range')]" },
           "deploymentType": { "value": "[parameters('deploymentType')]" },
-          "networkSecurityGroupID": { "value": "[reference(parameters('nestedSecurityGroupName')).outputs.networkSecurityGroupID.value]" }
+          "networkSecurityGroupID": { "value": "[reference(parameters('nestedSecurityDeploymentName')).outputs.networkSecurityGroupID.value]" }
         }
       }
     },
