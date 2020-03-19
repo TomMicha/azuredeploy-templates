@@ -14,7 +14,7 @@
       "sharedTemplateNSG": {
         "value": "networkSecurityGroup.json"
       },
-      "networkSecurityGroupName": {
+      "nestedSecurityGroupName": {
         "value": "alas-NSG-default"
       },
       "vNetName": {
