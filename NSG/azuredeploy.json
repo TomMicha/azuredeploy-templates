@@ -8,12 +8,6 @@
         "description": "Base URI of template resources."
       }
     },
-    "nestedDeploymentNetworkSecurity": {
-      "type": "string",
-      "metadata": {
-        "description": "Name of the virtual network deployment."
-        }
-    },
     "sharedTemplateNSG": {
       "type": "string",
       "metadata": {
@@ -91,7 +85,7 @@
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2019-11-01",
-      "name": "[parameters('nestedDeploymentNetworkSecurity')]",
+      "name": "[parameters('nestedSecurityDeploymentName')]",
       "properties": {
         "mode": "Incremental",
         "templateLink": {
