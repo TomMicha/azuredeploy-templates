@@ -17,7 +17,7 @@
       "sharedTemplateNSG": {
         "value": "networkSecurityGroup.json"
       },
-      "nestedDeploymentNetworkSecurity": {
+      "nestedSecurityDeploymentName": {
         "value": "myNSG-default"
       },
       "networkSecurityGroupName": {
