@@ -10,3 +10,7 @@ storage account
 
 
 Add storage account (data lake) + Sql database + server
+
+issues:
+cant seem to add additional security rules for PL and Allyson IP's
+says Ruls cannot have same Priority and Direction even though they do not..
