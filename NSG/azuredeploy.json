@@ -25,12 +25,67 @@
       "metadata": {
         "description": "Name of the NSG deployment."
         }
+    },
+    "sharedTemplateNameVnet": {
+      "type": "string",
+      "metadata": {
+        "description": "Template name for the virtual network."
+      }
+    },
+    "nestedDeploymentNameVnet": {
+      "type": "string",
+      "metadata": {
+        "description": "TResource name for the virtual network."
+      }
+    },
+    "nestedSecurityDeploymentName": {
+      "type": "string",
+      "metadata": {
+        "description": "Template name for the NSG deployment."
+      }
+    },
+    "vNetName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the virtual network."
+      }
+    },
+    "vNetRange": {
+      "type": "string",
+      "metadata": {
+        "description": "IP range of the virtual network."
+      }
+    },
+    "subnet1Range": {
+      "type": "string",
+      "metadata": {
+        "description": "IP range of first subnet."
+      }
+    },
+    "subnet2Range": {
+      "type": "string",
+      "metadata": {
+        "description": "IP range of second subnet."
+      }
+    },
+    "subnet3Range": {
+      "type": "string",
+      "metadata": {
+        "description": "IP range of thirdsubnet."
+      }
+    },
+    "subnet4Range": {
+      "type": "string",
+      "metadata": {
+        "description": "IP range of fourth subnet."
+      }
     }
   },
   "variables": {
     "deploymentApiVersion": "2016-02-01",
     "publicIpApiVersion": "2015-06-15",
-    "_deploymentLink": "[deployment().properties.templateLink.uri]"
+    "_deploymentLink": "[deployment().properties.templateLink.uri]",
+    "vNetApiVersion": "2015-06-15"
   },
   "resources": [
     {
@@ -40,11 +95,36 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/NSG/shared/networkSecurityGroup.json",
+          "uri": "[concat(parameters('baseTemplateUri'), '/shared/', parameters('sharedTemplateNSG'))]",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
           "networkSecurityGroupName": { "value": "[parameters('networkSecurityGroupName')]"}
+        }
+      }
+    },
+    {
+      "apiVersion": "[variables('deploymentApiVersion')]",
+      "name": "[parameters('nestedDeploymentNameVnet')]",
+      "type": "Microsoft.Resources/deployments",
+      "dependsOn": [
+        "[concat('Microsoft.Resources/deployments/', parameters('nestedSecurityDeploymentName'))]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('baseTemplateUri'), '/shared/', parameters('sharedTemplateNameVnet'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "vNetName": { "value": "[parameters('vNetName')]" },
+          "vNetApiVersion": { "value": "[variables('vNetApiVersion')]" },
+          "vNetRange": { "value": "[parameters('vNetRange')]" },
+          "subnetProdRange": { "value": "[parameters('subnet1Range')]" },
+          "subnetDevRange": { "value": "[parameters('subnet2Range')]" },
+          "subnet3Range": { "value": "[parameters('subnet3Range')]" },
+          "subnet4Range": { "value": "[parameters('subnet4Range')]" },
+          "networkSecurityGroupID": { "value": "[reference(parameters('nestedSecurityDeploymentName')).outputs.networkSecurityGroupID.value]" }
         }
       }
     }
