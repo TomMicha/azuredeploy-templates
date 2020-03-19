@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
       "baseTemplateUri": {
-        "value": "https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/NSG"
+        "value": "https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/step0"
       },
       "nestedDeploymentNameVnet": {
         "value": "deploy-virtual-network"
@@ -11,17 +11,29 @@
       "sharedTemplateNameVnet": {
         "value": "virtualNetwork.json"
       },
-      "vNetName": {
-        "value": "virtual-network-01"
-      },
       "sharedTemplateNSG": {
         "value": "networkSecurityGroup.json"
       },
-      "nestedDeploymentNetworkSecurity": {
-        "value": "myNSG-default"
-      },
       "networkSecurityGroupName": {
-        "value": "mytestNSG-default"
+        "value": "alas-NSG-default"
+      },
+      "vNetName": {
+        "value": "virtual-network-01"
+      },
+      "vNetRange": {
+        "value": "10.0.0.0/18"
+      },
+      "subnet1Range": {
+        "value": "10.0.1.0/24"
+      },
+      "subnet2Range": {
+        "value": "10.0.2.0/24"
+      },
+      "subnet3Range": {
+        "value": "10.0.3.0/26"
+      },
+      "subnet4Range": {
+        "value": "10.0.3.64/26"
       },
       "storageType": {
         "value": "Standard_LRS"
