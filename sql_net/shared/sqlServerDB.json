@@ -34,7 +34,7 @@
       },
       "sqldb-alasdia-devRequestedServiceObjectiveName": {
         "type": "string",
-        "defaultValue": "Basic",
+        "defaultValue": "S1",
         "allowedValues": [
           "Basic",
           "S0",
@@ -97,7 +97,7 @@
             "properties": {
               "collation": "[parameters('sqldb-alasdia-devCollation')]",
               "edition": "[parameters('sqldb-alasdia-devEdition')]",
-              "maxSizeBytes": "1073741824",
+              "maxSizeBytes": "268435456000",
               "requestedServiceObjectiveName": "[parameters('sqldb-alasdia-devRequestedServiceObjectiveName')]"
             }
           }
