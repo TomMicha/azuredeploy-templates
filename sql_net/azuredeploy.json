@@ -130,12 +130,6 @@
     "sqlAdministratorPassword": {		
       "type": "string"		
     },
-    "storageResourceGroup": {
-        "type": "string",
-        "metadata": {
-          "description": "2nd resource group for databases"
-      }
-    },
     "keyResourceGroup": {
         "type": "string",
         "metadata": {
@@ -239,10 +233,6 @@
       "apiVersion": "[variables('storageApiVersion')]",
       "name": "[parameters('nestedDeploymentNameStorage')]",
       "type": "Microsoft.Resources/deployments",
-      "resourceGroup": "[resourceId(subscription().subscriptionId,'Microsoft.Resources/resourceGroups',parameters('storageResourceGroup'))]",
-      "dependsOn": [
-        "[resourceId('Microsoft.Resources/resourceGroups/', parameters('storageResourceGroup'))]"
-      ],
       "properties": {
         "mode": "Incremental",
         "templateLink": {
