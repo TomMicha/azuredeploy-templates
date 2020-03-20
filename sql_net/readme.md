@@ -15,6 +15,14 @@ issues:
 cant seem to add additional security rules for PL and Allyson IP's
 says Ruls cannot have same Priority and Direction even though they do not..
 
+Validate:
+az deployment validate --location $location --parameters paramsfile.json --template-uri "github//"
+
+GET RESOURCE PROVIDER APIS (IMPORTANT FOR TEMPLATES):
+Display all resource types for the network resource provider.
+        az provider list --query [?namespace=='Microsoft.Network'].resourceTypes[].resourceType
+        -----OR----
+az provider show -n "Microsoft.Storage/storageAccounts"
 
 Reference Key Vault secrets how:
 "adminPassword": {

@@ -170,8 +170,8 @@
   "variables": {
     "deploymentApiVersion": "2016-02-01",
     "vNetApiVersion": "2019-05-01",
-    "storageApiVersion": "2019-04-01",
-    "sqlApiVersion": "2017-10-01"
+    "storageApiVersion": "2019-06-01",
+    "sqlApiVersion": "2014-04-01"
   },
   "resources": [
     {
@@ -224,7 +224,7 @@
     },
     {
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2019-11-01",
+      "apiVersion": "[variables('sqlApiVersion')]",
       "name": "[parameters('nestedDeploymentNameSql')]",
       "resourceGroup": "[parameters('databasesResourceGroup')]",
       "properties": {
