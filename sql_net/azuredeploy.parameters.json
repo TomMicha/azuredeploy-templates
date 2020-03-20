@@ -5,9 +5,6 @@
       "baseTemplateUri": {
         "value": "https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/sql_net"
       },
-      "storageResourceGroup": {
-        "value": "ALAS-storage-dev"
-      },
       "keyResourceGroup": {
         "value": "ALAS-keyvault"
       },

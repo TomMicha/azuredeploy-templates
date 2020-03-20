@@ -239,7 +239,7 @@
       "apiVersion": "[variables('storageApiVersion')]",
       "name": "[parameters('nestedDeploymentNameStorage')]",
       "type": "Microsoft.Resources/deployments",
-      "resourceGroup": "[parameters('storageResourceGroup')]",
+      "resourceGroup": "[resourceId(subscription().subscriptionId,'Microsoft.Resources/resourceGroups',parameters('storageResourceGroup'))]",
       "dependsOn": [
         "[resourceId('Microsoft.Resources/resourceGroups/', parameters('storageResourceGroup'))]"
       ],

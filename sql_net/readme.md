@@ -8,6 +8,7 @@ storage account
 +sql database
 +storage (datalake)
 Deploy storage in new 2nd Resource group (add RG in bash script)
+( "resourceGroup": "[resourceId(subscription().subscriptionId,'Microsoft.Resources/resourceGroups',parameters('storageResourceGroup'))]",)
 
 
 Add storage account (data lake) + Sql database + server
