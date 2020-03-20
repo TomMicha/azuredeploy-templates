@@ -127,16 +127,60 @@
     "sqlAdministratorLogin": {
       "type": "string"
     },
-    "sqlAdministratorLoginPassword": {		
+    "sqlAdministratorPassword": {		
       "type": "string"		
+    },
+    "databasesResourceGroup": {
+        "type": "string",
+        "metadata": {
+          "description": "2nd resource group for databases"
+      }
+    },
+    "keyResourceGroup": {
+        "type": "string",
+        "metadata": {
+          "description": "Keyvault resource group"
+      }
+    },
+    "vaultName": {
+      "type": "string",
+      "metadata": {
+        "description": "String name for keyvault reference"
+      }
+    },
+    "nestedDeploymentNameDataLake": {
+      "type": "string",
+      "metadata": {
+        "description": "String name for Datalake deployment"
+      }
+    },
+    "sharedTemplateNameDataLake": {
+      "type": "string",
+      "metadata": {
+        "description": "String name for data lake template"
+      }
+    },
+    "DataLakeAccountNamePrefix": {
+      "type": "string",
+      "metadata": {
+        "description": "String name for Datalake-prefix"
+      }
     }
   },
   "variables": {
     "deploymentApiVersion": "2016-02-01",
     "vNetApiVersion": "2015-06-15",
-    "storageApiVersion": "2015-06-15"
+    "storageApiVersion": "2019-04-01",
+    "sqlApiVersion": "2017-10-01"
   },
   "resources": [
+    {
+      "type": "Microsoft.Resources/resourceGroups",
+      "apiVersion": "2018-05-01",
+      "name": "[parameters('databasesResourceGroup')]",
+      "location": "[resourceGroup().location]",
+      "properties": {}
+    },
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2019-11-01",
@@ -153,7 +197,7 @@
       }
     },
     {
-      "apiVersion": "[variables('deploymentApiVersion')]",
+      "apiVersion": "[variables('vnetApiVersion')]",
       "name": "[parameters('nestedDeploymentNameVnet')]",
       "type": "Microsoft.Resources/deployments",
       "dependsOn": [
@@ -182,6 +226,7 @@
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2019-11-01",
       "name": "[parameters('nestedDeploymentNameSql')]",
+      "resourceGroup": "[parameters('databasesResourceGroup')]",
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -191,12 +236,13 @@
         "parameters": {
           "sqlServerName": { "value": "[parameters('sqlServerName')]"},
           "sqlAdministratorLogin": { "value": "[parameters('sqlAdministratorLogin')]"},
-          "sqlAdministratorLoginPassword": { "value": "[parameters('sqlAdministratorLoginPassword')]"}
+          "sqlAdministratorLoginPassword": { "value": "[parameters('sqlAdministratorPassword')]"},
+          "databaseResourceGroup": { "value": "[parameters('databasesResourceGroup')]"}
         }
       }
     },
     {
-      "apiVersion": "[variables('deploymentApiVersion')]",
+      "apiVersion": "[variables('storageApiVersion')]",
       "name": "[parameters('nestedDeploymentNameStorage')]",
       "type": "Microsoft.Resources/deployments",
       "properties": {
@@ -211,7 +257,24 @@
           "storageAccountNamePrefix": { "value": "[parameters('storageAccountNamePrefix')]" }
         }
       }
-    }  
+    },
+     {
+      "apiVersion": "[variables('storageApiVersion')]",
+      "name": "[parameters('nestedDeploymentNameDataLake')]",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('baseTemplateUri'), '/shared/', parameters('sharedTemplateNameDataLake'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "storageType": { "value": "[parameters('storageType')]" },
+          "storageApiVersion": { "value": "[variables('storageApiVersion')]" },
+          "storageAccountNamePrefix": { "value": "[parameters('DataLakeAccountNamePrefix')]" }
+        }
+      }
+    } 
   ],
   "outputs": {
 

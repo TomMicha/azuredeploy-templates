@@ -5,7 +5,7 @@
       "sqlAdministratorLogin": {
         "type": "string"
     },
-      "sqlAdministratorLoginPassword": {		
+      "sqlAdministratorPassword": {		
         "type": "securestring",
         "metadata": {
           "description": "password for admin user for sql server"
@@ -28,6 +28,9 @@
           "Standard",
           "Premium"
         ]
+      },
+      "databaseResourceGroup" : {
+        "type": "string"
       },
       "sqldb-alasdia-devRequestedServiceObjectiveName": {
         "type": "string",
@@ -56,13 +59,15 @@
         "type": "Microsoft.Sql/servers",
         "location": "[resourceGroup().location]",
         "apiVersion": "2014-04-01-preview",
-        "dependsOn": [ ],
+        "dependsOn": [ 
+          "[resourceId('Microsoft.Resources/resourceGroups', parameters('databaseResourceGroup'))]"
+        ],
         "tags": {
           "displayName": "[parameters('sqlServerName')]"
         },
         "properties": {
           "administratorLogin": "[parameters('sqlAdministratorLogin')]",
-          "administratorLoginPassword": "[parameters('sqlAdministratorLoginPassword')]"
+          "administratorLoginPassword": "[parameters('sqlAdministratorPassword')]"
         },
         "resources": [
           {

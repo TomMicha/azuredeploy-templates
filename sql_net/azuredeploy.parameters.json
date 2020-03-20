@@ -5,6 +5,15 @@
       "baseTemplateUri": {
         "value": "https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/sql_net"
       },
+      "databasesResourceGroup": {
+        "value": "ALAS-databases-dev"
+      },
+      "keyResourceGroup": {
+        "value": "ALAS-keyvault"
+      },
+      "vaultName": {
+        "value": "ALAS-keyvault"
+      },
       "nestedDeploymentNameVnet": {
         "value": "deploy-virtual-network"
       },
@@ -50,6 +59,15 @@
       "storageAccountNamePrefix": {
         "value": "storage"
       },
+      "nestedDeploymentNameDataLake": {
+        "value": "deploy-datalake-account"
+      },
+      "sharedTemplateNameDataLake": {
+        "value": "datalake.json"
+      },
+      "DataLakeAccountNamePrefix": {
+        "value": "datalakeww"
+      },
       "nestedDeploymentNameSql": {
         "value": "deploy-sql-server"
       },
@@ -60,10 +78,15 @@
         "value": "mytest-sql-server88"
       },
       "sqlAdministratorLogin": {
-        "value": "GEN-UNIQUE-8"
+        "value": "thanos"
       },
-      "sqlAdministratorLoginPassword": {		
-        "value": "GEN-PASSWORD"		
+      "sqlAdministratorPassword": {		
+        "reference": {
+          "keyVault": {
+            "id": "[resourceId(subscription().subscriptionId, parameters('keyVaultGroup'), 'Microsoft.KeyVault/vaults',parameters('vaultName'))]"
+          },
+          "secretName": "sqlServerAdminPass"
+        }
       }
     }
   }
