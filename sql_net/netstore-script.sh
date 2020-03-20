@@ -32,7 +32,7 @@ az keyvault secret set \
 #create resource group and template links to resources
 #location="eastus"
 resourceGroup=test-vnet-storage-mix
-databaseResourceGroup=ALAS-databases-dev
+databaseResourceGroup=ALAS-storage-dev
 DeployName=test-vnet-storage-mix
 networkgroup=test-vnet-storage-mix
 template="https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/sql_net/azuredeploy.json"

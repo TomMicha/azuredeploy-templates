@@ -226,7 +226,6 @@
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "[variables('sqlApiVersion')]",
       "name": "[parameters('nestedDeploymentNameSql')]",
-      "resourceGroup": "[parameters('databasesResourceGroup')]",
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -247,6 +246,7 @@
       "apiVersion": "[variables('storageApiVersion')]",
       "name": "[parameters('nestedDeploymentNameStorage')]",
       "type": "Microsoft.Resources/deployments",
+      "resourceGroup": "[parameters('databasesResourceGroup')]",
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -264,6 +264,7 @@
       "apiVersion": "[variables('storageApiVersion')]",
       "name": "[parameters('nestedDeploymentNameDataLake')]",
       "type": "Microsoft.Resources/deployments",
+      "resourceGroup": "[parameters('databasesResourceGroup')]",
       "properties": {
         "mode": "Incremental",
         "templateLink": {
