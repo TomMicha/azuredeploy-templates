@@ -169,7 +169,7 @@
   },
   "variables": {
     "deploymentApiVersion": "2016-02-01",
-    "vNetApiVersion": "2019-05-01",
+    "vNetApiVersion": "2019-11-01",
     "storageApiVersion": "2019-06-01",
     "sqlApiVersion": "2014-04-01"
   },
