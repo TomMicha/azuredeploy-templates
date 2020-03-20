@@ -119,7 +119,16 @@
       }
     },
     "sqlAdministratorLogin": {
-      "type": "string"
+      "type": "string",
+      "metadata": {
+        "description": "Sql admin login"
+      }
+    },
+    "sqlAdministratorPassword": {
+      "type": "string",
+      "metadata": {
+        "description": "Sql server admin password"
+      }
     },
     "keyResourceGroup": {
         "type": "string",
@@ -215,6 +224,7 @@
         },
         "parameters": {
           "sqlApiVersion": { "value": "[variables('sqlApiVersion')]" },
+          "sqlAdministratorPassword": { "value": "[parameters('sqlAdministratorPassword')]"},
           "sqlAdministratorLogin": { "value": "[parameters('sqlAdministratorLogin')]"},
           "vaultName": { "value": "[parameters('vaultName')]"},
           "keyResourceGroup": { "value": "[parameters('keyResourceGroup')]"}

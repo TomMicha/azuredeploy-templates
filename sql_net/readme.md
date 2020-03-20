@@ -6,7 +6,7 @@ VNET ( 4 subnets, main one associated with NSG )
 storage account
 +sql server (save password to keyvault for retrieval during deployment)
 +sql database
-+storage (datalake)
++storage (datalake) add service endpoint,subnet and vnet to template
 Deploy storage in new 2nd Resource group (add RG in bash script)
 ( "resourceGroup": "[resourceId(subscription().subscriptionId,'Microsoft.Resources/resourceGroups',parameters('storageResourceGroup'))]",)
 
@@ -17,6 +17,7 @@ Delete password out put check****^^^)^&^2
 issues:
 cant seem to add additional security rules for PL and Allyson IP's
 says Ruls cannot have same Priority and Direction even though they do not..
+
 
 Validate:
 az deployment validate --location $location --parameters paramsfile.json --template-uri "github//"

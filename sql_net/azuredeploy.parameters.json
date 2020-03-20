@@ -73,6 +73,14 @@
       },
       "sqlAdministratorLogin": {
         "value": "thanos"
+      },
+      "sqlAdministratorPassword": {
+        "reference": {
+          "keyVault": {
+            "id": "/subscriptions/ba09e5b6-8d5c-4216-bcdc-ce0b594cc034/resourceGroups/ALAS-keyvault/providers/Microsoft.KeyVault/vaults/ALAS-keyvault"
+          },
+          "secretName": "sqlServerAdminPass"
+        }
       }
     }
   }
