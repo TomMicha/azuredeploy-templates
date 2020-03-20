@@ -23,6 +23,8 @@ Display all resource types for the network resource provider.
         az provider list --query [?namespace=='Microsoft.Network'].resourceTypes[].resourceType
         -----OR----
 az provider show -n "Microsoft.Storage/storageAccounts"
+        -----OR----
+az provider show --namespace Microsoft.Batch --query "resourceTypes[?resourceType=='batchAccounts'].apiVersions | [0]" --out table
 
 Reference Key Vault secrets how:
 "adminPassword": {

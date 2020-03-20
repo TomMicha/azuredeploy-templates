@@ -53,18 +53,23 @@
       },
       "vaultName": {
         "type": "string"
+      },
+      "sqlApiVersion": {
+        "type": "string"
       }
     },
     "variables": {
       "sqlserver-alasdia-devName": "[concat('sqlserver-alasdia-dev', uniqueString(resourceGroup().id))]",
-      "sqlDatabaseName": "mytest-sqldb88"
+      "sqlDatabaseName": "mytest-sqldb88",
+      "databaseApiVersion": "2019-06-01-preview",
+      "firewallApiVersion": "2015-05-01-preview"
     },
     "resources": [
       {
         "name": "[parameters('sqlServerName')]",
         "type": "Microsoft.Sql/servers",
         "location": "[resourceGroup().location]",
-        "apiVersion": "2014-04-01-preview",
+        "apiVersion": "[parameters('sqlApiVersion')]",
         "dependsOn": [ 
           "[resourceId('Microsoft.Resources/resourceGroups', parameters('databaseResourceGroup'))]"
         ],
@@ -80,7 +85,7 @@
             "name": "AllowAllWindowsAzureIps",
             "type": "firewallrules",
             "location": "[resourceGroup().location]",
-            "apiVersion": "2014-04-01-preview",
+            "apiVersion": "[variables('firewallApiVersion')]",
             "dependsOn": [
               "[resourceId('Microsoft.Sql/servers', parameters('sqlServerName'))]"
             ],
@@ -93,7 +98,7 @@
             "name": "[variables('sqlDatabaseName')]",
             "type": "databases",
             "location": "[resourceGroup().location]",
-            "apiVersion": "2014-04-01-preview",
+            "apiVersion": "[variables('databaseApiVersion')]",
             "dependsOn": [
               "[resourceId('Microsoft.Sql/servers', parameters('sqlServerName'))]"
             ],
