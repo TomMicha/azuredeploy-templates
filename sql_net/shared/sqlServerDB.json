@@ -47,6 +47,12 @@
         "metadata": {
           "description": "Describes the performance level for Edition"
         }
+      },
+      "keyResourceGroup": {
+        "type": "string"
+      },
+      "vaultName": {
+        "type": "string"
       }
     },
     "variables": {
@@ -67,7 +73,7 @@
         },
         "properties": {
           "administratorLogin": "[parameters('sqlAdministratorLogin')]",
-          "administratorLoginPassword": "[parameters('sqlAdministratorPassword')]"
+          "administratorLoginPassword": "[resourceId(subscription().subscriptionId,parameters('keyResourceGroup'),'Microsoft.KeyVault/vaults',parameters('vaultName'))]"
         },
         "resources": [
           {

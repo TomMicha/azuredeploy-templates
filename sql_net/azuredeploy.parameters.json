@@ -81,12 +81,7 @@
         "value": "thanos"
       },
       "sqlAdministratorPassword": {		
-        "reference": {
-          "keyVault": {
-            "id": "[resourceId(subscription().subscriptionId, parameters('keyVaultGroup'), 'Microsoft.KeyVault/vaults',parameters('vaultName'))]"
-          },
-          "secretName": "sqlServerAdminPass"
-        }
+        "value": "/"
       }
     }
   }

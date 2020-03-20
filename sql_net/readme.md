@@ -24,3 +24,5 @@ Reference Key Vault secrets how:
           },
           "secretName": "ExamplePassword"
         }
+        ## within parameters/deploy files ##
+        [resourceId(subscription().subscriptionId, parameters('keyVaultGroup'), 'Microsoft.KeyVault/vaults',parameters('vaultName'))]

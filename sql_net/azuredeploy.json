@@ -237,7 +237,9 @@
           "sqlServerName": { "value": "[parameters('sqlServerName')]"},
           "sqlAdministratorLogin": { "value": "[parameters('sqlAdministratorLogin')]"},
           "sqlAdministratorPassword": { "value": "[parameters('sqlAdministratorPassword')]"},
-          "databaseResourceGroup": { "value": "[parameters('databasesResourceGroup')]"}
+          "databaseResourceGroup": { "value": "[parameters('databasesResourceGroup')]"},
+          "vaultName": { "value": "[parameters('vaultName')]"},
+          "keyResourceGroup": { "value": "[parameters('keyResourceGroup')]"}
         }
       }
     },
