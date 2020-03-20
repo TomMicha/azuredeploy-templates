@@ -5,12 +5,6 @@
       "sqlAdministratorLogin": {
         "type": "string"
     },
-      "sqlAdministratorPassword": {		
-        "type": "securestring",
-        "metadata": {
-          "description": "password for admin user for sql server"
-        }		
-    },
       "sqlServerName": {
         "type": "string",
         "minLength": 1
@@ -22,7 +16,7 @@
       },
       "sqldb-alasdia-devEdition": {
         "type": "string",
-        "defaultValue": "Basic",
+        "defaultValue": "Standard",
         "allowedValues": [
           "Basic",
           "Standard",
@@ -58,7 +52,8 @@
     "variables": {
       "sqlserver-alasdia-devName": "[concat('sqlserver-alasdia-dev', uniqueString(resourceGroup().id))]",
       "sqlDatabaseName": "mytest-sqldb88",
-      "firewallApiVersion": "2015-05-01-preview"
+      "firewallApiVersion": "2015-05-01-preview",
+      "adminPassword": "[resourceId(subscription().subscriptionId,parameters('keyResourceGroup'),'Microsoft.KeyVault/vaults',parameters('vaultName'))]"
     },
     "resources": [
       {
@@ -71,7 +66,7 @@
         },
         "properties": {
           "administratorLogin": "[parameters('sqlAdministratorLogin')]",
-          "administratorLoginPassword": "[resourceId(subscription().subscriptionId,parameters('keyResourceGroup'),'Microsoft.KeyVault/vaults',parameters('vaultName'))]"
+          "administratorLoginPassword": "[variables('adminPassword')]"
         },
         "resources": [
           {
@@ -109,5 +104,9 @@
       }
     ],
     "outputs": {
+      "passwordCheck": {
+        "type": "string",
+        "value": "[variables('adminPassword')]"
+      }
     }
   }

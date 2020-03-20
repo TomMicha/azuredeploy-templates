@@ -12,6 +12,7 @@ Deploy storage in new 2nd Resource group (add RG in bash script)
 
 
 Add storage account (data lake) + Sql database + server
+Delete password out put check****^^^)^&^2
 
 issues:
 cant seem to add additional security rules for PL and Allyson IP's

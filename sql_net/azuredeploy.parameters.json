@@ -76,9 +76,6 @@
       },
       "sqlAdministratorLogin": {
         "value": "thanos"
-      },
-      "sqlAdministratorPassword": {		
-        "value": "/"
       }
     }
   }
