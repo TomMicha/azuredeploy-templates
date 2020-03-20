@@ -2,14 +2,6 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "resourcePrefix": {
-            "type": "string",
-            "minLength": 3,
-            "maxLength": 10,
-            "metadata": {
-                "description": "The prefix to use for resources within the resource group"
-            }
-        },
         "storageType": {
             "type": "string",
             "metadata": {
@@ -59,22 +51,6 @@
                     "output": {
                         "type": "string",
                         "value": "[providers(parameters('providerNamespace'), parameters('resourceType')).apiVersions[0]]"
-                    }
-                },
-                "uniqueName": {
-                    "parameters": [
-                        {
-                            "name": "resourcePrefix",
-                            "type": "string"
-                        },
-                        {
-                            "name": "resourceSuffix",
-                            "type": "string"
-                        }
-                    ],
-                    "output": {
-                        "type": "string",
-                        "value": "[concat(parameters('resourcePrefix'), uniqueString(resourceGroup().id), parameters('resourceSuffix'))]"
                     }
                 }
             }

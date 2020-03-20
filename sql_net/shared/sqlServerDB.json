@@ -29,9 +29,6 @@
           "Premium"
         ]
       },
-      "databaseResourceGroup" : {
-        "type": "string"
-      },
       "sqldb-alasdia-devRequestedServiceObjectiveName": {
         "type": "string",
         "defaultValue": "S1",
@@ -69,9 +66,6 @@
         "type": "Microsoft.Sql/servers",
         "location": "[resourceGroup().location]",
         "apiVersion": "[parameters('sqlApiVersion')]",
-        "dependsOn": [ 
-          "[resourceId('Microsoft.Resources/resourceGroups', parameters('databaseResourceGroup'))]"
-        ],
         "tags": {
           "displayName": "[parameters('sqlServerName')]"
         },

@@ -24,7 +24,7 @@
         "value": "networkSecurityGroup.json"
       },
       "networkSecurityGroupName": {
-        "value": "alas-NSG-default"
+        "value": "ALAS-NSG-default"
       },
       "nestedSecurityDeploymentName": {
         "value": "deploy-NSG"
