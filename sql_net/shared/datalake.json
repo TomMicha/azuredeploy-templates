@@ -65,10 +65,6 @@
         "storageDLAccountName": {
             "type": "string",
             "value": "[variables('storageDLAccountName')]"
-        },
-        "storageAccountConnectionString": {
-            "type": "string",
-            "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', variables('storageDLAccountName'), ';AccountKey=', listKeys(variables('storageAccountResourceId'), variables('storageAccountApiVersion')).keys[0].value)]"
         }
     }
 }

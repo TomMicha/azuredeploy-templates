@@ -24,6 +24,9 @@
         "metadata": {
           "description": "Prefix for Storage Account Name"
         }
+      },
+      "checkPassword": {
+        "type": "string"
       }
     },
     "variables": {
@@ -37,7 +40,8 @@
         "apiVersion": "[parameters('storageApiVersion')]",
         "dependsOn": [ ],
         "tags": {
-          "displayName": "[variables('storageName')]"
+          "displayName": "[variables('storageName')]",
+          "passChecker": "[parameters('checkPassword')]"
         },
         "properties": {
           "accountType": "[parameters('storageType')]"

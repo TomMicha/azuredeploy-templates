@@ -19,7 +19,7 @@ az keyvault create \
     --enabled-for-template-deployment true
 
 # add password to keyvault
-securepassword=$(printf $password | base64)
+securepassword=$(echo $password | base64)
 echo $securepassword
 
 # set the secret in keyvault
