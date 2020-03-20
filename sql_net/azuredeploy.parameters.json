@@ -71,9 +71,6 @@
       "sharedTemplateNameSql": {
         "value": "sqlServerDB.json"
       },
-      "sqlServerName": {
-        "value": "alassqlserver$$123"
-      },
       "sqlAdministratorLogin": {
         "value": "thanos"
       }

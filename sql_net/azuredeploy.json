@@ -118,12 +118,6 @@
         "description": "shared template location for sql server"
       }
     },
-    "sqlServerName": {
-      "type": "string",
-      "metadata": {
-        "description": "String name for sql server."
-      }
-    },
     "sqlAdministratorLogin": {
       "type": "string"
     },
@@ -220,7 +214,6 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
-          "sqlServerName": { "value": "[parameters('sqlServerName')]"},
           "sqlApiVersion": { "value": "[variables('sqlApiVersion')]" },
           "sqlAdministratorLogin": { "value": "[parameters('sqlAdministratorLogin')]"},
           "vaultName": { "value": "[parameters('vaultName')]"},
@@ -242,7 +235,6 @@
           "storageType": { "value": "[parameters('storageType')]" },
           "storageApiVersion": { "value": "[variables('storageApiVersion')]" },
           "storageAccountNamePrefix": { "value": "[parameters('storageAccountNamePrefix')]" },
-          "checkPassword": { "value": "[reference(parameters('sqlServerName')).outputs.passwordCheck.value]"},
           "vaultName": { "value": "[parameters('vaultName')]"},
           "keyResourceGroup": { "value": "[parameters('keyResourceGroup')]"}
         }
