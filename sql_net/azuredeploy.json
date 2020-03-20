@@ -210,6 +210,9 @@
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "[variables('sqlApiVersion')]",
       "name": "[parameters('nestedDeploymentNameSql')]",
+      "dependsOn": [
+        "[concat('Microsoft.Resources/deployments/', parameters('nestedDeploymentNameVnet'))]"
+      ],
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -239,9 +242,9 @@
           "storageType": { "value": "[parameters('storageType')]" },
           "storageApiVersion": { "value": "[variables('storageApiVersion')]" },
           "storageAccountNamePrefix": { "value": "[parameters('storageAccountNamePrefix')]" },
-          "checkPassword": { "value": "[reference(parameters('sqlServerName')).outputs.passwordCheck.value]",
+          "checkPassword": { "value": "[reference(parameters('sqlServerName')).outputs.passwordCheck.value]"},
           "vaultName": { "value": "[parameters('vaultName')]"},
-          "keyResourceGroup": { "value": "[parameters('keyResourceGroup')]"} }
+          "keyResourceGroup": { "value": "[parameters('keyResourceGroup')]"}
         }
       }
     },
