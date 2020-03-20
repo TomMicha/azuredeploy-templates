@@ -4,7 +4,10 @@
     "parameters": {
       "sqlAdministratorLogin": {
         "type": "string"
-    },
+      },
+      "sqlAdministratorPassword": {
+        "type": "securestring"
+      },
       "sqldb-alasdia-devCollation": {
         "type": "string",
         "minLength": 1,
@@ -49,8 +52,7 @@
       "sqlserver-alasdia-devName": "[concat('sqlserver-alasdia-dev', uniqueString(resourceGroup().id))]",
       "firewallApiVersion": "2015-05-01-preview",
       "sqlDatabaseName": "mysecretdatabasealas88",
-      "sqlServerName": "some8-8obscure",
-      "adminPassword": "[resourceId(subscription().subscriptionId,parameters('keyResourceGroup'),'Microsoft.KeyVault/vaults',parameters('vaultName'))]"
+      "sqlServerName": "some8-8obscure"
     },
     "resources": [
       {
@@ -63,7 +65,7 @@
         },
         "properties": {
           "administratorLogin": "[parameters('sqlAdministratorLogin')]",
-          "administratorLoginPassword": "[variables('adminPassword')]"
+          "administratorLoginPassword": "[parameters('sqlAdministratorPassword')]"
         },
         "resources": [
           {
@@ -103,7 +105,7 @@
     "outputs": {
       "passwordCheck": {
         "type": "string",
-        "value": "[variables('adminPassword')]"
+        "value": "[parameters('sqlAdministratorPassword')]"
       }
     }
   }
