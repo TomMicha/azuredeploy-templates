@@ -7,6 +7,7 @@ storage account
 +sql server (save password to keyvault for retrieval during deployment)
 +sql database
 +storage (datalake)
+Deploy storage in new 2nd Resource group (add RG in bash script)
 
 
 Add storage account (data lake) + Sql database + server
