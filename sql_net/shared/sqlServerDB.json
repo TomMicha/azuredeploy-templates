@@ -61,7 +61,6 @@
     "variables": {
       "sqlserver-alasdia-devName": "[concat('sqlserver-alasdia-dev', uniqueString(resourceGroup().id))]",
       "sqlDatabaseName": "mytest-sqldb88",
-      "databaseApiVersion": "2019-06-01-preview",
       "firewallApiVersion": "2015-05-01-preview"
     },
     "resources": [
@@ -98,7 +97,7 @@
             "name": "[variables('sqlDatabaseName')]",
             "type": "databases",
             "location": "[resourceGroup().location]",
-            "apiVersion": "[variables('databaseApiVersion')]",
+            "apiVersion": "[parameters('sqlApiVersion')]",
             "dependsOn": [
               "[resourceId('Microsoft.Sql/servers', parameters('sqlServerName'))]"
             ],
