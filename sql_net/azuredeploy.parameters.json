@@ -72,7 +72,7 @@
         "value": "sqlServerDB.json"
       },
       "sqlServerName": {
-        "value": "mytest-sql-server88"
+        "value": "alassqlserver$$123"
       },
       "sqlAdministratorLogin": {
         "value": "thanos"

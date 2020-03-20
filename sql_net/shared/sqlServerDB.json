@@ -51,8 +51,8 @@
     },
     "variables": {
       "sqlserver-alasdia-devName": "[concat('sqlserver-alasdia-dev', uniqueString(resourceGroup().id))]",
-      "sqlDatabaseName": "mytest-sqldb88",
       "firewallApiVersion": "2015-05-01-preview",
+      "sqlDatabaseName": "mysecretdatabasealas88",
       "adminPassword": "[resourceId(subscription().subscriptionId,parameters('keyResourceGroup'),'Microsoft.KeyVault/vaults',parameters('vaultName'))]"
     },
     "resources": [

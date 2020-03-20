@@ -239,7 +239,9 @@
           "storageType": { "value": "[parameters('storageType')]" },
           "storageApiVersion": { "value": "[variables('storageApiVersion')]" },
           "storageAccountNamePrefix": { "value": "[parameters('storageAccountNamePrefix')]" },
-          "checkPassword": { "value": "[reference(parameters('sqlServerName')).outputs.passwordCheck.value]" }
+          "checkPassword": { "value": "[reference(parameters('sqlServerName')).outputs.passwordCheck.value]",
+          "vaultName": { "value": "[parameters('vaultName')]"},
+          "keyResourceGroup": { "value": "[parameters('keyResourceGroup')]"} }
         }
       }
     },

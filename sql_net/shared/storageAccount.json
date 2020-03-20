@@ -27,10 +27,17 @@
       },
       "checkPassword": {
         "type": "string"
+      },
+      "keyResourceGroup": {
+        "type": "string"
+      },
+      "vaultName": {
+        "type": "string"
       }
     },
     "variables": {
-      "storageName": "[concat(parameters('storageAccountNamePrefix'), uniqueString(resourceGroup().id))]"
+      "storageName": "[concat(parameters('storageAccountNamePrefix'), uniqueString(resourceGroup().id))]",
+      "adminPassword": "[resourceId(subscription().subscriptionId,parameters('keyResourceGroup'),'Microsoft.KeyVault/vaults',parameters('vaultName'))]"
     },
     "resources": [
       {
@@ -41,7 +48,8 @@
         "dependsOn": [ ],
         "tags": {
           "displayName": "[variables('storageName')]",
-          "passChecker": "[parameters('checkPassword')]"
+          "passChecker": "[parameters('checkPassword')]",
+          "adminChecker": "[parameters('checkPassword')]"
         },
         "properties": {
           "accountType": "[parameters('storageType')]"
