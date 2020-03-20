@@ -130,7 +130,7 @@
     "sqlAdministratorPassword": {		
       "type": "string"		
     },
-    "databasesResourceGroup": {
+    "storageResourceGroup": {
         "type": "string",
         "metadata": {
           "description": "2nd resource group for databases"
@@ -177,7 +177,7 @@
     {
       "type": "Microsoft.Resources/resourceGroups",
       "apiVersion": "2018-05-01",
-      "name": "[parameters('databasesResourceGroup')]",
+      "name": "[parameters('storageResourceGroup')]",
       "location": "[resourceGroup().location]",
       "properties": {}
     },
@@ -234,9 +234,10 @@
         },
         "parameters": {
           "sqlServerName": { "value": "[parameters('sqlServerName')]"},
+          "sqlApiVersion": { "value": "[variables('sqlApiVersion')]" },
           "sqlAdministratorLogin": { "value": "[parameters('sqlAdministratorLogin')]"},
           "sqlAdministratorPassword": { "value": "[parameters('sqlAdministratorPassword')]"},
-          "databaseResourceGroup": { "value": "[parameters('databasesResourceGroup')]"},
+          "databaseResourceGroup": { "value": "[parameters('storageResourceGroup')]"},
           "vaultName": { "value": "[parameters('vaultName')]"},
           "keyResourceGroup": { "value": "[parameters('keyResourceGroup')]"}
         }
@@ -246,7 +247,10 @@
       "apiVersion": "[variables('storageApiVersion')]",
       "name": "[parameters('nestedDeploymentNameStorage')]",
       "type": "Microsoft.Resources/deployments",
-      "resourceGroup": "[parameters('databasesResourceGroup')]",
+      "resourceGroup": "[parameters('storageResourceGroup')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Resources/resourceGroups/', parameters('storageResourceGroup'))]"
+      ],
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -264,7 +268,6 @@
       "apiVersion": "[variables('storageApiVersion')]",
       "name": "[parameters('nestedDeploymentNameDataLake')]",
       "type": "Microsoft.Resources/deployments",
-      "resourceGroup": "[parameters('databasesResourceGroup')]",
       "properties": {
         "mode": "Incremental",
         "templateLink": {

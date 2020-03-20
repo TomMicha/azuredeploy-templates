@@ -41,8 +41,8 @@ templateParams="https://raw.githubusercontent.com/TomMicha/azuredeploy-templates
 echo $location
 az group create -n $resourceGroup -l $location \
     --verbose
-az group create -n $databaseResourceGroup -l $location \
-    --verbose
+#az group create -n $databaseResourceGroup -l $location \
+#    --verbose
 
 # create template deployment
 az group deployment create \

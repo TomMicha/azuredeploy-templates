@@ -26,6 +26,9 @@ az provider show -n "Microsoft.Storage/storageAccounts"
         -----OR----
 az provider show --namespace Microsoft.Batch --query "resourceTypes[?resourceType=='batchAccounts'].apiVersions | [0]" --out table
 
+POWERSHELL ---OR----
+((Get-AzureRmResourceProvider -ProviderNamespace Microsoft.Network).ResourceTypes | Where-Object ResourceTypeName -eq virtualNetworks).ApiVersions
+
 Reference Key Vault secrets how:
 "adminPassword": {
         "reference": {
