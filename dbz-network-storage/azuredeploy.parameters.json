@@ -62,6 +62,9 @@
       },
       "sharedTemplateNameDataLake": {
         "value": "datalake.json"
+      },
+      "DataLakeAccountNamePrefix": {
+        "value": "alasdatalake"
       }
     }
   }
