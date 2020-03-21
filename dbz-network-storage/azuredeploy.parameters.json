@@ -1,0 +1,63 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "baseTemplateUri": {
+        "value": "https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/dbz-network-storage"
+      },
+      "nestedDeploymentNameVnet": {
+        "value": "deploy-virtual-network"
+      },
+      "sharedTemplateNameVnet": {
+        "value": "virtualNetwork.json"
+      },
+      "sharedTemplateNSG": {
+        "value": "networkSecurityGroup.json"
+      },
+      "networkSecurityGroupName": {
+        "value": "ALAS-NetSG-dev"
+      },
+      "nestedSecurityDeploymentName": {
+        "value": "deploy-NSG"
+      },
+      "vNetNamePrefix": {
+        "value": "ALAS-vnetwork-"
+      },
+      "vNetRange": {
+        "value": "10.0.0.0/18"
+      },
+      "subnet1Range": {
+        "value": "10.0.1.0/24"
+      },
+      "subnet2Range": {
+        "value": "10.0.2.0/24"
+      },
+      "subnet3Range": {
+        "value": "10.0.3.0/26"
+      },
+      "subnet4Range": {
+        "value": "10.0.3.64/26"
+      },
+      "storageType": {
+        "value": "Standard_LRS"
+      },
+      "nestedDeploymentNameStorage": {
+        "value": "deploy-storage-account"
+      },
+      "sharedTemplateNameStorage": {
+        "value": "storageAccount.json"
+      },
+      "storageAccountNamePrefix": {
+        "value": "ALAS-storage"
+      },
+      "nestedDeploymentNameDataLake": {
+        "value": "deploy-datalake-account"
+      },
+      "sharedTemplateNameDataLake": {
+        "value": "datalake.json"
+      },
+      "DataLakeAccountNamePrefix": {
+        "value": "ALAS-datalake"
+      }
+    }
+  }

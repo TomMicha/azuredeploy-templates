@@ -1,0 +1,222 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "baseTemplateUri": {
+      "type": "string",
+      "metadata": {
+        "description": "Base URI of template resources."
+      }
+    },
+    "deploymentType": {
+      "type": "string",
+      "allowedValues": [ "dev", "prod" ],
+      "defaultValue": "dev",
+      "metadata": {
+        "description": "String to determine which network the VM is deployed to."
+      }
+    },
+    "nestedDeploymentNameVnet": {
+      "type": "string",
+      "metadata": {
+        "description": "TResource name for the virtual network."
+      }
+    },
+    "sharedTemplateNameVnet": {
+      "type": "string",
+      "metadata": {
+        "description": "Template name for the virtual network."
+      }
+    },
+    "sharedTemplateNSG": {
+      "type": "string",
+      "metadata": {
+        "description": "Template name for the virtual network."
+      }
+    },
+    "networkSecurityGroupName": {
+        "type": "string",
+        "metadata": {
+          "description": "Template name for the network security group."
+      }
+    },
+    "nestedSecurityDeploymentName": {
+      "type": "string",
+      "metadata": {
+        "description": "Template name for the NSG deployment."
+      }
+    },
+    "vNetNamePrefix": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the virtual network."
+      }
+    },
+    "vNetRange": {
+      "type": "string",
+      "metadata": {
+        "description": "IP range of the virtual network."
+      }
+    },
+    "subnet1Range": {
+      "type": "string",
+      "metadata": {
+        "description": "IP range of first subnet."
+      }
+    },
+    "subnet2Range": {
+      "type": "string",
+      "metadata": {
+        "description": "IP range of second subnet."
+      }
+    },
+    "subnet3Range": {
+      "type": "string",
+      "metadata": {
+        "description": "IP range of thirdsubnet."
+      }
+    },
+    "subnet4Range": {
+      "type": "string",
+      "metadata": {
+        "description": "IP range of fourth subnet."
+      }
+    },
+    "nestedDeploymentNameStorage": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the storage account deployment."
+      }
+    },
+    "sharedTemplateNameStorage": {
+      "type": "string",
+      "metadata": {
+        "description": "Template name for the storage account."
+      }
+    },
+    "storageType": {
+      "type": "string",
+      "metadata": {
+        "description": "Type of storage account."
+      }
+    },
+    "storageAccountNamePrefix": {
+      "type": "string",
+      "metadata": {
+        "description": "Prefix string for storage account name."
+      }
+    },
+    "nestedDeploymentNameDataLake": {
+      "type": "string",
+      "metadata": {
+        "description": "String name for Datalake deployment"
+      }
+    },
+    "sharedTemplateNameDataLake": {
+      "type": "string",
+      "metadata": {
+        "description": "String name for data lake template"
+      }
+    },
+    "DataLakeAccountNamePrefix": {
+      "type": "string",
+      "metadata": {
+        "description": "String name for Datalake-prefix"
+      }
+    }
+  },
+  "variables": {
+    "deploymentApiVersion": "2016-02-01",
+    "vNetApiVersion": "2019-11-01",
+    "storageApiVersion": "2019-06-01",
+    "sqlApiVersion": "2014-04-01"
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2019-11-01",
+      "name": "[parameters('nestedSecurityDeploymentName')]",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('baseTemplateUri'), '/shared/', parameters('sharedTemplateNSG'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "networkSecurityGroupName": { "value": "[parameters('networkSecurityGroupName')]"}
+        }
+      }
+    },
+    {
+      "apiVersion": "[variables('vnetApiVersion')]",
+      "name": "[parameters('nestedDeploymentNameVnet')]",
+      "type": "Microsoft.Resources/deployments",
+      "dependsOn": [
+        "[concat('Microsoft.Resources/deployments/', parameters('nestedSecurityDeploymentName'))]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('baseTemplateUri'), '/shared/', parameters('sharedTemplateNameVnet'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "vNetNamePrefix": { "value": "[parameters('vNetNamePrefix')]" },
+          "vNetApiVersion": { "value": "[variables('vNetApiVersion')]" },
+          "vNetRange": { "value": "[parameters('vNetRange')]" },
+          "subnet1Range": { "value": "[parameters('subnet1Range')]" },
+          "subnet2Range": { "value": "[parameters('subnet2Range')]" },
+          "subnet3Range": { "value": "[parameters('subnet3Range')]" },
+          "subnet4Range": { "value": "[parameters('subnet4Range')]" },
+          "deploymentType": { "value": "[parameters('deploymentType')]" },
+          "networkSecurityGroupID": { "value": "[reference(parameters('nestedSecurityDeploymentName')).outputs.networkSecurityGroupID.value]" }
+        }
+      }
+    },
+
+    {
+      "apiVersion": "[variables('storageApiVersion')]",
+      "name": "[parameters('nestedDeploymentNameStorage')]",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('baseTemplateUri'), '/shared/', parameters('sharedTemplateNameStorage'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "storageType": { "value": "[parameters('storageType')]" },
+          "storageApiVersion": { "value": "[variables('storageApiVersion')]" },
+          "storageAccountNamePrefix": { "value": "[parameters('storageAccountNamePrefix')]" },
+          "deploymentType": { "value": "[parameters('deploymentType')]" },
+          "subnetID": { "value": "[reference(parameters('nestedDeploymentNameVnet')).outputs.subnetID.value]"},
+          "vnetReferenceId": { "value": "[reference(parameters('nestedDeploymentNameVnet')).outputs.vnetReferenceId.value]"}
+        }
+      }
+    },
+     {
+      "apiVersion": "[variables('storageApiVersion')]",
+      "name": "[parameters('nestedDeploymentNameDataLake')]",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('baseTemplateUri'), '/shared/', parameters('sharedTemplateNameDataLake'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "storageType": { "value": "[parameters('storageType')]" },
+          "storageApiVersion": { "value": "[variables('storageApiVersion')]" },
+          "storageAccountNamePrefix": { "value": "[parameters('DataLakeAccountNamePrefix')]" },
+          "deploymentType": { "value": "[parameters('deploymentType')]" },
+          "subnetID3dbzpub": { "value": "[reference(parameters('nestedDeploymentNameVnet')).outputs.subnetID3dbzpub.value]"},
+          "subnetID": { "value": "[reference(parameters('nestedDeploymentNameVnet')).outputs.subnetID.value]"},
+          "vnetReferenceId": { "value": "[reference(parameters('nestedDeploymentNameVnet')).outputs.vnetReferenceId.value]"}
+        }
+      }
+    } 
+  ],
+  "outputs": {
+
+  }
+}

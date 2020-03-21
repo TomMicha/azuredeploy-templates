@@ -1,0 +1,144 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "vNetNamePrefix": {
+        "type": "string",
+        "metadata": {
+          "description": "Name of the virtual network."
+        }
+      },
+     "deploymentType": {
+        "type": "string",
+        "allowedValues": [ "dev", "prod" ],
+        "defaultValue": "dev",
+        "metadata": {
+          "description": "String to determine which network the VM is deployed to."
+        }
+      },
+      "vNetApiVersion": {
+        "type": "string",
+        "metadata": {
+          "description": "Azure API for virtual network."
+        }
+      },
+      "vNetRange": {
+        "type": "string",
+        "metadata": {
+          "description": "IP range of the virtual network."
+        }
+      },
+      "subnet1Range": {
+        "type": "string",
+        "metadata": {
+          "description": "IP range of first subnet."
+        }
+      },
+      "subnet2Range": {
+        "type": "string",
+        "metadata": {
+          "description": "IP range of second subnet."
+        }
+      },
+      "subnet3Range": {
+        "type": "string",
+        "metadata": {
+          "description": "IP range of third subnet."
+        }
+      },
+      "subnet4Range": {
+        "type": "string",
+        "metadata": {
+          "description": "IP range of fourth subnet."
+        }
+      },
+      "networkSecurityGroupID": {
+        "type": "string",
+        "metadata": {
+          "description": "network security group identifier"
+        }
+      }
+    },
+    "variables": {
+      "subnet1": "subnet1",
+      "subnet2": "subnet2",
+      "subnet3dbz": "subnet3-dbz-public",
+      "subnet4dbz": "subnet4-dbz-private",
+      "vNetName": "[concat(parameters('vNetNamePrefix'), uniqueString(resourceGroup().id), parameters('deploymentType'))]",
+      "vNetID": "[resourceId('Microsoft.Network/virtualNetworks', variables('vNetName'))]",
+      "vNetSubnetID": "[concat(variables('vNetID'), '/subnets/', 'subnet-', variables('subnet1'))]",
+      "vNetSubnetID2": "[concat(variables('vNetID'), '/subnets/', 'subnet-', variables('subnet2'))]",
+      "vNetSubnetID3": "[concat(variables('vNetID'), '/subnets/', 'subnet-', variables('subnet3dbz'))]",
+      "vNetSubnetID4": "[concat(variables('vNetID'), '/subnets/', 'subnet-', variables('subnet4dbz'))]"
+    },
+    "resources": [
+      {
+        "name": "[variables('vNetName')]",
+        "type": "Microsoft.Network/virtualNetworks",
+        "location": "[resourceGroup().location]",
+        "apiVersion": "[parameters('vNetApiVersion')]",
+        "dependsOn": [ ],
+        "tags": {
+          "displayName": "[variables('vNetName')]"
+        },
+        "properties": {
+          "addressSpace": {
+            "addressPrefixes": [
+              "[parameters('vNetRange')]"
+            ]
+          },
+          "subnets": [
+            {
+              "name": "[variables('subnet1')]",
+              "properties": {
+                "addressPrefix": "[parameters('subnet1Range')]",
+                "networkSecurityGroup": {
+                  "id": "[parameters('networkSecurityGroupID')]"
+                }
+              }
+            },
+            {
+              "name": "[variables('subnet2')]",
+              "properties": {
+                "addressPrefix": "[parameters('subnet2Range')]"
+              }
+            },
+            {
+              "name": "[variables('subnet3dbz')]",
+              "properties": {
+                "addressPrefix": "[parameters('subnet3Range')]"
+              }
+            },
+            {
+              "name": "[variables('subnet4dbz')]",
+              "properties": {
+                "addressPrefix": "[parameters('subnet4Range')]"
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "outputs": {
+      "subnetID": {
+        "type": "string",
+        "value": "[variables('vNetSubnetID')]"
+      },
+      "subnetID2": {
+        "type": "string",
+        "value": "[variables('vNetSubnetID2')]"
+      },
+      "subnetID3dbzpub": {
+        "type": "string",
+        "value": "[variables('vNetSubnetID3')]"
+      },
+      "subnetID4dbzpriv": {
+        "type": "string",
+        "value": "[variables('vNetSubnetID4')]"
+      },
+      "vnetReferenceId": {
+        "type": "string",
+        "value": "[variables('vNetID')]"
+      }
+    }
+  }

@@ -1,0 +1,152 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "networkSecurityGroupName": {
+            "type": "String"
+        }
+    },
+    "variables": {
+        "nsgID": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "apiVersion": "2019-11-01",
+            "name": "[parameters('networkSecurityGroupName')]",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "client": "alas",
+                "output_key": "[parameters('networkSecurityGroupName')]",
+                "nsgID": "[variables('nsgID')]"
+            },
+            "properties": {
+                "securityRules": [
+                    {
+                        "name": "SagenceOffice",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "0-65535",
+                            "sourceAddressPrefix": "50.252.110.33",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 2000,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "AviatrixGW",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "0-65535",
+                            "sourceAddressPrefix": "10.0.201.171",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 2200,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "TomOffice",
+                        "properties": {
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "*",
+                            "sourceAddressPrefix": "24.14.139.25",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 2211,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+            "apiVersion": "2019-11-01",
+            "name": "[concat(parameters('networkSecurityGroupName'), '/AviatrixGW')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]"
+            ],
+            "properties": {
+                "protocol": "*",
+                "sourcePortRange": "*",
+                "destinationPortRange": "0-65535",
+                "sourceAddressPrefix": "10.0.201.171",
+                "destinationAddressPrefix": "*",
+                "access": "Allow",
+                "priority": 2200,
+                "direction": "Inbound",
+                "sourcePortRanges": [],
+                "destinationPortRanges": [],
+                "sourceAddressPrefixes": [],
+                "destinationAddressPrefixes": []
+            }
+        },
+        {
+            "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+            "apiVersion": "2019-11-01",
+            "name": "[concat(parameters('networkSecurityGroupName'), '/SagenceOffice')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]"
+            ],
+            "properties": {
+                "protocol": "*",
+                "sourcePortRange": "*",
+                "destinationPortRange": "0-65535",
+                "sourceAddressPrefix": "50.252.110.33",
+                "destinationAddressPrefix": "*",
+                "access": "Allow",
+                "priority": 2000,
+                "direction": "Inbound",
+                "sourcePortRanges": [],
+                "destinationPortRanges": [],
+                "sourceAddressPrefixes": [],
+                "destinationAddressPrefixes": []
+            }
+        },
+        {
+            "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+            "apiVersion": "2019-11-01",
+            "name": "[concat(parameters('networkSecurityGroupName'), '/TomOffice')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]"
+            ],
+            "properties": {
+                "protocol": "*",
+                "sourcePortRange": "*",
+                "destinationPortRange": "*",
+                "sourceAddressPrefix": "24.14.139.25",
+                "destinationAddressPrefix": "*",
+                "access": "Allow",
+                "priority": 2211,
+                "direction": "Inbound",
+                "sourcePortRanges": [],
+                "destinationPortRanges": [],
+                "sourceAddressPrefixes": [],
+                "destinationAddressPrefixes": []
+            }
+        }    
+    ],
+    "outputs": {
+      "networkSecurityGroupID": {
+        "type": "string",
+        "value": "[variables('nsgID')]"
+      }
+    }
+}
