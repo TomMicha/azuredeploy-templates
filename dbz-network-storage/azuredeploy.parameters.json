@@ -65,6 +65,9 @@
       },
       "DataLakeAccountNamePrefix": {
         "value": "alasdatalake"
+      },
+      "dbzWorkspaceNamePrefix": {
+        "value": "ALAS-databricks-"
       }
     }
   }

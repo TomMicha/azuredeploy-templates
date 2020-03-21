@@ -151,8 +151,7 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
-          "networkSecurityGroupName": { "value": "[parameters('networkSecurityGroupName')]"},
-          "tagValues": { "value": "[parameters('tagValues')]"}
+          "networkSecurityGroupName": { "value": "[parameters('networkSecurityGroupName')]"}
         }
       }
     },
