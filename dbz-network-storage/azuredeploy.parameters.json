@@ -5,6 +5,13 @@
       "baseTemplateUri": {
         "value": "https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/dbz-network-storage"
       },
+      "tagValues": {
+        "value": {
+          "client": "alas",
+          "env": "dev",
+          "created": "tom"
+        }
+      },
       "nestedDeploymentNameVnet": {
         "value": "deploy-virtual-network"
       },
@@ -21,7 +28,7 @@
         "value": "deploy-NSG"
       },
       "vNetNamePrefix": {
-        "value": "ALAS-vnetwork-"
+        "value": "ALAS-VNetwork-"
       },
       "vNetRange": {
         "value": "10.0.0.0/18"
@@ -48,7 +55,7 @@
         "value": "storageAccount.json"
       },
       "storageAccountNamePrefix": {
-        "value": "ALAS-storage"
+        "value": "alasstorage"
       },
       "nestedDeploymentNameDataLake": {
         "value": "deploy-datalake-account"
@@ -57,7 +64,7 @@
         "value": "datalake.json"
       },
       "DataLakeAccountNamePrefix": {
-        "value": "ALAS-datalake"
+        "value": "alasdatalake"
       }
     }
   }

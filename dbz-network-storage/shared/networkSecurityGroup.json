@@ -2,6 +2,9 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "tagValues": {
+            "type": "object"
+        },
         "networkSecurityGroupName": {
             "type": "String"
         }
@@ -16,7 +19,6 @@
             "name": "[parameters('networkSecurityGroupName')]",
             "location": "[resourceGroup().location]",
             "tags": {
-                "client": "alas",
                 "output_key": "[parameters('networkSecurityGroupName')]",
                 "nsgID": "[variables('nsgID')]"
             },

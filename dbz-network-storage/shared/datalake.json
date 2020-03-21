@@ -2,6 +2,9 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "tagValues": {
+            "type": "object"
+        },
         "storageType": {
             "type": "string",
             "metadata": {
@@ -46,7 +49,7 @@
       }
      },
     "variables": {
-        "storageDLAccountName": "[concat(parameters('storageAccountNamePrefix'), uniqueString(resourceGroup().id),'-',parameters('deploymentType'))]",
+        "storageDLAccountName": "[concat(parameters('storageAccountNamePrefix'), uniqueString(resourceGroup().id),parameters('deploymentType'))]",
         "storageAccountApiVersion": "[parameters('storageApiVersion')]",
         "storageAccountResourceId": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageDLAccountName'))]"
     },
@@ -56,6 +59,9 @@
             "apiVersion": "[variables('storageAccountApiVersion')]",
             "location": "[resourceGroup().location]",
             "name": "[variables('storageDLAccountName')]",
+            "tags": {
+                "displayName": "[variables('storageDLAccountName')]"
+            },
             "kind": "StorageV2",
             "sku": {
                 "name": "[parameters('storageSku')]"

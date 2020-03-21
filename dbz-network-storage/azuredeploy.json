@@ -2,6 +2,14 @@
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
+    "tagValues": {
+      "type": "object",
+      "defaultValue": {
+          "client": "alas",
+          "env": "dev",
+          "created": "tom"
+        }
+    },
     "baseTemplateUri": {
       "type": "string",
       "metadata": {
@@ -140,10 +148,12 @@
         "mode": "Incremental",
         "templateLink": {
           "uri": "[concat(parameters('baseTemplateUri'), '/shared/', parameters('sharedTemplateNSG'))]",
-          "contentVersion": "1.0.0.0"
+          "contentVersion": "1.0.0.0",
+          "tags": "[parameters('tagValues')]"
         },
         "parameters": {
-          "networkSecurityGroupName": { "value": "[parameters('networkSecurityGroupName')]"}
+          "networkSecurityGroupName": { "value": "[parameters('networkSecurityGroupName')]"},
+          "tagValues": { "value": "[parameters('tagValues')]"}
         }
       }
     },
@@ -158,7 +168,8 @@
         "mode": "Incremental",
         "templateLink": {
           "uri": "[concat(parameters('baseTemplateUri'), '/shared/', parameters('sharedTemplateNameVnet'))]",
-          "contentVersion": "1.0.0.0"
+          "contentVersion": "1.0.0.0",
+          "tags": "[parameters('tagValues')]"
         },
         "parameters": {
           "vNetNamePrefix": { "value": "[parameters('vNetNamePrefix')]" },
@@ -173,7 +184,6 @@
         }
       }
     },
-
     {
       "apiVersion": "[variables('storageApiVersion')]",
       "name": "[parameters('nestedDeploymentNameStorage')]",
