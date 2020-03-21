@@ -148,8 +148,7 @@
         "mode": "Incremental",
         "templateLink": {
           "uri": "[concat(parameters('baseTemplateUri'), '/shared/', parameters('sharedTemplateNSG'))]",
-          "contentVersion": "1.0.0.0",
-          "tags": "[parameters('tagValues')]"
+          "contentVersion": "1.0.0.0"
         },
         "parameters": {
           "networkSecurityGroupName": { "value": "[parameters('networkSecurityGroupName')]"},
@@ -168,8 +167,7 @@
         "mode": "Incremental",
         "templateLink": {
           "uri": "[concat(parameters('baseTemplateUri'), '/shared/', parameters('sharedTemplateNameVnet'))]",
-          "contentVersion": "1.0.0.0",
-          "tags": "[parameters('tagValues')]"
+          "contentVersion": "1.0.0.0"
         },
         "parameters": {
           "vNetNamePrefix": { "value": "[parameters('vNetNamePrefix')]" },
