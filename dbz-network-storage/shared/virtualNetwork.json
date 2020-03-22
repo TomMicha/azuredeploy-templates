@@ -57,6 +57,9 @@
         "metadata": {
           "description": "network security group identifier"
         }
+      },
+      "dbzNetSGID": {
+        "type": "string"
       }
     },
     "variables": {
@@ -126,6 +129,9 @@
               "name": "[variables('subnet3dbz')]",
               "properties": {
                 "addressPrefix": "[parameters('subnet3Range')]",
+                "networkSecurityGroup": {
+                  "id": "[parameters('dbzNetSGID')]"
+                },
                 "delegations": [
                   {
                     "name": "databricks-delegated-public",
@@ -140,6 +146,9 @@
               "name": "[variables('subnet4dbz')]",
               "properties": {
                 "addressPrefix": "[parameters('subnet4Range')]",
+                "networkSecurityGroup": {
+                  "id": "[parameters('dbzNetSGID')]"
+                },
                 "delegations": [
                   {
                     "name": "databricks-delegated-private",
