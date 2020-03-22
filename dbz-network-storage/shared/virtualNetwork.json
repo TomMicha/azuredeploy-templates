@@ -78,7 +78,9 @@
         "apiVersion": "[parameters('vNetApiVersion')]",
         "dependsOn": [ ],
         "tags": {
-          "displayName": "[variables('vNetName')]"
+          "displayName": "[variables('vNetName')]",
+          "client": "alas",
+          "purpose:": "vnetwork"
         },
         "properties": {
           "addressSpace": {

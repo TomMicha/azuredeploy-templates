@@ -58,9 +58,8 @@
             "name": "[variables('storageDLAccountName')]",
             "tags": {
                 "displayName": "[variables('storageDLAccountName')]",
-                "subnet1": "[parameters('subnetID')]",
-                "vnetResource": "[parameters('vnetReferenceId')]",
-                "subnetdbz": "[parameters('subnetID3dbzpub')]"
+                "client": "alas",
+                "purpose:": "storage"
             },
             "kind": "StorageV2",
             "sku": {

@@ -52,7 +52,9 @@
         "apiVersion": "[parameters('storageApiVersion')]",
         "dependsOn": [ ],
         "tags": {
-          "displayName": "[variables('storageName')]"
+          "displayName": "[variables('storageName')]",
+          "client": "alas",
+          "purpose:": "storage"
         },
         "kind": "Storage",
         "sku": {

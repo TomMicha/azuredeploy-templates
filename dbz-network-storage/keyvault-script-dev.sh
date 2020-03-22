@@ -2,10 +2,9 @@
 #create key vault secret for deployment
 location="eastus"
 keyResourceGroup=ALAS-keyvaultgroup-dev
-keyDeploymentName=ALAS-keyvault-deploy-dev
-keyVault=ALAS-keyvault
-#password=ALASdiadb123
-#secretname=sqlServerAdminPass
+keyDeploymentName=deploy-ALAS-keyvault-deploy-dev
+keyVault=ALAS-keyvault-dev
+
 
 az group create -n $keyResourceGroup -l $location \
     --verbose

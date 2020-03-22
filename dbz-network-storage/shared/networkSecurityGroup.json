@@ -26,7 +26,8 @@
             "location": "[resourceGroup().location]",
             "tags": {
                 "output_key": "[parameters('networkSecurityGroupName')]",
-                "nsgID": "[variables('nsgID')]"
+                "client": "alas",
+                "purpose:": "nsg"
             },
             "properties": {
                 "securityRules": [
