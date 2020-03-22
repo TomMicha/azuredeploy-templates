@@ -57,7 +57,9 @@
             "location": "[resourceGroup().location]",
             "name": "[variables('storageDLAccountName')]",
             "tags": {
-                "displayName": "[variables('storageDLAccountName')]"
+                "displayName": "[variables('storageDLAccountName')]",
+                "subnet1": "[parameters('subnetID')]",
+                "vnetResource": "[parameters('vnetReferenceId')]"
             },
             "kind": "StorageV2",
             "sku": {

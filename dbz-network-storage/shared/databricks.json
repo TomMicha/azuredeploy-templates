@@ -40,7 +40,7 @@
     },
     "variables": {
         "managedResourceGroupId": "[concat(subscription().id, '/resourceGroups/', variables('managedResourceGroupName'))]",
-        "managedResourceGroupName": "[concat(parameters('dbzWorkspaceNamePrefix'),'-DEV')]"
+        "managedResourceGroupName": "[concat(parameters('dbzWorkspaceNamePrefix'),'-DEV', resourceGroup().id)]"
     },
     "resources": [
     {
@@ -74,6 +74,9 @@
     }
     ],
     "outputs": {
-
+        "workspace": {
+            "type": "object",
+            "value": "[reference(resourceId('Microsoft.Databricks/workspaces', variables('managedResourceGroupName')))]"
+        }
     }
 }

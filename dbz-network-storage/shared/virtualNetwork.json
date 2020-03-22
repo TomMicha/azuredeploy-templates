@@ -65,11 +65,7 @@
       "subnet3dbz": "subnet3-dbz-public",
       "subnet4dbz": "subnet4-dbz-private",
       "vNetName": "[concat(parameters('vNetNamePrefix'), uniqueString(resourceGroup().id), parameters('deploymentType'))]",
-      "vNetID": "[resourceId('Microsoft.Network/virtualNetworks', variables('vNetName'))]",
-      "vNetSubnetID": "[concat(variables('vNetID'), '/subnets/', variables('subnet1'))]",
-      "vNetSubnetID2": "[concat(variables('vNetID'), '/subnets/', variables('subnet2'))]",
-      "vNetSubnetID3": "[concat(variables('vNetID'), '/subnets/', variables('subnet3dbz'))]",
-      "vNetSubnetID4": "[concat(variables('vNetID'), '/subnets/', variables('subnet4dbz'))]"
+      "vNetID": "[resourceId('Microsoft.Network/virtualNetworks', variables('vNetName'))]"
     },
     "resources": [
       {
@@ -161,19 +157,19 @@
     "outputs": {
       "subnetID": {
         "type": "string",
-        "value": "[variables('vNetSubnetID')]"
+        "value": "[variables('subnet1')]"
       },
       "subnetID2": {
         "type": "string",
-        "value": "[variables('vNetSubnetID2')]"
+        "value": "[variables('subnet2')]"
       },
       "subnetID3dbzpub": {
         "type": "string",
-        "value": "[variables('vNetSubnetID3')]"
+        "value": "[variables('subnet3dbz')]"
       },
       "subnetID4dbzpriv": {
         "type": "string",
-        "value": "[variables('vNetSubnetID4')]"
+        "value": "[variables('subnet4dbz')]"
       },
       "vnetReferenceId": {
         "type": "string",
