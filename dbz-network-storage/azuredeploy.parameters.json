@@ -60,7 +60,7 @@
         "value": "alasdatalake"
       },
       "dbzWorkspaceNamePrefix": {
-        "value": "ALAS-databricks-"
+        "value": "ALAS-databricks"
       },
       "nestedDeploymentDatabricks": {
         "value": "deploy-databricks-account"

@@ -139,7 +139,7 @@
     "vNetApiVersion": "2019-11-01",
     "storageApiVersion": "2019-06-01",
     "sqlApiVersion": "2014-04-01",
-    "databricksApiVersion": "2015-01-01"
+    "databricksApiVersion": "2018-04-01"
   },
   "resources": [
     {
@@ -248,6 +248,7 @@
         },
         "parameters": {
           "dbzWorkspaceNamePrefix": { "value": "[parameters('dbzWorkspaceNamePrefix')]" },
+          "databricksApiVersion": { "value": "[variables('databricksApiVersion')]" },
           "deploymentType": { "value": "[parameters('deploymentType')]" },
           "subnetID3dbzpub": { "value": "[reference(parameters('nestedDeploymentNameVnet')).outputs.subnetID3dbzpub.value]"},
           "subnetID4dbzpriv": { "value": "[reference(parameters('nestedDeploymentNameVnet')).outputs.subnetID4dbzpriv.value]"},

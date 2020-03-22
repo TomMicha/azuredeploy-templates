@@ -33,15 +33,18 @@
             "metadata": {
                 "description": "String to determine which prod vs dev and affix suffix."
             }
-      }
+       },
+       "databricksApiVersion": {
+           "type": "string"
+       }
     },
     "variables": {
         "managedResourceGroupId": "[concat(subscription().id, '/resourceGroups/', variables('managedResourceGroupName'))]",
-        "managedResourceGroupName": "[concat(parameters('dbzWorkspaceNamePrefix'),'-', resourceGroup().id,parameters('deploymentType'))]"
+        "managedResourceGroupName": "[concat(parameters('dbzWorkspaceNamePrefix'),'-DEV')]"
     },
     "resources": [
-        {
-      "apiVersion": "2018-04-01",
+    {
+      "apiVersion": "[parameters('databricksApiVersion')]",
       "type": "Microsoft.Databricks/workspaces",
       "location": "[resourceGroup().location]",
       "name": "[variables('managedResourceGroupName')]",

@@ -54,9 +54,12 @@
         "tags": {
           "displayName": "[variables('storageName')]"
         },
-        
+        "sku": {
+          "name": "[parameters('storageType')]",
+          "tier": "Standard"
+        },
         "properties": {
-          "accountType": "[parameters('storageType')]"
+          "accessTier": "Hot"
         }
       }
     ],
