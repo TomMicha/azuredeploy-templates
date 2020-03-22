@@ -134,7 +134,7 @@
                   {
                     "name": "databricks-delegated-public",
                     "properties": {
-                      "serviceName": "Microsoft.Databricks.workspaces"
+                      "serviceName": "Microsoft.Databricks/workspaces"
                     }
                   }
                 ]
@@ -148,7 +148,7 @@
                   {
                     "name": "databricks-delegated-private",
                     "properties": {
-                      "serviceName": "Microsoft.Databricks.workspaces"
+                      "serviceName": "Microsoft.Databricks/workspaces"
                     }
                   }
                 ]

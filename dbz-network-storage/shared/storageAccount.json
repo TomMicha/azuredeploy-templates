@@ -42,10 +42,6 @@
     },
     "variables": {
       "storageName": "[concat(parameters('storageAccountNamePrefix'), '88', parameters('deploymentType'))]",
-         "type": "string",
-         "metadata": {
-              "description": "description"
-          },
       "storageAccountReferenceId": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageName'))]"    
     },
     "resources": [
@@ -58,19 +54,9 @@
         "tags": {
           "displayName": "[variables('storageName')]"
         },
+        
         "properties": {
-          "accountType": "[parameters('storageType')]",
-          "networkAcls": {
-                    "bypass": "AzureServices",
-                    "ipRules": [
-                        {
-                            "value": "50.252.110.33",
-                            "action": "Allow"
-                        }
-                    ],
-                    "defaultAction": "Deny"
-                },
-                "supportsHttpsTrafficOnly": true
+          "accountType": "[parameters('storageType')]"
         }
       }
     ],
