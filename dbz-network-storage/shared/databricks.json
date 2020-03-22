@@ -40,7 +40,8 @@
     },
     "variables": {
         "managedResourceGroupId": "[concat(subscription().id, '/resourceGroups/', variables('managedResourceGroupName'))]",
-        "managedResourceGroupName": "[concat(parameters('dbzWorkspaceNamePrefix'),'-DEV', resourceGroup().id)]"
+        "managedResourceGroupName": "[concat(parameters('dbzWorkspaceNamePrefix'),'-DEV', resourceGroup().id)]",
+        "vnetID": "[concat(subscription().id,'/resourceGroups/',resourceGroup().name,'/providers/Microsoft.Network/',parameters('vnetReferenceId'))]"
     },
     "resources": [
     {
@@ -61,7 +62,7 @@
         "ManagedResourceGroupId": "[variables('managedResourceGroupId')]",
         "parameters": {
           "customVirtualNetworkId": {
-            "value": "[parameters('vnetReferenceId')]"
+            "value": "[variables('vnetID')]"
           },
           "customPublicSubnetName": {
             "value": "[parameters('subnetID3dbzpub')]"
@@ -74,9 +75,5 @@
     }
     ],
     "outputs": {
-        "workspace": {
-            "type": "object",
-            "value": "[reference(resourceId('Microsoft.Databricks/workspaces', variables('managedResourceGroupName')))]"
-        }
     }
 }
