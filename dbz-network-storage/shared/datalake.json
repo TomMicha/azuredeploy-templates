@@ -81,18 +81,6 @@
                 "accountType": "[parameters('storageType')]",
                 "networkAcls": {
                     "bypass": "AzureServices",
-                    "virtualNetworkRules": [
-                        {
-                            "id": "[concat(variables('vNetURI'), '/subnets/', parameters('subnetID'))]",
-                            "action": "Allow",
-                            "state": "Succeeded"
-                        },
-                        {
-                            "id": "[concat(variables('vNetURI'), '/subnets/', parameters('subnetID3dbzpub'))]",
-                            "action": "Allow",
-                            "state": "Succeeded"
-                        }
-                    ],
                     "ipRules": [
                         {
                             "value": "24.14.139.25",

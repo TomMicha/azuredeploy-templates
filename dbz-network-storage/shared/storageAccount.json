@@ -58,22 +58,10 @@
         "tags": {
           "displayName": "[variables('storageName')]"
         },
-        "sku": {
-          "name": "[parameters('storageType')]",
-          "tier": "Standard"
-        },
-        "kind": "Storage",
         "properties": {
           "accountType": "[parameters('storageType')]",
           "networkAcls": {
                     "bypass": "AzureServices",
-                    "virtualNetworkRules": [
-                        {
-                            "id": "[concat(subscription().id, '/resourceGroups/', resourceGroup().name,'/providers/Microsoft.Network/' ,'/subnets/',parameters('subnetID'))]",
-                            "action": "Allow",
-                            "state": "Succeeded"
-                        }
-                    ],
                     "ipRules": [
                         {
                             "value": "50.252.110.33",

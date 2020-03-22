@@ -13,5 +13,28 @@ data lake storage
 modify variables in parameters file and scripts to point to template artifact URI
 run bash script
 
+# REMOVE NETWORK SECURITY RULES ACLS
+(also removed NSG from databricks subnets)
+---datalake----
+"virtualNetworkRules": [
+                        { 
+                            "id": "[concat(subscription().id, '/resourceGroups/', resourceGroup().name,'/providers/Microsoft.Network/' ,'/subnets/',parameters('subnetID'))]",
+                            "action": "Allow",
+                            "state": "Succeeded"
+                        },
+                        {
+                            "id": "[concat(variables('vNetURI'), '/subnets/', parameters('subnetID3dbzpub'))]",
+                            "action": "Allow",
+                            "state": "Succeeded"
+                        }
+                    ],
 
+--storage--
+"virtualNetworkRules": [
+                        {
+                            "id": "[concat(subscription().id, '/resourceGroups/', resourceGroup().name,'/providers/Microsoft.Network/','/subnets/',parameters('subnetID'))]",
+                            "action": "Allow",
+                            "state": "Succeeded"
+                        }
+                    ],
       
