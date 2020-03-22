@@ -67,11 +67,23 @@
                 "name": "[parameters('storageSku')]"
             },
             "properties": {
-
                 "encryption": {
-                    "networkAcls": {
-                    "bypass": "AzureServices",
-                    "virtualNetworkRules": [
+                    "keySource": "Microsoft.Storage",
+                    "services": {
+                        "blob": {
+                            "enabled": true
+                        },
+                        "file": {
+                            "enabled": true
+                        }
+                    }
+                },
+                "isHnsEnabled": true,
+                "supportsHttpsTrafficOnly": true,
+                "accountType": "[parameters('storageType')]",
+                "networkAcls": {
+                        "bypass": "AzureServices",
+                        "virtualNetworkRules": [
                         {
                             "id": "[concat(parameters('vnetReferenceId'), '/subnets/',parameters('subnetID'))]",
                             "action": "Allow",
@@ -85,20 +97,7 @@
                         }
                     ],
                     "defaultAction": "Deny"
-                },
-                    "keySource": "Microsoft.Storage",
-                    "services": {
-                        "blob": {
-                            "enabled": true
-                        },
-                        "file": {
-                            "enabled": true
-                        }
-                    }
-                },
-                "isHnsEnabled": true,
-                "supportsHttpsTrafficOnly": true,
-                "accountType": "[parameters('storageType')]"
+                }
             }  
         }  
     ],
