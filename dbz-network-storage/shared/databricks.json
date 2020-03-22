@@ -68,7 +68,7 @@
             "value": "[parameters('subnetID3dbzpub')]"
           },
           "customPrivateSubnetName": {
-            "value": "[parameters('subnetID4dbzpriv')]"
+            "value": "subnet4-dbz-private"
           }
         }
       }

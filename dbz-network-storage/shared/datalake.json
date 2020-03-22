@@ -59,7 +59,8 @@
             "tags": {
                 "displayName": "[variables('storageDLAccountName')]",
                 "subnet1": "[parameters('subnetID')]",
-                "vnetResource": "[parameters('vnetReferenceId')]"
+                "vnetResource": "[parameters('vnetReferenceId')]",
+                "subnetdbz": "[parameters('subnetID3dbzpub')]"
             },
             "kind": "StorageV2",
             "sku": {
