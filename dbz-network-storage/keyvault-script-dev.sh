@@ -3,7 +3,7 @@
 location="eastus"
 keyResourceGroup=ALAS-keyvaultgroup-dev
 keyDeploymentName=deploy-ALAS-keyvault-deploy-dev
-keyVault=ALAS-keyvault-dev
+keyVault=ALASDIA-keyvault-dev
 
 
 az group create -n $keyResourceGroup -l $location \
