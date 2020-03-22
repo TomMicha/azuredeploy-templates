@@ -41,7 +41,7 @@
     "variables": {
         "managedResourceGroupId": "[concat(subscription().id, '/resourceGroups/', variables('managedResourceGroupName'))]",
         "managedResourceGroupName": "[concat(parameters('dbzWorkspaceNamePrefix'),'-DEV')]",
-        "vnetID": "[concat(subscription().id,'/resourceGroups/',resourceGroup().name,'/providers/Microsoft.Network/',parameters('vnetReferenceId'))]"
+        "vnetID": "[parameters('vnetReferenceId')]"
     },
     "resources": [
     {
@@ -68,7 +68,7 @@
             "value": "[parameters('subnetID3dbzpub')]"
           },
           "customPrivateSubnetName": {
-            "value": "subnet4-dbz-private"
+            "value": "[parameters('subnetID4dbzpriv')]"
           }
         }
       }
