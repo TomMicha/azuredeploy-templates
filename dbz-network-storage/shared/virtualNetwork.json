@@ -94,25 +94,70 @@
                 "addressPrefix": "[parameters('subnet1Range')]",
                 "networkSecurityGroup": {
                   "id": "[parameters('networkSecurityGroupID')]"
+                },
+                "serviceEndpoints": [
+                  {
+                    "service": "Microsoft.Sql",
+                    "locations": [
+                        "eastus"
+                    ]
+                  },
+                  {
+                    "service": "Microsoft.Storage",
+                    "locations": [
+                        "eastus"
+                    ]
+                },
+                {
+                    "service": "Microsoft.KeyVault",
+                    "locations": [
+                        "*"
+                    ]
                 }
+                ]
               }
             },
             {
               "name": "[variables('subnet2')]",
               "properties": {
-                "addressPrefix": "[parameters('subnet2Range')]"
+                "addressPrefix": "[parameters('subnet2Range')]",
+                "networkSecurityGroup": {
+                  "id": "[parameters('networkSecurityGroupID')]"
+                }
               }
             },
             {
               "name": "[variables('subnet3dbz')]",
               "properties": {
-                "addressPrefix": "[parameters('subnet3Range')]"
+                "addressPrefix": "[parameters('subnet3Range')]",
+                "networkSecurityGroup": {
+                  "id": "[parameters('networkSecurityGroupID')]"
+                },
+                "delegations": [
+                  {
+                    "name": "databricks-delegated-public",
+                    "properties": {
+                      "serviceName": "Microsoft.Databricks.workspaces"
+                    }
+                  }
+                ]
               }
             },
             {
               "name": "[variables('subnet4dbz')]",
               "properties": {
-                "addressPrefix": "[parameters('subnet4Range')]"
+                "addressPrefix": "[parameters('subnet4Range')]",
+                "networkSecurityGroup": {
+                  "id": "[parameters('networkSecurityGroupID')]"
+                },
+                "delegations": [
+                  {
+                    "name": "databricks-delegated-private",
+                    "properties": {
+                      "serviceName": "Microsoft.Databricks.workspaces"
+                    }
+                  }
+                ]
               }
             }
           ]

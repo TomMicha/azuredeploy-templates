@@ -4,7 +4,7 @@
     "parameters": {
       "storageType": {
         "type": "string",
-        "defaultValue": "Standard_ZRS",
+        "defaultValue": "Standard_LRS",
         "allowedValues": [
           "Standard_LRS",
           "Standard_ZRS",
@@ -58,6 +58,10 @@
         "tags": {
           "displayName": "[variables('storageName')]"
         },
+        "sku": {
+          "name": "[parameters('storageType')]",
+          "tier": "Standard"
+        },
         "kind": "Storage",
         "properties": {
           "accountType": "[parameters('storageType')]",
@@ -65,16 +69,12 @@
                     "bypass": "AzureServices",
                     "virtualNetworkRules": [
                         {
-                            "id": "[concat(parameters('vnetReferenceId'), '/subnets/',parameters('subnetID'))]",
+                            "id": "[concat(subscription().id, '/resourceGroups/', resourceGroup().name,'/providers/Microsoft.Network/' ,'/subnets/',parameters('subnetID'))]",
                             "action": "Allow",
                             "state": "Succeeded"
                         }
                     ],
                     "ipRules": [
-                        {
-                            "value": "50.252.110.33",
-                            "action": "Allow"
-                        },
                         {
                             "value": "50.252.110.33",
                             "action": "Allow"

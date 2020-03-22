@@ -37,18 +37,19 @@
             }
         },
         "deploymentType": {
-        "type": "string",
-        "allowedValues": [ "dev", "prod" ],
-        "defaultValue": "dev",
-        "metadata": {
-          "description": "String to determine which network the VM is deployed to."
-        }
+            "type": "string",
+            "allowedValues": [ "dev", "prod" ],
+            "defaultValue": "dev",
+            "metadata": {
+                "description": "String to determine which network the VM is deployed to."
+            }
       }
      },
     "variables": {
         "storageDLAccountName": "[concat(parameters('storageAccountNamePrefix'),'88',parameters('deploymentType'))]",
         "storageAccountApiVersion": "[parameters('storageApiVersion')]",
-        "storageAccountResourceId": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageDLAccountName'))]"
+        "storageAccountResourceId": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageDLAccountName'))]",
+        "vNetURI": "[concat(subscription().id,'/resourceGroups/',resourceGroup().name,'/providers/Microsoft.Network/virtualNetworks/',parameters('vnetReferenceId'))]"
     },
     "resources": [
         {
@@ -82,12 +83,12 @@
                     "bypass": "AzureServices",
                     "virtualNetworkRules": [
                         {
-                            "id": "[concat(parameters('vnetReferenceId'), '/subnets/', parameters('subnetID'))]",
+                            "id": "[concat(variables('vNetURI'), '/subnets/', parameters('subnetID'))]",
                             "action": "Allow",
                             "state": "Succeeded"
                         },
                         {
-                            "id": "[concat(parameters('vnetReferenceId'), '/subnets/', parameters('subnetID3dbzpub'))]",
+                            "id": "[concat(variables('vNetURI'), '/subnets/', parameters('subnetID3dbzpub'))]",
                             "action": "Allow",
                             "state": "Succeeded"
                         }

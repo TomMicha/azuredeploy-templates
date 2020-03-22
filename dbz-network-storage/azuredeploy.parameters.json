@@ -58,6 +58,15 @@
       },
       "DataLakeAccountNamePrefix": {
         "value": "alasdatalake"
+      },
+      "dbzWorkspaceNamePrefix": {
+        "value": "ALAS-databricks-"
+      },
+      "nestedDeploymentDatabricks": {
+        "value": "deploy-databricks-account"
+      },
+      "sharedTemplateNameDatabricks": {
+        "value": "databricks.json"
       }
     }
   }

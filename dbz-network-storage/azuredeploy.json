@@ -123,13 +123,23 @@
       "metadata": {
         "description": "String name for Datalake-prefix"
       }
+    },
+    "dbzWorkspaceNamePrefix": {
+      "type": "string"
+    },
+    "nestedDeploymentDatabricks": {
+      "type": "string"
+    },
+    "sharedTemplateNameDatabricks": {
+      "type": "string"
     }
   },
   "variables": {
     "deploymentApiVersion": "2016-02-01",
     "vNetApiVersion": "2019-11-01",
     "storageApiVersion": "2019-06-01",
-    "sqlApiVersion": "2014-04-01"
+    "sqlApiVersion": "2014-04-01",
+    "databricksApiVersion": "2015-01-01"
   },
   "resources": [
     {
@@ -177,6 +187,10 @@
       "apiVersion": "[variables('storageApiVersion')]",
       "name": "[parameters('nestedDeploymentNameStorage')]",
       "type": "Microsoft.Resources/deployments",
+      "dependsOn": [
+        "[concat('Microsoft.Resources/deployments/', parameters('nestedSecurityDeploymentName'))]",
+        "[concat('Microsoft.Resources/deployments/', parameters('nestedDeploymentNameVnet'))]"
+      ],
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -197,6 +211,10 @@
       "apiVersion": "[variables('storageApiVersion')]",
       "name": "[parameters('nestedDeploymentNameDataLake')]",
       "type": "Microsoft.Resources/deployments",
+      "dependsOn": [
+        "[concat('Microsoft.Resources/deployments/', parameters('nestedSecurityDeploymentName'))]",
+        "[concat('Microsoft.Resources/deployments/', parameters('nestedDeploymentNameVnet'))]"
+      ],
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -213,7 +231,30 @@
           "vnetReferenceId": { "value": "[reference(parameters('nestedDeploymentNameVnet')).outputs.vnetReferenceId.value]"}
         }
       }
-    } 
+    },
+    {
+      "apiVersion": "[variables('databricksApiVersion')]",
+      "name": "[parameters('nestedDeploymentDatabricks')]",
+      "type": "Microsoft.Resources/deployments",
+      "dependsOn": [
+        "[concat('Microsoft.Resources/deployments/', parameters('nestedSecurityDeploymentName'))]",
+        "[concat('Microsoft.Resources/deployments/', parameters('nestedDeploymentNameVnet'))]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('baseTemplateUri'), '/shared/', parameters('sharedTemplateNameDatabricks'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "dbzWorkspaceNamePrefix": { "value": "[parameters('dbzWorkspaceNamePrefix')]" },
+          "deploymentType": { "value": "[parameters('deploymentType')]" },
+          "subnetID3dbzpub": { "value": "[reference(parameters('nestedDeploymentNameVnet')).outputs.subnetID3dbzpub.value]"},
+          "subnetID4dbzpriv": { "value": "[reference(parameters('nestedDeploymentNameVnet')).outputs.subnetID4dbzpriv.value]"},
+          "vnetReferenceId": { "value": "[reference(parameters('nestedDeploymentNameVnet')).outputs.vnetReferenceId.value]"}
+        }
+      }
+    }
   ],
   "outputs": {
 

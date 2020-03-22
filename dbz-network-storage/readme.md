@@ -12,3 +12,6 @@ data lake storage
 # Instructions
 modify variables in parameters file and scripts to point to template artifact URI
 run bash script
+
+
+      
