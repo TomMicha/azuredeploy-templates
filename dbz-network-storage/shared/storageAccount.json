@@ -41,7 +41,7 @@
       }
     },
     "variables": {
-      "storageName": "[concat(parameters('storageAccountNamePrefix'), '88', parameters('deploymentType'))]",
+      "storageName": "[concat(parameters('storageAccountNamePrefix'),substring(uniqueString('00xx8'),0,5), parameters('deploymentType'))]",
       "storageAccountReferenceId": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageName'))]"    
     },
     "resources": [

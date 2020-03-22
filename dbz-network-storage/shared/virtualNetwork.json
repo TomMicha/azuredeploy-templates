@@ -67,7 +67,7 @@
       "subnet2": "subnet2",
       "subnet3dbz": "subnet3-dbz-public",
       "subnet4dbz": "subnet4-dbz-private",
-      "vNetName": "[concat(parameters('vNetNamePrefix'), uniqueString(resourceGroup().id), parameters('deploymentType'))]",
+      "vNetName": "[concat(parameters('vNetNamePrefix'), substring(uniqueString('00xx8'),0,5), parameters('deploymentType'))]",
       "vNetID": "[resourceId('Microsoft.Network/virtualNetworks', variables('vNetName'))]"
     },
     "resources": [

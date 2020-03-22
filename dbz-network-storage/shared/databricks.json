@@ -40,7 +40,7 @@
     },
     "variables": {
         "managedResourceGroupId": "[concat(subscription().id, '/resourceGroups/', variables('managedResourceGroupName'))]",
-        "managedResourceGroupName": "[concat(parameters('dbzWorkspaceNamePrefix'),'-',parameters('deploymentType'))]",
+        "managedResourceGroupName": "[concat(parameters('dbzWorkspaceNamePrefix'),'-',substring(uniqueString('00xx8'),0,4),'-',parameters('deploymentType'))]",
         "vnetID": "[parameters('vnetReferenceId')]"
     },
     "resources": [

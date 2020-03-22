@@ -15,7 +15,7 @@
         "value": "networkSecurityGroup.json"
       },
       "networkSecurityGroupName": {
-        "value": "ALAS-NetSG-dev"
+        "value": "ALAS-NetSG"
       },
       "nestedSecurityDeploymentName": {
         "value": "deploy-NSG"
