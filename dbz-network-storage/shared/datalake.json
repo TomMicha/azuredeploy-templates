@@ -46,7 +46,7 @@
       }
      },
     "variables": {
-        "storageDLAccountName": "[concat(parameters('storageAccountNamePrefix'), uniqueString(resourceGroup().id),parameters('deploymentType'))]",
+        "storageDLAccountName": "[concat(parameters('storageAccountNamePrefix'),'88',parameters('deploymentType'))]",
         "storageAccountApiVersion": "[parameters('storageApiVersion')]",
         "storageAccountResourceId": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageDLAccountName'))]"
     },

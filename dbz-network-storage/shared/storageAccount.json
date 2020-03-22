@@ -41,7 +41,7 @@
       }
     },
     "variables": {
-      "storageName": "[concat(parameters('storageAccountNamePrefix'), uniqueString(resourceGroup().id), parameters('deploymentType'))]",
+      "storageName": "[concat(parameters('storageAccountNamePrefix'), '88', parameters('deploymentType'))]",
          "type": "string",
          "metadata": {
               "description": "description"
