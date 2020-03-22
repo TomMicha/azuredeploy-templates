@@ -48,8 +48,7 @@
     "variables": {
         "storageDLAccountName": "[concat(parameters('storageAccountNamePrefix'),'88',parameters('deploymentType'))]",
         "storageAccountApiVersion": "[parameters('storageApiVersion')]",
-        "storageAccountResourceId": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageDLAccountName'))]",
-        "vNetURI": "[concat(subscription().id,'/resourceGroups/',resourceGroup().name,'/providers/Microsoft.Network/virtualNetworks/',parameters('vnetReferenceId'))]"
+        "storageAccountResourceId": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageDLAccountName'))]"
     },
     "resources": [
         {

@@ -54,12 +54,12 @@
         "tags": {
           "displayName": "[variables('storageName')]"
         },
+        "kind": "Storage",
         "sku": {
           "name": "[parameters('storageType')]",
           "tier": "Standard"
         },
         "properties": {
-          "accessTier": "Hot"
         }
       }
     ],

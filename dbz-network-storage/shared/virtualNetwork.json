@@ -66,10 +66,10 @@
       "subnet4dbz": "subnet4-dbz-private",
       "vNetName": "[concat(parameters('vNetNamePrefix'), uniqueString(resourceGroup().id), parameters('deploymentType'))]",
       "vNetID": "[resourceId('Microsoft.Network/virtualNetworks', variables('vNetName'))]",
-      "vNetSubnetID": "[concat(variables('vNetID'), '/subnets/', 'subnet-', variables('subnet1'))]",
-      "vNetSubnetID2": "[concat(variables('vNetID'), '/subnets/', 'subnet-', variables('subnet2'))]",
-      "vNetSubnetID3": "[concat(variables('vNetID'), '/subnets/', 'subnet-', variables('subnet3dbz'))]",
-      "vNetSubnetID4": "[concat(variables('vNetID'), '/subnets/', 'subnet-', variables('subnet4dbz'))]"
+      "vNetSubnetID": "[concat(variables('vNetID'), '/subnets/', variables('subnet1'))]",
+      "vNetSubnetID2": "[concat(variables('vNetID'), '/subnets/', variables('subnet2'))]",
+      "vNetSubnetID3": "[concat(variables('vNetID'), '/subnets/', variables('subnet3dbz'))]",
+      "vNetSubnetID4": "[concat(variables('vNetID'), '/subnets/', variables('subnet4dbz'))]"
     },
     "resources": [
       {
