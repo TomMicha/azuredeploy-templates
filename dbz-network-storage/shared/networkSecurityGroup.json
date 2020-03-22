@@ -8,14 +8,15 @@
     },
     "variables": {
         "nsgID": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]",
-        "dbzNetSGID": "ALAS-databricks-NSG-dev"
+        "dbzNetSGName": "ALAS-databricks-NSG-dev",
+        "dbzNetSGID": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('dbzNetSGName'))]"
     },
     "resources": [
          {
             "apiVersion": "2019-06-01",
             "type": "Microsoft.Network/networkSecurityGroups",
             "location": "[resourceGroup().location]",
-            "name": "[variables('dbzNetSGID')]",
+            "name": "[variables('dbzNetSGName')]",
             "properties": {}
         },
         {
