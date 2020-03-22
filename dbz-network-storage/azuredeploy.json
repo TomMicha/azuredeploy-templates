@@ -135,16 +135,15 @@
     }
   },
   "variables": {
-    "deploymentApiVersion": "2016-02-01",
+    "resourceDeploymentApiVersion": "2018-05-01",
     "vNetApiVersion": "2019-11-01",
     "storageApiVersion": "2019-06-01",
-    "sqlApiVersion": "2014-04-01",
     "databricksApiVersion": "2018-04-01"
   },
   "resources": [
     {
       "type": "Microsoft.Resources/deployments",
-      "apiVersion": "2019-11-01",
+      "apiVersion": "[variables('resourceDeploymentApiVersion')]",
       "name": "[parameters('nestedSecurityDeploymentName')]",
       "properties": {
         "mode": "Incremental",
@@ -158,7 +157,7 @@
       }
     },
     {
-      "apiVersion": "[variables('vnetApiVersion')]",
+      "apiVersion": "[variables('resourceDeploymentApiVersion')]",
       "name": "[parameters('nestedDeploymentNameVnet')]",
       "type": "Microsoft.Resources/deployments",
       "dependsOn": [
@@ -184,7 +183,7 @@
       }
     },
     {
-      "apiVersion": "[variables('storageApiVersion')]",
+      "apiVersion": "[variables('resourceDeploymentApiVersion')]",
       "name": "[parameters('nestedDeploymentNameStorage')]",
       "type": "Microsoft.Resources/deployments",
       "dependsOn": [
@@ -208,7 +207,7 @@
       }
     },
      {
-      "apiVersion": "[variables('storageApiVersion')]",
+      "apiVersion": "[variables('resourceDeploymentApiVersion')]",
       "name": "[parameters('nestedDeploymentNameDataLake')]",
       "type": "Microsoft.Resources/deployments",
       "dependsOn": [
@@ -233,7 +232,7 @@
       }
     },
     {
-      "apiVersion": "[variables('databricksApiVersion')]",
+      "apiVersion": "[variables('resourceDeploymentApiVersion')]",
       "name": "[parameters('nestedDeploymentDatabricks')]",
       "type": "Microsoft.Resources/deployments",
       "dependsOn": [
