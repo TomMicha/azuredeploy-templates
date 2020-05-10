@@ -147,7 +147,7 @@
     "publicIPApiVersion": "2015-06-15",
     "vmImagePublisher": "microsoft-ads",
     "vmImageOffer": "windows-data-science-vm", 
-    "vNetExistingID": "[resourceId(parameters('existingNetworkRG'), 'Microsoft.Network/virtualNetworks', parameters('existingVnetID'))]", // refactor for other env names
+    "vNetExistingID": "[resourceId(parameters('existingNetworkRG'), 'Microsoft.Network/virtualNetworks', parameters('existingVnetID'))]", 
     "nsgID": "[resourceId(parameters('existingNetworkRG'), 'Microsoft.Network/networkSecurityGroups',parameters('existingNSGID'))]"
   },
   "resources": [
