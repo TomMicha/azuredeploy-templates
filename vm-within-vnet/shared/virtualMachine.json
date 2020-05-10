@@ -72,7 +72,7 @@
       }
     },
     "variables": {
-      "vmName": "[concat(parameters('vmNamePrefix'),'-','HBR',substring(uniqueString('01XYZ2'),0,3),'-',parameters('deploymentType'))]",
+      "vmName": "[concat(parameters('vmNamePrefix'),'-','HBR',substring(uniqueString('012XYZ'),0,3),'-',parameters('deploymentType'))]",
       "vmOSDiskName": "[concat(variables('vmName'),'-','osdisk')]"
     },
     "resources": [
@@ -87,10 +87,6 @@
           "client": "alas",
           "purpose": "external"
         },
-      //  "copy": { may refactor for copies
-      //    "name": "vmCopy",
-      //    "count": 2
-      //  },
         "properties": {
           "hardwareProfile": {
             "vmSize": "[parameters('vmSize')]"

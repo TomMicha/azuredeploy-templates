@@ -94,7 +94,7 @@
         "description": "VM admin user name."
       }
     },
-    "vmAdminPassword": { // this will refactor into keyvault 
+    "vmAdminPassword": { 
       "type": "securestring",
       "metadata": {
         "description": "Password for local admin account"
@@ -146,7 +146,7 @@
     "vmApiVersion": "2015-06-15",
     "publicIPApiVersion": "2015-06-15",
     "vmImagePublisher": "microsoft-ads",
-    "vmImageOffer": "windows-data-science-vm", // may need to change here for DS
+    "vmImageOffer": "windows-data-science-vm", 
     "vNetExistingID": "[resourceId(parameters('existingNetworkRG'), 'Microsoft.Network/virtualNetworks', parameters('existingVnetID'))]", // refactor for other env names
     "nsgID": "[resourceId(parameters('existingNetworkRG'), 'Microsoft.Network/networkSecurityGroups',parameters('existingNSGID'))]"
   },

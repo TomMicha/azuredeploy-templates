@@ -65,6 +65,5 @@
       "nestedDeploymentNameVM": {
         "value": "deploy-virtual-machine"
       }
-
     }
   }

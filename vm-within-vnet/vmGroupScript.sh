@@ -2,8 +2,8 @@
 #create key vault secret for deployment
 location="eastus"
 vmResourceGroup=ALAS-External-Workspace-dev
-vmDeployName=ALAS-keyvault-deployWorkspace-dev
-keyVault=ALASDIA-keyvault-dev
+vmDeployName=ALAS-deployWorkspace-dev
+
 template="https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/vm-within-vnet/azuredeploy.json"
 templateParams="https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/vm-within-vnet/azuredeploy.parameters.json"
 
