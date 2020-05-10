@@ -1,0 +1,247 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "baseTemplateUri": {
+      "type": "string",
+      "metadata": {
+        "description": "Base URI of template resources."
+      }
+    },
+    "deploymentType": {
+      "type": "string",
+      "allowedValues": [ "dev", "prod" ],
+      "defaultValue": "dev",
+      "metadata": {
+        "description": "String to determine which network the VM is deployed to."
+      }
+    },
+    "existingNSGID": {
+      "type": "string",
+      "metadata": {
+        "description": "Existing Id for NSG already configured"
+      }
+    },
+    "nestedDeploymentNameStorage": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the storage account deployment."
+      }
+    },
+    "sharedTemplateNameStorage": {
+      "type": "string",
+      "metadata": {
+        "description": "Template name for the storage account."
+      }
+    },
+    "storageType": {
+      "type": "string",
+      "metadata": {
+        "description": "Type of storage account."
+      }
+    },
+    "storageAccountNamePrefix": {
+      "type": "string",
+      "metadata": {
+        "description": "Prefix string for storage account name."
+      }
+    },
+    "nicName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the network interface."
+      }
+    },
+    "nestedDeploymentNameNic": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the NIC deployment."
+      }
+    },
+    "sharedTemplateNameNic": {
+      "type": "string",
+      "metadata": {
+        "description": "Template name for the network interface."
+      }
+    },
+    "nestedDeploymentNameVM": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the VM deployment."
+      }
+    },
+    "sharedTemplateNameVM": {
+      "type": "string",
+      "metadata": {
+        "description": "Template name for the virtual machine."
+      }
+    },
+    "vmNamePrefix": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the virtual machine."
+      }
+    },
+    "vmSize": {
+      "type": "string",
+      "metadata": {
+        "description": "Virtual machine instance size."
+      }
+    },
+    "vmAdminUserName": {
+      "type": "string",
+      "metadata": {
+        "description": "VM admin user name."
+      }
+    },
+    "vmAdminPassword": { // this will refactor into keyvault 
+      "type": "securestring",
+      "metadata": {
+        "description": "Password for local admin account"
+      }
+    },
+    "vmWindowsOSVersion": {
+      "type": "string",
+      "metadata": {
+        "description": "Virtual Machine image SKU"
+      }
+    },
+    "nestedDeploymentNamePublicIP": {
+      "type": "string",
+      "metadata": {
+        "description": "Name for Public IP deployment"
+      }
+    },
+    "sharedTemplatePublicIP": {
+      "type": "string",
+      "metadata": {
+        "description": "Template for Public IP resource"
+      }
+    },
+    "publicIpNamePrefix": {
+      "type": "string",
+      "metadata": {
+        "description": "Prefix for Public IP resource"
+      }
+    },
+    "existingVnetID": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of vnet existing in environment"
+      }
+    },
+    "existingNetworkRG": {
+        "type": "string",
+        "metadata": {
+          "description": "reference to resource group where vnet and other resources located"
+        }
+    }
+  },
+  "variables": {
+    "resourceDeploymentApiVersion": "2018-05-01",
+    "vNetApiVersion": "2019-11-01",
+    "storageApiVersion": "2019-06-01",
+    "mainSubnetId": "[concat(resourceId('Microsoft.Network/virtualNetworks', 'vNetExistingID'), '/subnets/subnet1')]",
+    "nicApiVersion": "2015-06-15",
+    "vmApiVersion": "2015-06-15",
+    "publicIPApiVersion": "2015-06-15",
+    "vmImagePublisher": "microsoft-ads",
+    "vmImageOffer": "windows-data-science-vm", // may need to change here for DS
+    "vNetExistingID": "[resourceId(parameters('existingNetworkRG'), 'Microsoft.Network/virtualNetworks', parameters('existingVnetID'))]", // refactor for other env names
+    "nsgID": "[resourceId(parameters('existingNetworkRG'), 'Microsoft.Network/networkSecurityGroups',parameters('existingNSGID'))]"
+  },
+  "resources": [
+    {
+      "apiVersion": "[variables('resourceDeploymentApiVersion')]",
+      "name": "[parameters('nestedDeploymentNamePublicIp')]",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('baseTemplateUri'), '/shared/', parameters('sharedTemplatePublicIP'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "publicIpNamePrefix": { "value": "[parameters('publicIpNamePrefix')]" },
+          "publicIpApiVersion": { "value": "[variables('publicIPApiVersion')]" },
+          "deploymentType": { "value": "[parameters('deploymentType')]" }
+        }
+      }
+    },
+     {
+      "apiVersion": "[variables('resourceDeploymentApiVersion')]",
+      "name": "[parameters('nestedDeploymentNameNic')]",
+      "type": "Microsoft.Resources/deployments",
+      "dependsOn": [
+        "[concat('Microsoft.Resources/deployments/', parameters('nestedDeploymentNamePublicIp'))]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('baseTemplateUri'), '/shared/', parameters('sharedTemplateNameNic'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "vnetReferenceId": { "value": "[reference(variables('vNetExistingID'))]"},
+          "nicName": { "value": "[parameters('nicName')]" },
+          "nicApiVersion": { "value": "[variables('nicApiVersion')]" },
+          "nsgID": { "value": "[variables('nsgID')]"},
+          "subnetID": { "value": "[reference(variables('mainSubnetId'))]"},
+          "publicIpID": { "value": "[reference(parameters('nestedDeploymentNamePublicIp')).outputs.publicIpID.value]" }
+        }
+      }
+    },
+    {
+      "apiVersion": "[variables('resourceDeploymentApiVersion')]",
+      "name": "[parameters('nestedDeploymentNameStorage')]",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('baseTemplateUri'), '/shared/', parameters('sharedTemplateNameStorage'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "storageType": { "value": "[parameters('storageType')]" },
+          "storageApiVersion": { "value": "[variables('storageApiVersion')]" },
+          "storageAccountNamePrefix": { "value": "[parameters('storageAccountNamePrefix')]" },
+          "deploymentType": { "value": "[parameters('deploymentType')]" },
+          "subnetID": { "value": "[reference(variables('mainSubnetId'))]"},
+          "vnetReferenceId": { "value": "[reference(variables('vNetExistingID'))]"}
+        }
+      }
+    },
+    {
+      "apiVersion": "[variables('resourceDeploymentApiVersion')]",
+      "name": "[parameters('nestedDeploymentNameVM')]",
+      "type": "Microsoft.Resources/deployments",
+      "dependsOn": [
+        "[concat('Microsoft.Resources/deployments/', parameters('nestedDeploymentNameNic'))]",
+        "[concat('Microsoft.Resources/deployments/', parameters('nestedDeploymentNameStorage'))]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('baseTemplateUri'), '/shared/', parameters('sharedTemplateNameVM'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "vmNamePrefix": { "value": "[parameters('vmNamePrefix')]" },
+          "vmApiVersion": { "value": "[variables('vmApiVersion')]" },
+          "deploymentType": { "value": "[parameters('deploymentType')]" },
+          "vmSize": { "value": "[parameters('vmSize')]" },
+          "vmAdminUserName": { "value": "[parameters('vmAdminUserName')]" },
+          "vmAdminPassword": { "value": "[parameters('vmAdminPassword')]" },
+          "vmImagePublisher": { "value": "[variables('vmImagePublisher')]" },
+          "vmImageOffer": { "value": "[variables('vmImageOffer')]" },
+          "vmWindowsOSVersion": { "value": "[parameters('vmWindowsOSVersion')]" },
+          "storageAccountName": { "value": "[reference(parameters('nestedDeploymentNameStorage')).outputs.storageAccountName.value]" },
+          "vmNic": { "value": "[reference(parameters('nestedDeploymentNameNic')).outputs.vmNic.value]" }
+        }
+      }
+    }
+  ],
+  "outputs": {
+
+  }
+}

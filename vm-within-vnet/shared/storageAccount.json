@@ -1,0 +1,93 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "storageType": {
+        "type": "string",
+        "defaultValue": "Standard_LRS",
+        "allowedValues": [
+          "Standard_LRS",
+          "Standard_ZRS",
+          "Standard_GRS",
+          "Standard_RAGRS",
+          "Premium_LRS"
+        ]
+      },
+      "storageApiVersion": {
+        "type": "string",
+        "metadata": {
+          "description": "Azure API for Storage Account."
+        }
+      },
+      "storageAccountNamePrefix": {
+        "type": "string",
+        "metadata": {
+          "description": "Prefix for Storage Account Name"
+        }
+      },
+      "subnetID": {
+        "type": "string"
+      },
+      "vnetReferenceId": {
+        "type": "string"
+      },
+      "deploymentType": {
+        "type": "string",
+        "allowedValues": [ "dev", "prod" ],
+        "defaultValue": "dev",
+        "metadata": {
+          "description": "String to determine which network the VM is deployed to."
+        }
+      }
+    },
+    "variables": {
+      "storageName": "[concat(parameters('storageAccountNamePrefix'),substring(uniqueString('00xx8'),0,5), parameters('deploymentType'))]",
+      "storageAccountReferenceId": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageName'))]" 
+    },
+    "resources": [
+      {
+        "name": "[variables('storageName')]",
+        "type": "Microsoft.Storage/storageAccounts",
+        "location": "[resourceGroup().location]",
+        "apiVersion": "[parameters('storageApiVersion')]",
+        "dependsOn": [ ],
+        "tags": {
+          "displayName": "[variables('storageName')]",
+          "client": "alas",
+          "purpose:": "external"
+        },
+        "kind": "Storage",
+        "sku": {
+          "name": "[parameters('storageType')]",
+          "tier": "Standard"
+        },
+        "properties": {
+          "supportsHttpsTrafficOnly": true,
+          "accountType": "[parameters('storageType')]",
+          "networkAcls": {
+                "bypass": "AzureServices",
+                "virtualNetworkRules": [
+                {
+                    "id": "[concat(parameters('vnetReferenceId'), '/subnets/',parameters('subnetID'))]",
+                    "action": "Allow",
+                    "state": "provisioning"
+                }
+            ],
+            "ipRules": [
+                {
+                    "value": "24.14.139.25",
+                    "action": "Allow"
+                }
+            ],
+            "defaultAction": "Deny"
+          }
+        }
+      }
+    ],
+    "outputs": {
+      "storageAccountName": {
+        "type": "string",
+        "value": "[variables('storageAccountReferenceId')]"
+      }
+    }
+  }

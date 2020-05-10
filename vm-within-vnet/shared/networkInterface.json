@@ -1,0 +1,75 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "nicName": {
+        "type": "string",
+        "metadata": {
+          "description": "Name of the network interface."
+        }
+      },
+      "nicApiVersion": {
+        "type": "string",
+        "metadata": {
+          "description": "Azure API version for the NIC resource."
+        }
+      },
+      "vnetReferenceId": {
+        "type": "string"
+      },
+      "nsgID": {
+        "type": "string"
+      },
+      "subnetID": {
+        "type": "string",
+        "metadata": {
+          "description": "Virtual network subnet reference."
+        }
+      },
+      "publicIpID": {
+        "type": "string",
+        "metadata": {
+          "description": "ID of Public IP resource."
+        }
+      }
+    },
+    "variables": {
+      "nicID": "[concat(parameters('nicName'),'-1')]"
+    },
+    "resources": [
+      {
+        "type": "Microsoft.Network/networkInterfaces",
+        "name": "[variables('nicID')]",
+        "apiVersion": "[parameters('nicApiVersion')]",
+        "location": "[resourceGroup().location]",
+        "tags": {
+          "displayName": "[variables('nicID')]"
+        },
+        "properties": {
+          "ipConfigurations": [
+            {
+              "name": "ipconfig1",
+              "properties": {
+                "privateIPAllocationMethod": "Dynamic",
+                "subnet": {
+                  "id": "[parameters('subnetID')]"
+                },
+                "publicIPAddress": {
+                  "id": "[parameters('publicIpID')]"
+                }
+              }
+            }
+          ],
+          "networkSecurityGroup": {
+            "id": "[parameters('nsgID')]"
+          }
+        }
+      }
+    ],
+    "outputs": {
+      "vmNic": {
+        "type": "string",
+        "value": "[resourceId('Microsoft.Network/networkInterfaces', variables('nicID'))]"
+      }
+    }
+  }
