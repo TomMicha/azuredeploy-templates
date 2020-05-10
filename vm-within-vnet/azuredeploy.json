@@ -141,14 +141,14 @@
     "resourceDeploymentApiVersion": "2018-05-01",
     "vNetApiVersion": "2019-11-01",
     "storageApiVersion": "2019-06-01",
-    "mainSubnetId": "[concat(resourceId('Microsoft.Network/virtualNetworks', 'vNetExistingID'), '/subnets/subnet1')]",
+    "subnetId": "[concat(variables('vNetExistingID'), '/subnets/subnet1')]",
     "nicApiVersion": "2015-06-15",
     "vmApiVersion": "2015-06-15",
     "publicIPApiVersion": "2015-06-15",
     "vmImagePublisher": "microsoft-ads",
     "vmImageOffer": "windows-data-science-vm", 
-    "vNetExistingID": "[resourceId(parameters('existingNetworkRG'), 'Microsoft.Network/virtualNetworks', parameters('existingVnetID'))]", 
-    "nsgID": "[resourceId(parameters('existingNetworkRG'), 'Microsoft.Network/networkSecurityGroups',parameters('existingNSGID'))]"
+    "vNetExistingID": "[resourceId('Microsoft.Network/virtualNetworks', parameters('existingVnetID'))]", 
+    "nsgID": "[resourceId('Microsoft.Network/networkSecurityGroups',parameters('existingNSGID'))]"
   },
   "resources": [
     {
@@ -186,7 +186,7 @@
           "nicName": { "value": "[parameters('nicName')]" },
           "nicApiVersion": { "value": "[variables('nicApiVersion')]" },
           "nsgID": { "value": "[variables('nsgID')]"},
-          "subnetID": { "value": "[reference(variables('mainSubnetId'))]"},
+          "subnetID": { "value": "[reference(variables('subnetId'))]"},
           "publicIpID": { "value": "[reference(parameters('nestedDeploymentNamePublicIp')).outputs.publicIpID.value]" }
         }
       }
@@ -206,7 +206,7 @@
           "storageApiVersion": { "value": "[variables('storageApiVersion')]" },
           "storageAccountNamePrefix": { "value": "[parameters('storageAccountNamePrefix')]" },
           "deploymentType": { "value": "[parameters('deploymentType')]" },
-          "subnetID": { "value": "[reference(variables('mainSubnetId'))]"},
+          "subnetID": { "value": "[reference(variables('subnetId'))]"},
           "vnetReferenceId": { "value": "[reference(variables('vNetExistingID'))]"}
         }
       }

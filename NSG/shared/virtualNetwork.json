@@ -82,11 +82,11 @@
             {
               "name": "[variables('subnet1')]",
               "properties": {
-                "addressPrefix": "[parameters('subnet1Range')]"
-              },
+                "addressPrefix": "[parameters('subnet1Range')]",
                 "networkSecurityGroup": {
                   "id": "[parameters('networkSecurityGroupID')]"
-              }
+                }
+              }   
             },
             {
               "name": "[variables('subnet2')]",
