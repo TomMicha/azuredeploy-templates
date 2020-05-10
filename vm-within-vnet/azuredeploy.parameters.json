@@ -57,13 +57,16 @@
         "value": ""
       },
       "vmNamePrefix": {
-        "value": "win"
+        "value": "ALAS-vm-"
       },
       "sharedTemplateNameVM": {
         "value": "virtualMachine.json"
       },
       "nestedDeploymentNameVM": {
         "value": "deploy-virtual-machine"
+      },
+      "targetSubscription": {
+        "value": "ba09e5b6-8d5c-4216-bcdc-ce0b594cc034"
       }
     }
   }

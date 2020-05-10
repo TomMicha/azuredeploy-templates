@@ -135,20 +135,27 @@
         "metadata": {
           "description": "reference to resource group where vnet and other resources located"
         }
+    },
+    "targetSubscription": {
+        "type": "string",
+        "metadata": {
+          "description": "reference to target subscription"
+        }
     }
   },
   "variables": {
+    "pathPrefix": "[concat('/subscriptions/',parameters('targetSubscription'),'/resourceGroups/',parameters('existingNetworkRG'),'/providers/')]",
     "resourceDeploymentApiVersion": "2018-05-01",
     "vNetApiVersion": "2019-11-01",
     "storageApiVersion": "2019-06-01",
-    "subnetId": "[concat(variables('vNetExistingID'), '/subnets/subnet1')]",
+    "subnetId": "[concat(variables('pathPrefix'),variables('vNetExistingID'), '/subnets/subnet1')]",
     "nicApiVersion": "2015-06-15",
     "vmApiVersion": "2015-06-15",
     "publicIPApiVersion": "2015-06-15",
     "vmImagePublisher": "microsoft-ads",
     "vmImageOffer": "windows-data-science-vm", 
-    "vNetExistingID": "[resourceId('Microsoft.Network/virtualNetworks', parameters('existingVnetID'))]", 
-    "nsgID": "[resourceId('Microsoft.Network/networkSecurityGroups',parameters('existingNSGID'))]"
+    "vNetExistingID": "[concat(variables('pathPrefix'),'Microsoft.Network/virtualNetworks/', parameters('existingVnetID'))]", 
+    "nsgID": "[concat(variables('pathPrefix'),'Microsoft.Network/networkSecurityGroups',parameters('existingNSGID'))]"
   },
   "resources": [
     {
