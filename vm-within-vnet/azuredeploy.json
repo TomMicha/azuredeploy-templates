@@ -144,18 +144,19 @@
     }
   },
   "variables": {
-    "pathPrefix": "[concat('/subscriptions/',parameters('targetSubscription'),'/resourceGroups/',parameters('existingNetworkRG'),'/providers/')]",
+    "subnet1": "subnet1",
+    "pathPrefix": "[concat('/subscriptions/', parameters('targetSubscription'), '/resourceGroups/', parameters('existingNetworkRG'), '/providers/')]",
     "resourceDeploymentApiVersion": "2018-05-01",
     "vNetApiVersion": "2019-11-01",
     "storageApiVersion": "2019-06-01",
-    "subnetId": "[concat(variables('pathPrefix'),variables('vNetExistingID'), '/subnets/subnet1')]",
+    "subnetId": "[resourceId(parameters('existingNetworkRG'),'Microsoft.Network/virtualNetworks/subnets', parameters('existingVnetID'), variables('subnet1'))]",
     "nicApiVersion": "2015-06-15",
     "vmApiVersion": "2015-06-15",
     "publicIPApiVersion": "2015-06-15",
     "vmImagePublisher": "microsoft-ads",
     "vmImageOffer": "windows-data-science-vm", 
-    "vNetExistingID": "[concat(variables('pathPrefix'),'Microsoft.Network/virtualNetworks/', parameters('existingVnetID'))]", 
-    "nsgID": "[concat(variables('pathPrefix'),'Microsoft.Network/networkSecurityGroups',parameters('existingNSGID'))]"
+    "vNetExistingID": "[resourceId(parameters('existingNetworkRG'),'Microsoft.Network/virtualNetworks/', parameters('existingVnetID'))]", 
+    "nsgID": "[concat(parameters('existingNetworkRG'),'Microsoft.Network/networkSecurityGroups',parameters('existingNSGID'))]"
   },
   "resources": [
     {
@@ -243,7 +244,8 @@
           "vmImageOffer": { "value": "[variables('vmImageOffer')]" },
           "vmWindowsOSVersion": { "value": "[parameters('vmWindowsOSVersion')]" },
           "storageAccountName": { "value": "[reference(parameters('nestedDeploymentNameStorage')).outputs.storageAccountName.value]" },
-          "vmNic": { "value": "[reference(parameters('nestedDeploymentNameNic')).outputs.vmNic.value]" }
+          "vmNic": { "value": "[reference(parameters('nestedDeploymentNameNic')).outputs.vmNic.value]" },
+          "subnetId": { "value": "[variables('subnetId')]"}
         }
       }
     }
