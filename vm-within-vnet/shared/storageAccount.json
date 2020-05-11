@@ -46,6 +46,7 @@
     "variables": {
       "storageName": "[concat(parameters('storageAccountNamePrefix'),substring(uniqueString('00xx8'),0,5), parameters('deploymentType'))]",
       "storageAccountReferenceId": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageName'))]",
+      "vNetApiVersion": "2019-11-01",
       "vnetID": "[resourceId(parameters('existingNetworkRG'),'Microsoft.Network/virtualNetworks/', parameters('vnetReferenceId'))]"
     },
     "resources": [
@@ -72,7 +73,7 @@
                 "bypass": "AzureServices",
                 "virtualNetworkRules": [
                 {
-                    "id": "[reference(concat(variables('vnetID'), '/subnets/',parameters('subnetID')),parameters('vNetApiVersion'))]",
+                    "id": "[reference(concat(variables('vnetID'), '/subnets/',parameters('subnetID')),variables('vNetApiVersion'))]",
                     "action": "Allow",
                     "state": "provisioning"
                 }
