@@ -162,14 +162,14 @@
                 "id": "[resourceId('Microsoft.Compute/disks',variables('vmOSDiskName'))]"
               },
               "diskSizeGB": 128
-            },
-            "networkProfile": {
-              "networkInterfaces": [
-              {
-                "id": "[parameters('vmNic')]"
-              }
-            ]
-          }
+            }
+          },
+          "networkProfile": {
+            "networkInterfaces": [
+            {
+              "id": "[parameters('vmNic')]"
+            }
+          ]
         }
       }
     }
