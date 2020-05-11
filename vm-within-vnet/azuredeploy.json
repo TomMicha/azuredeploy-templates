@@ -154,8 +154,8 @@
     "vmApiVersion": "2015-06-15",
     "nsgApiVersion": "2019-11-01",
     "publicIPApiVersion": "2015-06-15",
-    "vmImagePublisher": "microsoft-ads",
-    "vmImageOffer": "windows-data-science-vm"
+    "vmImagePublisher": "microsoft-dsvm",
+    "vmImageOffer": "dsvm-win-2019"
   },
   "resources": [
     {
