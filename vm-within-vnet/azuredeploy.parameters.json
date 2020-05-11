@@ -62,7 +62,7 @@
         "value": "Standard_B8ms"
       },
       "vmNamePrefix": {
-        "value": "ALAS-vm-"
+        "value": "ALAS-vm"
       },
       "sharedTemplateNameVM": {
         "value": "virtualMachine.json"
