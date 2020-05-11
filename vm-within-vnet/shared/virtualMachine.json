@@ -127,7 +127,7 @@
         "location": "[resourceGroup().location]",
         "apiVersion": "[parameters('vmApiVersion')]",
         "dependsOn": [
-        "[concat('Microsoft.Resources/deployments/', variables('vmOSDiskName'))]"
+        "[resourceId('Microsoft.Compute/disks', variables('vmOSDiskName'))]"
         ],
         "tags": {
           "displayName": "[variables('vmName')]",
