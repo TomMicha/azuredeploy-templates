@@ -72,6 +72,9 @@
         "metadata": {
           "description": "Network interface for the virtual machine."
         }
+      },
+      "vnetReferenceId": {
+        "type": "string"
       }
     },
     "variables": {
@@ -125,7 +128,7 @@
                       "name": "ipconfig",
                       "properties": {
                         "subnet": {
-                          "id": "[parameters('subnetId')]"
+                          "id": "[concat(parameters('vnetReferenceId'),'/subnets/',parameters('subnetId'))]"
                         }
                       }
                     }
