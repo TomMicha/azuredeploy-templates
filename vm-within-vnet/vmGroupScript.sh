@@ -7,7 +7,7 @@ vmDeployName=ALAS-deployWorkspace-dev
 template="https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/vm-within-vnet/azuredeploy.json"
 templateParams="https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/vm-within-vnet/azuredeploy.parameters.json"
 
-az keyvault secret set --name externalVMPass --vault-name ALAS-keyvaultgroup-dev --value HBRgroup2020 --verbose
+az keyvault secret set --name externalVMPass --vault-name ALAS-keyvault-dev --value HBRgroup2020 --verbose
 
 az group create -n $vmResourceGroup -l $location \
     --verbose
