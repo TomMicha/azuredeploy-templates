@@ -45,7 +45,7 @@
         "value": "deploy-publicIP"
       },
       "vmWindowsOSVersion": {
-        "value": "windows2016"
+        "value": "server-2019"
       },
       "vmAdminPassword": { 
         "reference": {
