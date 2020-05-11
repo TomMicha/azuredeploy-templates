@@ -78,6 +78,9 @@
       },
       "existingNetworkRG": {
         "type": "string" 
+      },
+      "publicIpID": {
+        "type": "string"
       }
     },
     "variables": {
@@ -123,19 +126,8 @@
           "networkProfile": {
             "networkInterfaces": [
               {
-                "id": "[parameters('vmNic')]",
-                "properties": {
-                  "ipConfigurations": [
-                    {
-                      "name": "ipconfig",
-                      "properties": {
-                        "subnet": {
-                          "id": "[concat(variables('vnetID'),'/subnets/',parameters('subnetId'))]"
-                        }
-                      }
-                    }
-                  ]
-                }
+                "id": "[parameters('vmNic')]"
+                
               }
             ]
           }

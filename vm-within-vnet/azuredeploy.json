@@ -98,7 +98,8 @@
       "type": "securestring",
       "metadata": {
         "description": "Password for local admin account"
-      }
+      },
+      "defaultValue": "[concat('Subscription#','123')]"
     },
     "vmWindowsOSVersion": {
       "type": "string",
@@ -235,6 +236,7 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
+          "publicIpID": { "value": "[reference(parameters('nestedDeploymentNamePublicIP')).outputs.publicIpID.value]"},
           "existingNetworkRG": { "value": "[parameters('existingNetworkRG')]"},
           "vmNamePrefix": { "value": "[parameters('vmNamePrefix')]" },
           "vmApiVersion": { "value": "[variables('vmApiVersion')]" },

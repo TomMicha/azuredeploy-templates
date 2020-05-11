@@ -18,3 +18,11 @@ maybe remove vnet rules in storage
 resourceId(parameters('existingNetworkRG'),'Microsoft.Network/virtualNetworks/',
 resourceId(parameters('existingNetworkRG'),'Microsoft.Network/networkSecurityGroups',
       
+# Need to enable (accept) for Marketplace Image for Data science
+Get-AzMarketplaceterms -Publisher "microsoft-ads" -Product "windows-data-science-vm" -Name "windows2016"
+$agreementTerms=Get-AzMarketplaceterms -Publisher "microsoft-ads" -Product "windows-data-science-vm" -Name "windows2016"
+
+Set-AzMarketplaceTerms -Publisher "microsoft-ads" -Product "windows-data-science-vm" -Name "windows2016" -Terms $agreementTerms -Accept
+
+list extras:
+reference(resourceId(parameters('existingNetworkRG'),'Microsoft.Network/virtualNetworks/subnets', parameters('existingVnetID'), variables('subnet1')),variables('vNetApiVersion'))
