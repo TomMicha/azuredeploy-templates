@@ -127,9 +127,6 @@
         "type": "Microsoft.Compute/virtualMachines",
         "location": "[resourceGroup().location]",
         "apiVersion": "[parameters('vmApiVersion')]",
-        "dependsOn": [
-        "[resourceId('Microsoft.Compute/disks', variables('vmOSDiskName'))]"
-        ],
         "tags": {
           "displayName": "[variables('vmName')]",
           "createdBy": "tom",
@@ -147,13 +144,13 @@
           },
           "storageProfile": {
             "imageReference": {
-              "id": "[resourceId('Microsoft.Compute/disks', variables('vmOSDiskName'))]"
+              "id": "/Subscriptions/ba09e5b6-8d5c-4216-bcdc-ce0b594cc034/Providers/Microsoft.Compute/Locations/eastus/Publishers/microsoft-dsvm/ArtifactTypes/VMImage/Offers/dsvm-win-2019/Skus/server-2019/Versions/20.04.23"
             },
             "osDisk": {
               "osType": "Windows",
               "name": "[variables('vmOSDiskName')]",
               "caching": "ReadWrite",
-              "createOption": "Attach",
+              "createOption": "FromImage",
               "managedDisk": {
                 "storageAccountType": "Premium_LRS"
               },
