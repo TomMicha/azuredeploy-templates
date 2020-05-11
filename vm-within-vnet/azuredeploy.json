@@ -247,7 +247,7 @@
           "vmWindowsOSVersion": { "value": "[parameters('vmWindowsOSVersion')]" },
           "storageAccountName": { "value": "[reference(parameters('nestedDeploymentNameStorage')).outputs.storageAccountName.value]" },
           "vmNic": { "value": "[reference(parameters('nestedDeploymentNameNic')).outputs.vmNic.value]" },
-          "vnetReferenceId": { "value": "[reference(resourceId(parameters('existingNetworkRG'),'Microsoft.Network/virtualNetworks/', parameters('existingVnetID')),variables('vNetApiVersion'))]" },
+          "vnetReferenceId": { "value": "[parameters('existingVnetID')]" },
           "subnetId": { "value": "[variables('subnet1')]"}
         }
       }

@@ -133,7 +133,7 @@
                       "name": "ipconfig",
                       "properties": {
                         "subnet": {
-                          "id": "[reference(concat(variables('vnetID'),'/subnets/',parameters('subnetId')),variables('vNetApiVersion'))]"
+                          "id": "[concat(variables('vnetID'),'/subnets/',parameters('subnetId'))]"
                         }
                       }
                     }

@@ -73,7 +73,7 @@
                 "bypass": "AzureServices",
                 "virtualNetworkRules": [
                 {
-                    "id": "[reference(concat(variables('vnetID'), '/subnets/',parameters('subnetID')),variables('vNetApiVersion'))]",
+                    "id": "[concat(variables('vnetID'), '/subnets/',parameters('subnetID'))]",
                     "action": "Allow",
                     "state": "provisioning"
                 }
