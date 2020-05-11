@@ -150,18 +150,18 @@
               "offer": "[parameters('vmImageOffer')]",
               "sku": "[parameters('vmWindowsOSVersion')]",
               "version": "latest"
-            },
-            "osDisk": {
-              "osType": "Windows",
-              "name": "[variables('vmOSDiskName')]",
-              "caching": "ReadWrite",
-              "createOption": "FromImage",
-              "managedDisk": {
-                "storageAccountType": "Premium_LRS",
-                "id": "[reference(variables('vmOSDiskName'))]"
-              },
-              "diskSizeGB": 128
             }
+          },
+          "osDisk": {
+            "osType": "Windows",
+            "name": "[variables('vmOSDiskName')]",
+            "caching": "ReadWrite",
+            "createOption": "FromImage",
+            "managedDisk": {
+              "storageAccountType": "Premium_LRS",
+              "id": "[resourceId('Microsoft.Compute/disks',variables('vmOSDiskName'))]"
+            },
+            "diskSizeGB": 128
           },
           "networkProfile": {
             "networkInterfaces": [
