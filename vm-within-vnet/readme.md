@@ -11,11 +11,10 @@ Network Interface
 
 
 # Instructions
-modify variables in parameters file and scripts to point to template artifact URI
-run bash script
+refactor resourceId pulling from each template vs 
+maybe remove vnet rules in storage
 
 # REMOVE NETWORK SECURITY RULES ACLS
-(also removed NSG from databricks subnets)
----datalake----
-
+resourceId(parameters('existingNetworkRG'),'Microsoft.Network/virtualNetworks/',
+resourceId(parameters('existingNetworkRG'),'Microsoft.Network/networkSecurityGroups',
       

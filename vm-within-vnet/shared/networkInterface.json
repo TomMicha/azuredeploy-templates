@@ -34,13 +34,17 @@
       },
       "publicIPApiVersion": {
         "type": "string"
+      },
+      "existingNetworkRG": {
+        "type": "string"
       }
     },
     "variables": {
       "nicID": "[concat(parameters('nicName'),'-1')]",
       "nsgApiVersion": "2019-06-01",
       "vNetApiVersion": "2019-11-01",
-      "subnetPath": "[concat(parameters('vnetReferenceId'),'/subnets/',parameters('subnetID'))]"
+      "subnetPath": "[concat(variables('vnetID'),'/subnets/',parameters('subnetID'))]",
+      "vnetID": "[resourceId(parameters('existingNetworkRG'),'Microsoft.Network/virtualNetworks/', parameters('vnetReferenceId'))]"
     },
     "resources": [
       {
@@ -65,10 +69,7 @@
                 }
               }
             }
-          ],
-          "networkSecurityGroup": {
-            "id": "[reference(parameters('nsgID'),variables('nsgApiVersion'))]"
-          }
+          ]
         }
       }
     ],

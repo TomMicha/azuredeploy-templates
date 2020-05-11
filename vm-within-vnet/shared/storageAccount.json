@@ -34,6 +34,9 @@
       "vNetApiVersion": {
         "type": "string"
       },
+      "existingNetworkRG": {
+        "type": "string" 
+      },
       "deploymentType": {
         "type": "string",
         "allowedValues": [ "dev", "prod" ],
@@ -45,7 +48,8 @@
     },
     "variables": {
       "storageName": "[concat(parameters('storageAccountNamePrefix'),substring(uniqueString('00xx8'),0,5), parameters('deploymentType'))]",
-      "storageAccountReferenceId": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageName'))]" 
+      "storageAccountReferenceId": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageName'))]",
+      "vnetID": "[resourceId(parameters('existingNetworkRG'),'Microsoft.Network/virtualNetworks/', parameters('vnetReferenceId'))]"
     },
     "resources": [
       {
@@ -71,7 +75,7 @@
                 "bypass": "AzureServices",
                 "virtualNetworkRules": [
                 {
-                    "id": "[reference(concat(parameters('vnetReferenceId'), '/subnets/',parameters('subnetID')),parameters('vNetApiVersion'))]",
+                    "id": "[reference(concat(variables('vnetID'), '/subnets/',parameters('subnetID')),parameters('vNetApiVersion'))]",
                     "action": "Allow",
                     "state": "provisioning"
                 }

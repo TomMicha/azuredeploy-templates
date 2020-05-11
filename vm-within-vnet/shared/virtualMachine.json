@@ -75,12 +75,16 @@
       },
       "vnetReferenceId": {
         "type": "string"
+      },
+      "existingNetworkRG": {
+        "type": "string" 
       }
     },
     "variables": {
       "vmName": "[concat(parameters('vmNamePrefix'),'-','HBR',substring(uniqueString('012XYZ'),0,3),'-',parameters('deploymentType'))]",
       "vmOSDiskName": "[concat(variables('vmName'),'-','osdisk')]",
-      "vNetApiVersion": "2019-11-01"
+      "vNetApiVersion": "2019-11-01",
+      "vnetID": "[resourceId(parameters('existingNetworkRG'),'Microsoft.Network/virtualNetworks/', parameters('vnetReferenceId'))]"
     },
     "resources": [
       {
@@ -129,7 +133,7 @@
                       "name": "ipconfig",
                       "properties": {
                         "subnet": {
-                          "id": "[reference(concat(parameters('vnetReferenceId'),'/subnets/',parameters('subnetId')),variables('vNetApiVersion'))]"
+                          "id": "[reference(concat(variables('vnetID'),'/subnets/',parameters('subnetId')),variables('vNetApiVersion'))]"
                         }
                       }
                     }

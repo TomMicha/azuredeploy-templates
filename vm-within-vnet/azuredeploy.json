@@ -188,11 +188,12 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters":  {
+          "existingNetworkRG": { "value": "[parameters('existingNetworkRG')]"},
           "publicIPApiVersion": { "value": "[variables('publicIPApiVersion')]"},
-          "vnetReferenceId": { "value": "[resourceId(parameters('existingNetworkRG'),'Microsoft.Network/virtualNetworks/', parameters('existingVnetID'))]"},
+          "vnetReferenceId": { "value": "[parameters('existingVnetID')]"},
           "nicName": { "value": "[parameters('nicName')]" },
           "nicApiVersion": { "value": "[variables('nicApiVersion')]" },
-          "nsgID": { "value": "[resourceId(parameters('existingNetworkRG'),'Microsoft.Network/networkSecurityGroups',parameters('existingNSGID'))]"},
+          "nsgID": { "value": "[parameters('existingNSGID')]"},
           "subnetID": { "value": "[variables('subnet1')]"},
           "publicIpID": { "value": "[reference(parameters('nestedDeploymentNamePublicIp')).outputs.publicIpID.value]" }
         }
@@ -209,12 +210,13 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
+          "existingNetworkRG": { "value": "[parameters('existingNetworkRG')]"},
           "storageType": { "value": "[parameters('storageType')]" },
           "storageApiVersion": { "value": "[variables('storageApiVersion')]" },
           "storageAccountNamePrefix": { "value": "[parameters('storageAccountNamePrefix')]" },
           "deploymentType": { "value": "[parameters('deploymentType')]" },
           "subnetID": { "value": "[variables('subnet1')]"},
-          "vnetReferenceId": { "value": "[reference(resourceId(parameters('existingNetworkRG'),'Microsoft.Network/virtualNetworks/', parameters('existingVnetID')),variables('vNetApiVersion'))]" }
+          "vnetReferenceId": { "value": "[parameters('existingVnetID')]" }
         }
       }
     },
@@ -233,6 +235,7 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
+          "existingNetworkRG": { "value": "[parameters('existingNetworkRG')]"},
           "vmNamePrefix": { "value": "[parameters('vmNamePrefix')]" },
           "vmApiVersion": { "value": "[variables('vmApiVersion')]" },
           "deploymentType": { "value": "[parameters('deploymentType')]" },
