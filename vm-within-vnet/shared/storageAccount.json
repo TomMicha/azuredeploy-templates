@@ -31,6 +31,9 @@
       "vnetReferenceId": {
         "type": "string"
       },
+      "vNetApiVersion": {
+        "type": "string"
+      },
       "deploymentType": {
         "type": "string",
         "allowedValues": [ "dev", "prod" ],
@@ -68,7 +71,7 @@
                 "bypass": "AzureServices",
                 "virtualNetworkRules": [
                 {
-                    "id": "[concat(parameters('vnetReferenceId'), '/subnets/',parameters('subnetID'))]",
+                    "id": "[reference(concat(parameters('vnetReferenceId'), '/subnets/',parameters('subnetID')),parameters('vNetApiVersion'))]",
                     "action": "Allow",
                     "state": "provisioning"
                 }

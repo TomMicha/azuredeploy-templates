@@ -128,7 +128,7 @@
                       "name": "ipconfig",
                       "properties": {
                         "subnet": {
-                          "id": "[concat(parameters('vnetReferenceId'),'/subnets/',parameters('subnetId'))]"
+                          "id": "[reference(concat(parameters('vnetReferenceId'),'/subnets/',parameters('subnetId')))]"
                         }
                       }
                     }

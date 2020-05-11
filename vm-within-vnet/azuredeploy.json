@@ -188,10 +188,12 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters":  {
-          "vnetReferenceId": { "value": "[reference(resourceId(parameters('existingNetworkRG'),'Microsoft.Network/virtualNetworks/', parameters('existingVnetID')),variables('vNetApiVersion'))]"},
+          "publicIPApiVersion": { "value": "[variables('publicIPApiVersion')]"},
+          "vnetReferenceId": { "value": "[resourceId(parameters('existingNetworkRG'),'Microsoft.Network/virtualNetworks/', parameters('existingVnetID'))]"},
+          "vNetApiVersion": { "value": "[variables('vNetApiVersion')]"},
           "nicName": { "value": "[parameters('nicName')]" },
           "nicApiVersion": { "value": "[variables('nicApiVersion')]" },
-          "nsgID": { "value": "[reference(resourceId(parameters('existingNetworkRG'),'Microsoft.Network/networkSecurityGroups',parameters('existingNSGID')),variables('nsgApiVersion'))]"},
+          "nsgID": { "value": "[resourceId(parameters('existingNetworkRG'),'Microsoft.Network/networkSecurityGroups',parameters('existingNSGID'))]"},
           "subnetID": { "value": "[variables('subnet1')]"},
           "publicIpID": { "value": "[reference(parameters('nestedDeploymentNamePublicIp')).outputs.publicIpID.value]" }
         }

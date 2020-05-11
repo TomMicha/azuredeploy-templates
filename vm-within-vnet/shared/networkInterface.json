@@ -31,10 +31,16 @@
         "metadata": {
           "description": "ID of Public IP resource."
         }
+      },
+      "publicIPApiVersion": {
+        "type": "string"
       }
     },
     "variables": {
-      "nicID": "[concat(parameters('nicName'),'-1')]"
+      "nicID": "[concat(parameters('nicName'),'-1')]",
+      "nsgApiVersion": "2019-06-01",
+      "vNetApiVersion": "2019-11-01",
+      "subnetPath": "[concat(parameters('vnetReferenceId'),'/subnets/',parameters('subnetID'))]"
     },
     "resources": [
       {
@@ -52,7 +58,7 @@
               "properties": {
                 "privateIPAllocationMethod": "Dynamic",
                 "subnet": {
-                  "id": "[parameters('subnetID')]"
+                  "id": "[reference(variables('subnetPath'),variables('vNetApiVersion'))]"
                 },
                 "publicIPAddress": {
                   "id": "[parameters('publicIpID')]"
@@ -61,7 +67,7 @@
             }
           ],
           "networkSecurityGroup": {
-            "id": "[parameters('nsgID')]"
+            "id": "[reference(parameters('nsgID'),variables('nsgApiVersion'))]"
           }
         }
       }
