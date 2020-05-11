@@ -116,9 +116,6 @@
             },
             "osDisk": {
               "name": "[variables('vmOSDiskName')]",
-              "vhd": {
-                "uri": "[concat('http://', parameters('storageAccountName'), '.blob.core.windows.net/', parameters('deploymentType'), '/', variables('vmOSDiskName'), '.vhd')]"
-              },
               "caching": "ReadWrite",
               "createOption": "FromImage"
             }
