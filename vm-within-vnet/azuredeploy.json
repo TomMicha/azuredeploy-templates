@@ -190,7 +190,6 @@
         "parameters":  {
           "publicIPApiVersion": { "value": "[variables('publicIPApiVersion')]"},
           "vnetReferenceId": { "value": "[resourceId(parameters('existingNetworkRG'),'Microsoft.Network/virtualNetworks/', parameters('existingVnetID'))]"},
-          "vNetApiVersion": { "value": "[variables('vNetApiVersion')]"},
           "nicName": { "value": "[parameters('nicName')]" },
           "nicApiVersion": { "value": "[variables('nicApiVersion')]" },
           "nsgID": { "value": "[resourceId(parameters('existingNetworkRG'),'Microsoft.Network/networkSecurityGroups',parameters('existingNSGID'))]"},

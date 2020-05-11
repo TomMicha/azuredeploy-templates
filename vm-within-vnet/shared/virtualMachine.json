@@ -79,7 +79,8 @@
     },
     "variables": {
       "vmName": "[concat(parameters('vmNamePrefix'),'-','HBR',substring(uniqueString('012XYZ'),0,3),'-',parameters('deploymentType'))]",
-      "vmOSDiskName": "[concat(variables('vmName'),'-','osdisk')]"
+      "vmOSDiskName": "[concat(variables('vmName'),'-','osdisk')]",
+      "vNetApiVersion": "2019-11-01"
     },
     "resources": [
       {
@@ -128,7 +129,7 @@
                       "name": "ipconfig",
                       "properties": {
                         "subnet": {
-                          "id": "[reference(concat(parameters('vnetReferenceId'),'/subnets/',parameters('subnetId')))]"
+                          "id": "[reference(concat(parameters('vnetReferenceId'),'/subnets/',parameters('subnetId')),variables('vNetApiVersion'))]"
                         }
                       }
                     }
