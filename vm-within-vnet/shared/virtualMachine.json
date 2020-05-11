@@ -91,7 +91,7 @@
       "vnetID": "[resourceId(parameters('existingNetworkRG'),'Microsoft.Network/virtualNetworks/', parameters('vnetReferenceId'))]"
     },
     "resources": [
-      {
+    {
         "type": "Microsoft.Compute/disks",
             "apiVersion": "2019-07-01",
             "name": "[variables('vmOSDiskName')]",
@@ -120,6 +120,7 @@
                     "type": "EncryptionAtRestWithPlatformKey"
                 }
             }
+    
       },
       {
         "name": "[variables('vmName')]",
@@ -150,29 +151,28 @@
               "offer": "[parameters('vmImageOffer')]",
               "sku": "[parameters('vmWindowsOSVersion')]",
               "version": "latest"
-            }
-          },
-          "osDisk": {
-            "osType": "Windows",
-            "name": "[variables('vmOSDiskName')]",
-            "caching": "ReadWrite",
-            "createOption": "FromImage",
-            "managedDisk": {
-              "storageAccountType": "Premium_LRS",
-              "id": "[resourceId('Microsoft.Compute/disks',variables('vmOSDiskName'))]"
             },
-            "diskSizeGB": 128
-          },
-          "networkProfile": {
-            "networkInterfaces": [
+            "osDisk": {
+              "osType": "Windows",
+              "name": "[variables('vmOSDiskName')]",
+              "caching": "ReadWrite",
+              "createOption": "FromImage",
+              "managedDisk": {
+                "storageAccountType": "Premium_LRS",
+                "id": "[resourceId('Microsoft.Compute/disks',variables('vmOSDiskName'))]"
+              },
+              "diskSizeGB": 128
+            },
+            "networkProfile": {
+              "networkInterfaces": [
               {
                 "id": "[parameters('vmNic')]"
-                
               }
             ]
           }
         }
       }
+    }
     ],
     "outputs": {}
   }
