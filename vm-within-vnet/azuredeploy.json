@@ -149,14 +149,12 @@
     "resourceDeploymentApiVersion": "2018-05-01",
     "vNetApiVersion": "2019-11-01",
     "storageApiVersion": "2019-06-01",
-    "subnetId": "[resourceId(parameters('existingNetworkRG'),'Microsoft.Network/virtualNetworks/subnets', parameters('existingVnetID'), variables('subnet1'))]",
     "nicApiVersion": "2015-06-15",
     "vmApiVersion": "2015-06-15",
     "nsgApiVersion": "2019-11-01",
     "publicIPApiVersion": "2015-06-15",
     "vmImagePublisher": "microsoft-ads",
-    "vmImageOffer": "windows-data-science-vm", 
-    "nsgID": "[concat(parameters('existingNetworkRG'),'Microsoft.Network/networkSecurityGroups',parameters('existingNSGID'))]"
+    "vmImageOffer": "windows-data-science-vm"
   },
   "resources": [
     {
@@ -194,7 +192,7 @@
           "nicName": { "value": "[parameters('nicName')]" },
           "nicApiVersion": { "value": "[variables('nicApiVersion')]" },
           "nsgID": { "value": "[reference(resourceId(parameters('existingNetworkRG'),'Microsoft.Network/networkSecurityGroups',parameters('existingNSGID')),variables('nsgApiVersion'))]"},
-          "subnetID": { "value": "[reference(variables('subnetId'))]"},
+          "subnetID": { "value": "[reference(resourceId(parameters('existingNetworkRG'),'Microsoft.Network/virtualNetworks/subnets', parameters('existingVnetID'), variables('subnet1')),variables('vNetApiVersion'))]"},
           "publicIpID": { "value": "[reference(parameters('nestedDeploymentNamePublicIp')).outputs.publicIpID.value]" }
         }
       }
@@ -214,7 +212,7 @@
           "storageApiVersion": { "value": "[variables('storageApiVersion')]" },
           "storageAccountNamePrefix": { "value": "[parameters('storageAccountNamePrefix')]" },
           "deploymentType": { "value": "[parameters('deploymentType')]" },
-          "subnetID": { "value": "[reference(variables('subnetId'))]"},
+          "subnetID": { "value": "[reference(resourceId(parameters('existingNetworkRG'),'Microsoft.Network/virtualNetworks/subnets', parameters('existingVnetID'), variables('subnet1')),variables('vNetApiVersion'))]"},
           "vnetReferenceId": { "value": "[reference(resourceId(parameters('existingNetworkRG'),'Microsoft.Network/virtualNetworks/', parameters('existingVnetID')),variables('vNetApiVersion'))]" }
         }
       }
@@ -245,7 +243,7 @@
           "vmWindowsOSVersion": { "value": "[parameters('vmWindowsOSVersion')]" },
           "storageAccountName": { "value": "[reference(parameters('nestedDeploymentNameStorage')).outputs.storageAccountName.value]" },
           "vmNic": { "value": "[reference(parameters('nestedDeploymentNameNic')).outputs.vmNic.value]" },
-          "subnetId": { "value": "[variables('subnetId')]"}
+          "subnetId": { "value": "[reference(resourceId(parameters('existingNetworkRG'),'Microsoft.Network/virtualNetworks/subnets', parameters('existingVnetID'), variables('subnet1')),variables('vNetApiVersion'))]"}
         }
       }
     }
