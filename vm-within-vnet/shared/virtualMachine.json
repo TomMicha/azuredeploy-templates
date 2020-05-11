@@ -87,6 +87,7 @@
       "vmName": "[concat(parameters('vmNamePrefix'),'-','HBR',substring(uniqueString('012XYZ'),0,3),'-',parameters('deploymentType'))]",
       "vmOSDiskName": "[concat(variables('vmName'),'-','osdisk')]",
       "vNetApiVersion": "2019-11-01",
+      "storageApiVersion": "2019-06-01",
       "vnetID": "[resourceId(parameters('existingNetworkRG'),'Microsoft.Network/virtualNetworks/', parameters('vnetReferenceId'))]"
     },
     "resources": [
@@ -120,7 +121,10 @@
             "osDisk": {
               "name": "[variables('vmOSDiskName')]",
               "caching": "ReadWrite",
-              "createOption": "FromImage"
+              "createOption": "FromImage",
+              "vhd": {
+                "uri": "[concat('https://',parameters('storageAccountName'),'.blob.core.windows.net/',parameters('deploymentType'),'/',variables('vmOSDiskName'),'.vhd')]"
+              }
             }
           },
           "networkProfile": {
