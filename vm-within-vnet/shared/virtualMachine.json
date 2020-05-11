@@ -158,8 +158,7 @@
               "caching": "ReadWrite",
               "createOption": "FromImage",
               "managedDisk": {
-                "storageAccountType": "Premium_LRS",
-                "id": "[resourceId('Microsoft.Compute/disks',variables('vmOSDiskName'))]"
+                "storageAccountType": "Premium_LRS"
               },
               "diskSizeGB": 128
             }
