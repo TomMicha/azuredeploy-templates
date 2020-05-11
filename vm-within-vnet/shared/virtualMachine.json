@@ -147,11 +147,7 @@
           },
           "storageProfile": {
             "imageReference": {
-              "id": "[resourceId('Microsoft.Compute/disks', variables('vmOSDiskName'))]",
-              "publisher": "[parameters('vmImagePublisher')]",
-              "offer": "[parameters('vmImageOffer')]",
-              "sku": "[parameters('vmWindowsOSVersion')]",
-              "version": "latest"
+              "id": "[resourceId('Microsoft.Compute/disks', variables('vmOSDiskName'))]"
             },
             "osDisk": {
               "osType": "Windows",
