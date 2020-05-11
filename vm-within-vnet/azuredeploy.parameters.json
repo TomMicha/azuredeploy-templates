@@ -33,7 +33,7 @@
         "value": "storageAccount.json"
       },
       "storageAccountNamePrefix": {
-        "value": "alasstorage"
+        "value": "alasdia"
       },
       "publicIpNamePrefix": {
         "value": "ip-"
