@@ -62,7 +62,7 @@
               "properties": {
                 "privateIPAllocationMethod": "Dynamic",
                 "subnet": {
-                  "id": "[reference(variables('subnetPath'),variables('vNetApiVersion'))]"
+                  "id": "[concat(variables('subnetPath'),'/subnets/', parameters('subnetID'))]"
                 },
                 "publicIPAddress": {
                   "id": "[parameters('publicIpID')]"

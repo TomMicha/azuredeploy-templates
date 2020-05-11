@@ -31,9 +31,6 @@
       "vnetReferenceId": {
         "type": "string"
       },
-      "vNetApiVersion": {
-        "type": "string"
-      },
       "existingNetworkRG": {
         "type": "string" 
       },
