@@ -84,7 +84,7 @@
       }
     },
     "variables": {
-      "vmName": "[concat(parameters('vmNamePrefix'),'-','HBR',substring(uniqueString('012XYZ'),0,3),'-',parameters('deploymentType'))]",
+      "vmName": "[concat(parameters('vmNamePrefix'),'HBR',substring(uniqueString('012XYZ'),0,3),parameters('deploymentType'))]",
       "vmOSDiskName": "[concat(variables('vmName'),'-','osdisk')]",
       "vNetApiVersion": "2019-11-01",
       "storageApiVersion": "2019-06-01",
