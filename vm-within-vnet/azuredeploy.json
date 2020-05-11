@@ -152,10 +152,10 @@
     "subnetId": "[resourceId(parameters('existingNetworkRG'),'Microsoft.Network/virtualNetworks/subnets', parameters('existingVnetID'), variables('subnet1'))]",
     "nicApiVersion": "2015-06-15",
     "vmApiVersion": "2015-06-15",
+    "nsgApiVersion": "2019-11-01",
     "publicIPApiVersion": "2015-06-15",
     "vmImagePublisher": "microsoft-ads",
     "vmImageOffer": "windows-data-science-vm", 
-    "vNetExistingID": "[resourceId(parameters('existingNetworkRG'),'Microsoft.Network/virtualNetworks/', parameters('existingVnetID'))]", 
     "nsgID": "[concat(parameters('existingNetworkRG'),'Microsoft.Network/networkSecurityGroups',parameters('existingNSGID'))]"
   },
   "resources": [
@@ -189,11 +189,11 @@
           "uri": "[concat(parameters('baseTemplateUri'), '/shared/', parameters('sharedTemplateNameNic'))]",
           "contentVersion": "1.0.0.0"
         },
-        "parameters": {
-          "vnetReferenceId": { "value": "[reference(variables('vNetExistingID'))]"},
+        "parameters":  {
+          "vnetReferenceId": { "value": "[reference(resourceId(parameters('existingNetworkRG'),'Microsoft.Network/virtualNetworks/', parameters('existingVnetID')),variables('vNetApiVersion'))]"},
           "nicName": { "value": "[parameters('nicName')]" },
           "nicApiVersion": { "value": "[variables('nicApiVersion')]" },
-          "nsgID": { "value": "[variables('nsgID')]"},
+          "nsgID": { "value": "[reference(resourceId(parameters('existingNetworkRG'),'Microsoft.Network/networkSecurityGroups',parameters('existingNSGID')),variables('nsgApiVersion'))]"},
           "subnetID": { "value": "[reference(variables('subnetId'))]"},
           "publicIpID": { "value": "[reference(parameters('nestedDeploymentNamePublicIp')).outputs.publicIpID.value]" }
         }
@@ -215,7 +215,7 @@
           "storageAccountNamePrefix": { "value": "[parameters('storageAccountNamePrefix')]" },
           "deploymentType": { "value": "[parameters('deploymentType')]" },
           "subnetID": { "value": "[reference(variables('subnetId'))]"},
-          "vnetReferenceId": { "value": "[reference(variables('vNetExistingID'))]"}
+          "vnetReferenceId": { "value": "[reference(resourceId(parameters('existingNetworkRG'),'Microsoft.Network/virtualNetworks/', parameters('existingVnetID')),variables('vNetApiVersion'))]" }
         }
       }
     },

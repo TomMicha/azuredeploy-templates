@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
       "baseTemplateUri": {
-        "value": "https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/vm-workspace"
+        "value": "https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/vm-within-vnet"
       },
       "existingVnetID": {
         "value": "virtual-network-01"

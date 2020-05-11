@@ -52,6 +52,9 @@
           "description": "Virtual machine image offer."
         }
       },
+      "subnetId": {
+        "type": "string"
+      },
       "vmWindowsOSVersion": {
         "type": "string",
         "metadata": {
@@ -115,7 +118,19 @@
           "networkProfile": {
             "networkInterfaces": [
               {
-                "id": "[parameters('vmNic')]"
+                "id": "[parameters('vmNic')]",
+                "properties": {
+                  "ipConfigurations": [
+                    {
+                      "name": "ipconfig",
+                      "properties": {
+                        "subnet": {
+                          "id": "[parameters('subnetId')]"
+                        }
+                      }
+                    }
+                  ]
+                }
               }
             ]
           },
