@@ -59,7 +59,7 @@
         "value": "vmAdmin"
       },
       "vmSize": {
-        "value": ""
+        "value": "Standard_DS3_v2"
       },
       "vmNamePrefix": {
         "value": "ALAS-vm-"
