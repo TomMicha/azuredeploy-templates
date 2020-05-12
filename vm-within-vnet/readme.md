@@ -27,7 +27,8 @@ Set-AzMarketplaceTerms -Publisher "microsoft-ads" -Product "windows-data-science
 list extras:
 reference(resourceId(parameters('existingNetworkRG'),'Microsoft.Network/virtualNetworks/subnets', parameters('existingVnetID'), variables('subnet1')),variables('vNetApiVersion'))
 
-"type": "Microsoft.Compute/disks",
+{
+        "type": "Microsoft.Compute/disks",
             "apiVersion": "2019-07-01",
             "name": "[variables('vmOSDiskName')]",
             "location": "eastus",
@@ -55,6 +56,8 @@ reference(resourceId(parameters('existingNetworkRG'),'Microsoft.Network/virtualN
                     "type": "EncryptionAtRestWithPlatformKey"
                 }
             }
+    
+      },
     
       },
       "imageReference": {
