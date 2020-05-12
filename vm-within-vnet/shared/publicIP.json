@@ -24,7 +24,7 @@
       }
     },
     "variables": {
-      "publicIpName": "[concat(parameters('publicIpNamePrefix'),'-1-',parameters('deploymentType'))]"
+      "publicIpName": "[concat(parameters('publicIpNamePrefix'),'-2-',parameters('deploymentType'))]"
     },
     "resources": [
       {

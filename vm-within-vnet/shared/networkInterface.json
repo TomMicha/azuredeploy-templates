@@ -40,7 +40,7 @@
       }
     },
     "variables": {
-      "nicID": "[concat(parameters('nicName'),'-1')]",
+      "nicID": "[concat(parameters('nicName'),'-2')]",
       "nsgApiVersion": "2019-06-01",
       "vNetApiVersion": "2019-11-01",
       "subnetPath": "[concat(variables('vnetID'),'/subnets/',parameters('subnetID'))]",

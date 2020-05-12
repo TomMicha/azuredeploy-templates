@@ -59,7 +59,7 @@
         "value": "extVmAdmin"
       },
       "vmSize": {
-        "value": "Standard_D1_v2"
+        "value": "Standard_B8ms"
       },
       "vmNamePrefix": {
         "value": "ALASvm"
