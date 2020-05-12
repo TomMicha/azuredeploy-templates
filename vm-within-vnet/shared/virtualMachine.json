@@ -88,6 +88,7 @@
       "vmOSDiskName": "[concat(variables('vmName'),'-','osdisk')]",
       "vNetApiVersion": "2019-11-01",
       "storageApiVersion": "2019-06-01",
+      "diskID": "[resourceId('Microsoft.Compute/disks',variables('vmOSDiskName'))]",
       "vnetID": "[resourceId(parameters('existingNetworkRG'),'Microsoft.Network/virtualNetworks/', parameters('vnetReferenceId'))]"
     },
     "resources": [
@@ -143,14 +144,19 @@
             "adminPassword": "[parameters('vmAdminPassword')]"
           },
           "storageProfile": {
+            "imageReference": {
+              "publisher": "microsoft-dsvm",
+              "offer": "dsvm-win-2019",
+              "sku": "server-2019",
+              "version": "latest"
+            },
             "osDisk": {
               "osType": "Windows",
               "name": "[variables('vmOSDiskName')]",
               "caching": "ReadWrite",
               "createOption": "FromImage",
               "managedDisk": {
-                "storageAccountType": "Premium_LRS",
-                "id": "[resourceId('Microsoft.Compute/disks',variables('vmOSDiskName'))]"
+                "id": "[variables('diskID')]"
               },
               "diskSizeGB": 128
             }
