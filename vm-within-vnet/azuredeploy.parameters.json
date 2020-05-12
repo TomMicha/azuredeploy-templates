@@ -6,13 +6,13 @@
         "value": "https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/vm-within-vnet"
       },
       "existingVnetID": {
-        "value": "virtual-network-01"
+        "value": "ALAS-VNetwork-pnh4fdev"
       },
       "existingNSGID": {
-        "value": "mytestNSG-default"
+        "value": "ALAS-NetSGpnh4dev"
       },
       "existingNetworkRG": {
-        "value": "ALAS-nsg"
+        "value": "ALAS-dataworkspace-dev"
       },
       "sharedTemplateNameNic": { 
         "value": "networkInterface.json"
