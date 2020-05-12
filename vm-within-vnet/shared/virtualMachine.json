@@ -143,16 +143,14 @@
             "adminPassword": "[parameters('vmAdminPassword')]"
           },
           "storageProfile": {
-            "imageReference": {
-              "id": "[resourceId('Microsoft.Compute/disks', variables('vmOSDiskName'))]"
-            },
             "osDisk": {
               "osType": "Windows",
               "name": "[variables('vmOSDiskName')]",
               "caching": "ReadWrite",
-              "createOption": "FromImage",
+              "createOption": "Attach",
               "managedDisk": {
-                "storageAccountType": "Premium_LRS"
+                "storageAccountType": "Premium_LRS",
+                "id": "[resourceId('Microsoft.Compute/disks',variables('vmOSDiskName'))]"
               },
               "diskSizeGB": 128
             }
