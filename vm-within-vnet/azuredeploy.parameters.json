@@ -56,7 +56,7 @@
         }
       },
       "vmAdminUserName": {
-        "value": "vmAdmin"
+        "value": "extVmAdmin"
       },
       "vmSize": {
         "value": "Standard_D1_v2"

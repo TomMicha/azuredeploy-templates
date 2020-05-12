@@ -147,7 +147,7 @@
               "osType": "Windows",
               "name": "[variables('vmOSDiskName')]",
               "caching": "ReadWrite",
-              "createOption": "Attach",
+              "createOption": "FromImage",
               "managedDisk": {
                 "storageAccountType": "Premium_LRS",
                 "id": "[resourceId('Microsoft.Compute/disks',variables('vmOSDiskName'))]"

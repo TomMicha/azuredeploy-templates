@@ -57,3 +57,9 @@ reference(resourceId(parameters('existingNetworkRG'),'Microsoft.Network/virtualN
             }
     
       },
+      "imageReference": {
+              "publisher": "[parameters('vmImagePublisher')]",
+              "offer": "[parameters('vmImageOffer')]",
+              "sku": "[parameters('vmWindowsOSVersion')]",
+              "version": "latest"
+            },
