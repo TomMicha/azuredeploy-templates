@@ -47,7 +47,7 @@
       "vmWindowsOSVersion": {
         "value": "server-2019"
       },
-      "vmAdminPassword": { 
+      "externalVMPass": { 
         "reference": {
           "keyVault": {
             "id": "/subscriptions/5d1dcab8-9567-447d-a603-91d4a1afaeb0/resourceGroups/ALAS-keyvaultgroup-dev/providers/Microsoft.KeyVault/vaults/ALASDIA-keyvault-dev"

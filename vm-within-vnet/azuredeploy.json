@@ -94,7 +94,7 @@
         "description": "VM admin user name."
       }
     },
-    "vmAdminPassword": { 
+    "externalVMPass": { 
       "type": "securestring",
       "metadata": {
         "description": "Password for local admin account"
@@ -243,7 +243,7 @@
           "deploymentType": { "value": "[parameters('deploymentType')]" },
           "vmSize": { "value": "[parameters('vmSize')]" },
           "vmAdminUserName": { "value": "[parameters('vmAdminUserName')]" },
-          "vmAdminPassword": { "value": "[parameters('vmAdminPassword')]" },
+          "vmAdminPassword": { "value": "[parameters('externalVMPass')]" },
           "vmImagePublisher": { "value": "[variables('vmImagePublisher')]" },
           "vmImageOffer": { "value": "[variables('vmImageOffer')]" },
           "vmWindowsOSVersion": { "value": "[parameters('vmWindowsOSVersion')]" },
