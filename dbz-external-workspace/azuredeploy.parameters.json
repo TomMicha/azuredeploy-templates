@@ -1,0 +1,54 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "baseTemplateUri": {
+        "value": "https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/dbz-external-workspace"
+      },
+      "nestedDeploymentNameVnet": {
+        "value": "deploy-virtual-network"
+      },
+      "sharedTemplateNameVnet": {
+        "value": "virtualNetwork.json"
+      },
+      "sharedTemplateNSG": {
+        "value": "networkSecurityGroup.json"
+      },
+      "networkSecurityGroupName": {
+        "value": "mytestNSG-default"
+      },
+      "nestedSecurityDeploymentName": {
+        "value": "deploy-NSG"
+      },
+      "vNetName": {
+        "value": "virtual-network-01"
+      },
+      "vNetRange": {
+        "value": "10.6.128.0/18"
+      },
+      "subnet1Range": {
+        "value": "10.6.128.0/23"
+      },
+      "subnet2Range": {
+        "value": "10.6.130.0/23"
+      },
+      "subnet3Range": {
+        "value": "10.6.132.0/26"
+      },
+      "subnet4Range": {
+        "value": "10.6.132.64/26"
+      },
+      "subnet5Range": {
+        "value": "10.6.133.0/21"
+      },
+      "dbzWorkspaceNamePrefix": {
+        "value": "ALAS-DS"
+      },
+      "nestedDeploymentDatabricks": {
+        "value": "deploy-databricks-DS"
+      },
+      "sharedTemplateNameDatabricks": {
+        "value": "databricks.json"
+      }
+    }
+  }

@@ -1,0 +1,245 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "vNetName": {
+        "type": "string",
+        "metadata": {
+          "description": "Name of the virtual network."
+        }
+      },
+     "deploymentType": {
+        "type": "string",
+        "allowedValues": [ "dev", "prod" ],
+        "defaultValue": "dev",
+        "metadata": {
+          "description": "String to determine which network the VM is deployed to."
+        }
+      },
+      "vNetApiVersion": {
+        "type": "string",
+        "metadata": {
+          "description": "Azure API for virtual network."
+        }
+      },
+      "vNetRange": {
+        "type": "string",
+        "metadata": {
+          "description": "IP range of the virtual network."
+        }
+      },
+      "subnet1Range": {
+        "type": "string",
+        "metadata": {
+          "description": "IP range of first subnet."
+        }
+      },
+      "subnet2Range": {
+        "type": "string",
+        "metadata": {
+          "description": "IP range of second subnet."
+        }
+      },
+      "subnet3Range": {
+        "type": "string",
+        "metadata": {
+          "description": "IP range of third subnet."
+        }
+      },
+      "subnet4Range": {
+        "type": "string",
+        "metadata": {
+          "description": "IP range of fourth subnet."
+        }
+      },
+      "subnet5Range": {
+        "type": "string",
+        "metadata": {
+          "description": "IP range of first subnet."
+        }
+      },
+      "networkSecurityGroupID": {
+        "type": "string",
+        "metadata": {
+          "description": "network security group identifier"
+        }
+      },
+      "dbzNetSGID": {
+        "type": "string"
+      }
+    },
+    "variables": {
+      "subnet1": "subnet1",
+      "subnet2": "AzureBastionSubnet",
+      "subnet3dbz": "subnet3-dbz-public",
+      "subnet4dbz": "subnet4-dbz-private",
+      "subnet5": "subnet5",
+      "vNetID": "[resourceId('Microsoft.Network/virtualNetworks', parameters('vNetName'))]"
+    },
+    "resources": [
+      {
+        "name": "[parameters('vNetName')]",
+        "type": "Microsoft.Network/virtualNetworks",
+        "location": "[resourceGroup().location]",
+        "apiVersion": "[parameters('vNetApiVersion')]",
+        "dependsOn": [ ],
+        "tags": {
+          "displayName": "[parameters('vNetName')]",
+          "client": "alas",
+          "purpose:": "vnetwork"
+        },
+        "properties": {
+          "addressSpace": {
+            "addressPrefixes": [
+              "[parameters('vNetRange')]"
+            ]
+          },
+          "subnets": [
+            {
+              "name": "[variables('subnet1')]",
+              "properties": {
+                "addressPrefix": "[parameters('subnet1Range')]",
+                "networkSecurityGroup": {
+                  "id": "[parameters('networkSecurityGroupID')]"
+                },
+                "serviceEndpoints": [
+                  {
+                    "service": "Microsoft.Sql",
+                    "locations": [
+                        "eastus"
+                    ]
+                  },
+                  {
+                    "service": "Microsoft.Storage",
+                    "locations": [
+                        "eastus"
+                    ]
+                },
+                {
+                    "service": "Microsoft.KeyVault",
+                    "locations": [
+                        "*"
+                    ]
+                }
+                ]
+              }
+            },
+            {
+              "name": "[variables('subnet2')]",
+              "properties": {
+                "addressPrefix": "[parameters('subnet2Range')]",
+                "networkSecurityGroup": {
+                  "id": "[parameters('networkSecurityGroupID')]"
+                },
+                "serviceEndpoints": [
+                  {
+                    "service": "Microsoft.Sql",
+                    "locations": [
+                        "eastus"
+                    ]
+                  },
+                  {
+                    "service": "Microsoft.Storage",
+                    "locations": [
+                        "eastus"
+                    ]
+                },
+                {
+                    "service": "Microsoft.KeyVault",
+                    "locations": [
+                        "*"
+                    ]
+                }
+                ]
+              }
+            },
+            {
+              "name": "[variables('subnet3dbz')]",
+              "properties": {
+                "addressPrefix": "[parameters('subnet3Range')]",
+                "networkSecurityGroup": {
+                  "id": "[parameters('dbzNetSGID')]"
+                },
+                "delegations": [
+                  {
+                    "name": "databricks-delegated-public",
+                    "properties": {
+                      "serviceName": "Microsoft.Databricks/workspaces"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "[variables('subnet4dbz')]",
+              "properties": {
+                "addressPrefix": "[parameters('subnet4Range')]",
+                "networkSecurityGroup": {
+                  "id": "[parameters('dbzNetSGID')]"
+                },
+                "delegations": [
+                  {
+                    "name": "databricks-delegated-private",
+                    "properties": {
+                      "serviceName": "Microsoft.Databricks/workspaces"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "[variables('subnet5')]",
+              "properties": {
+                "addressPrefix": "[parameters('subnet2Range')]",
+                "networkSecurityGroup": {
+                  "id": "[parameters('networkSecurityGroupID')]"
+                },
+                "serviceEndpoints": [
+                  {
+                    "service": "Microsoft.Sql",
+                    "locations": [
+                        "eastus"
+                    ]
+                  },
+                  {
+                    "service": "Microsoft.Storage",
+                    "locations": [
+                        "eastus"
+                    ]
+                },
+                {
+                    "service": "Microsoft.KeyVault",
+                    "locations": [
+                        "*"
+                    ]
+                }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "outputs": {
+      "subnetID": {
+        "type": "string",
+        "value": "[variables('subnet1')]"
+      },
+      "subnetID2": {
+        "type": "string",
+        "value": "[variables('subnet2')]"
+      },
+      "subnetID3dbzpub": {
+        "type": "string",
+        "value": "[variables('subnet3dbz')]"
+      },
+      "subnetID4dbzpriv": {
+        "type": "string",
+        "value": "[variables('subnet4dbz')]"
+      },
+      "vnetReferenceId": {
+        "type": "string",
+        "value": "[variables('vNetID')]"
+      }
+    }
+  }

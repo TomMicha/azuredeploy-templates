@@ -1,0 +1,79 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "dbzWorkspaceNamePrefix": {
+            "type": "string"
+        },
+        "pricingTier": {
+            "defaultValue": "premium",
+            "allowedValues": [
+                "trial",
+                "standard",
+                "premium"
+            ],
+            "type": "string",
+            "metadata": {
+            "description": "The pricing tier of workspace."
+            }
+        },
+        "vnetReferenceId": {
+            "type": "string"
+        },
+        "subnetID3dbzpub": {
+            "type": "string"
+        },
+        "subnetID4dbzpriv": {
+            "type": "string"
+        },
+        "deploymentType": {
+            "type": "string",
+            "allowedValues": [ "dev", "prod" ],
+            "defaultValue": "dev",
+            "metadata": {
+                "description": "String to determine which prod vs dev and affix suffix."
+            }
+       },
+       "databricksApiVersion": {
+           "type": "string"
+       }
+    },
+    "variables": {
+        "managedResourceGroupId": "[concat(subscription().id, '/resourceGroups/', variables('managedResourceGroupName'))]",
+        "managedResourceGroupName": "[concat(parameters('dbzWorkspaceNamePrefix'),'-',substring(uniqueString('00xx8'),0,4),'-',parameters('deploymentType'))]",
+        "vnetID": "[parameters('vnetReferenceId')]"
+    },
+    "resources": [
+    {
+      "apiVersion": "[parameters('databricksApiVersion')]",
+      "type": "Microsoft.Databricks/workspaces",
+      "location": "[resourceGroup().location]",
+      "name": "[variables('managedResourceGroupName')]",
+      "tags": {
+          "displayName": "[variables('managedResourceGroupName')]",
+          "created": "tom",
+          "client": "alas"
+      },
+      "sku": {
+        "name": "[parameters('pricingTier')]"
+      },
+      "comments": "The managed resource group specified will be locked after deployment.",
+      "properties": {
+        "ManagedResourceGroupId": "[variables('managedResourceGroupId')]",
+        "parameters": {
+          "customVirtualNetworkId": {
+            "value": "[variables('vnetID')]"
+          },
+          "customPublicSubnetName": {
+            "value": "[parameters('subnetID3dbzpub')]"
+          },
+          "customPrivateSubnetName": {
+            "value": "[parameters('subnetID4dbzpriv')]"
+          }
+        }
+      }
+    }
+    ],
+    "outputs": {
+    }
+}
