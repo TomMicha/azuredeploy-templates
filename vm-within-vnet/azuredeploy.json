@@ -243,7 +243,7 @@
           "deploymentType": { "value": "[parameters('deploymentType')]" },
           "vmSize": { "value": "[parameters('vmSize')]" },
           "vmAdminUserName": { "value": "[parameters('vmAdminUserName')]" },
-          "vmAdminPassword": { "value": "[parameters('externalVMPass')]" },
+          "externalVMPass": { "value": "[parameters('externalVMPass')]" },
           "vmImagePublisher": { "value": "[variables('vmImagePublisher')]" },
           "vmImageOffer": { "value": "[variables('vmImageOffer')]" },
           "vmWindowsOSVersion": { "value": "[parameters('vmWindowsOSVersion')]" },
