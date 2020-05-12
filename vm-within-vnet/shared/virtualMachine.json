@@ -154,7 +154,7 @@
               "osType": "Windows",
               "name": "[variables('vmOSDiskName')]",
               "caching": "ReadWrite",
-              "createOption": "FromImage",
+              "createOption": "Attach",
               "diskSizeGB": 128
             }
           },
