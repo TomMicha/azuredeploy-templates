@@ -1,0 +1,72 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "baseTemplateUri": {
+        "value": "https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/modular/storagetest"
+      },
+      "existingVnetID": {
+        "value": "virtual-network-01"
+      },
+      "existingNSGID": {
+        "value": "mytestNSG-default"
+      },
+      "existingNetworkRG": {
+        "value": "ALAS-nsg"
+      },
+      "sharedTemplateNameNic": { 
+        "value": "networkInterface.json"
+      },
+      "nestedDeploymentNameNic": {
+        "value": "deploy-NIC"
+      },
+      "nicName": {
+        "value": "vm-nic-dev"
+      },
+      "storageType": {
+        "value": "Standard_LRS"
+      },
+      "nestedDeploymentNameStorage": {
+        "value": "deploy-storage-account"
+      },
+      "sharedTemplateNameStorage": {
+        "value": "storageAccount.json"
+      },
+      "storageAccountNamePrefix": {
+        "value": "alasstorage"
+      },
+      "publicIpNamePrefix": {
+        "value": "ip-"
+      },
+      "sharedTemplatePublicIP":{
+        "value": "publicIP.json"
+      },
+      "nestedDeploymentNamePublicIP": {
+        "value": "deploy-publicIP"
+      },
+      "vmWindowsOSVersion": {
+        "value": "windows2019"
+      },
+      "vmAdminPassword": { 
+        "value": "pass" 
+      },
+      "vmAdminUserName": {
+        "value": "vmAdmin"
+      },
+      "vmSize": {
+        "value": ""
+      },
+      "vmNamePrefix": {
+        "value": "ALAS-vm-"
+      },
+      "sharedTemplateNameVM": {
+        "value": "virtualMachine.json"
+      },
+      "nestedDeploymentNameVM": {
+        "value": "deploy-virtual-machine"
+      },
+      "targetSubscription": {
+        "value": "ba09e5b6-8d5c-4216-bcdc-ce0b594cc034"
+      }
+    }
+  }

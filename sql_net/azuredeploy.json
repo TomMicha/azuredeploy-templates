@@ -227,7 +227,9 @@
           "sqlAdministratorPassword": { "value": "[parameters('sqlAdministratorPassword')]"},
           "sqlAdministratorLogin": { "value": "[parameters('sqlAdministratorLogin')]"},
           "vaultName": { "value": "[parameters('vaultName')]"},
-          "keyResourceGroup": { "value": "[parameters('keyResourceGroup')]"}
+          "keyResourceGroup": { "value": "[parameters('keyResourceGroup')]"},
+          "vnetReferenceId": {  "value": "[reference(parameters('nestedDeploymentNameVnet')).outputs.vnetReferenceId.value]"},
+          "subnetId": {"value": "[reference(parameters('nestedDeploymentNameVnet')).outputs.subnetId.value]"}
         }
       }
     },

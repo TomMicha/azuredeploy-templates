@@ -43,3 +43,40 @@ Reference Key Vault secrets how:
         }
         ## within parameters/deploy files ##
         [resourceId(subscription().subscriptionId, parameters('keyVaultGroup'), 'Microsoft.KeyVault/vaults',parameters('vaultName'))]
+
+
+
+&&&&&&&&&&&&&& scripts to help build database from backup $$$$$$$$$$$$$$$$$$$&&&&&&&&
+
+az sql db import --resource-group "<resourceGroupName>" --server "<serverName>" --name "<databaseName>" `
+    --storage-key-type "StorageAccessKey" --storage-key "<storageAccountKey>" `
+    --storage-uri "https://myStorageAccount.blob.core.windows.net/importsample/sample.bacpac" `
+    -u "<userId>" -p $(ConvertTo-SecureString -String "<password>" -AsPlainText -Force).n
+
+    # Import bacpac to database with an S3 performance level
+$importRequest = New-AzSqlDatabaseImport -ResourceGroupName $resourceGroupName `
+    -ServerName $serverName `
+    -DatabaseName $databaseName `
+    -DatabaseMaxSizeBytes "53687091200" `
+    -StorageKeyType "StorageAccessKey" `
+    -StorageKey $(Get-AzStorageAccountKey -ResourceGroupName $resourceGroupName -StorageAccountName $storageAccountName).Value[0] `
+    -StorageUri "https://$storageaccountname.blob.core.windows.net/$storageContainerName/$bacpacFilename" `
+    -Edition "Standard" `
+    -ServiceObjectiveName "S3" `
+    -AdministratorLogin "$adminSqlLogin" `
+    -AdministratorLoginPassword $(ConvertTo-SecureString -String $password -AsPlainText -Force)
+
+# AZ CLI COMMANDS TO GEN SAS KEY AND THEN IMPORT DB
+az storage blob generate-sas --account-name rawpassportbackupdev -c pbacpac -n DIAData.bacpac \
+    --permissions r --expiry 2020-03-22T06:00:00Z
+
+az sql db import -s rawpassport-sqlserver-dev -n ALAS-importdb1 -g $RESGROUP -p ALASserver99 -u thanos \
+    --storage-key "se=2020-03-22T06%3A00%3A00Z&sp=rw&sv=2018-11-09&sr=b&sig=yl6RBE5fRj4u2hh8/MFTmrEd4YMNFwt4pIoyMIl8%2ByY%3D" \
+    --storage-key-type SharedAccessKey \
+    --storage-uri https://rawpassportbackupdev.blob.core.windows.net/myContainer/DIAData.bacpac
+
+# AZ CLI WITH STORAGE KEY
+az sql db import --resource-group rawpassport-src-dev --server rawpassport-sqlserver-dev --name ALAS-importdb1 \
+    --storage-key-type "StorageAccessKey" --storage-key $STORAGKEY \
+    --storage-uri "https://rawpassportbackupdev.blob.core.windows.net/pbacpac/DIAData.bacpac" \
+    -u thanos -p ALASserver99

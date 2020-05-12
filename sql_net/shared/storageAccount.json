@@ -45,6 +45,10 @@
         "type": "Microsoft.Storage/storageAccounts",
         "location": "[resourceGroup().location]",
         "apiVersion": "[parameters('storageApiVersion')]",
+        "sku": {
+          "name": "[parameters('storageType')]",
+          "tier": "Standard"
+        },
         "dependsOn": [ ],
         "tags": {
           "displayName": "[variables('storageName')]",

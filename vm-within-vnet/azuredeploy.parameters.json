@@ -14,15 +14,6 @@
       "existingNetworkRG": {
         "value": "ALAS-dataworkspace-dev"
       },
-      "sharedTemplateNameNic": { 
-        "value": "networkInterface.json"
-      },
-      "nestedDeploymentNameNic": {
-        "value": "deploy-NIC"
-      },
-      "nicName": {
-        "value": "vm-nic-dev"
-      },
       "storageType": {
         "value": "Standard_LRS"
       },
@@ -34,41 +25,6 @@
       },
       "storageAccountNamePrefix": {
         "value": "alasdia"
-      },
-      "publicIpNamePrefix": {
-        "value": "ip-"
-      },
-      "sharedTemplatePublicIP":{
-        "value": "publicIP.json"
-      },
-      "nestedDeploymentNamePublicIP": {
-        "value": "deploy-publicIP"
-      },
-      "vmWindowsOSVersion": {
-        "value": "server-2019"
-      },
-      "externalVMPass": { 
-        "reference": {
-          "keyVault": {
-            "id": "/subscriptions/5d1dcab8-9567-447d-a603-91d4a1afaeb0/resourceGroups/ALAS-keyvaultgroup-dev/providers/Microsoft.KeyVault/vaults/ALASDIA-keyvault-dev"
-          },
-          "secretName": "externalVMPass"
-        }
-      },
-      "vmAdminUserName": {
-        "value": "extVmAdmin"
-      },
-      "vmSize": {
-        "value": "Standard_B8ms"
-      },
-      "vmNamePrefix": {
-        "value": "ALASvm"
-      },
-      "sharedTemplateNameVM": {
-        "value": "virtualMachine.json"
-      },
-      "nestedDeploymentNameVM": {
-        "value": "deploy-virtual-machine"
       },
       "targetSubscription": {
         "value": "ba09e5b6-8d5c-4216-bcdc-ce0b594cc034"

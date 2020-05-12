@@ -8,14 +8,6 @@
           "description": "Name of the virtual network."
         }
       },
-     "deploymentType": {
-        "type": "string",
-        "allowedValues": [ "dev", "prod" ],
-        "defaultValue": "dev",
-        "metadata": {
-          "description": "String to determine which network the VM is deployed to."
-        }
-      },
       "vNetApiVersion": {
         "type": "string",
         "metadata": {
@@ -94,7 +86,7 @@
                 "networkSecurityGroup": {
                   "id": "[parameters('networkSecurityGroupID')]"
                 }
-              }
+              }   
             },
             {
               "name": "[variables('subnet2')]",
@@ -134,10 +126,6 @@
       "subnetID4": {
         "type": "string",
         "value": "[variables('vNetSubnetID4')]"
-      },
-      "vnetReferenceId": {
-        "type": "string",
-        "value": "[variables('vNetID')]"
       }
     }
   }

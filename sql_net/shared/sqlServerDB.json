@@ -46,6 +46,12 @@
       },
       "sqlApiVersion": {
         "type": "string"
+      },
+      "vnetReferenceId": {
+        "type": "string"
+      },
+      "subnetId": {
+        "type": "string"
       }
     },
     "variables": {
@@ -98,14 +104,22 @@
               "maxSizeBytes": "268435456000",
               "requestedServiceObjectiveName": "[parameters('sqldb-alasdia-devRequestedServiceObjectiveName')]"
             }
+          },
+          {
+            "type": "Microsoft.Sql/servers/virtualNetworkRules",
+            "apiVersion": "2015-05-01-preview",
+            "name": "[concat(variables('sqlDatabaseName'), '/newVnetRule1')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Sql/servers', variables('sqlDatabaseName'))]"
+            ],
+            "properties": {
+                "virtualNetworkSubnetId": "[concat(parameters('vnetReferenceId'), '/subnets/', parameters('subnetID'))]",
+                "ignoreMissingVnetServiceEndpoint": false
+            }
           }
         ]
       }
     ],
     "outputs": {
-      "passwordCheck": {
-        "type": "string",
-        "value": "[parameters('sqlAdministratorPassword')]"
-      }
     }
   }
