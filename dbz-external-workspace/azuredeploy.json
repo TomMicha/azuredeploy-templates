@@ -123,6 +123,13 @@
   },
   "resources": [
     {
+      "type": "Microsoft.Resources/resourceGroups",
+      "apiVersion": "2018-05-01",
+      "location": "eastus",
+      "name": "[parameters('existingNetworkRG')]",
+      "properties": {}
+    },
+    {
       "apiVersion": "[variables('resourceDeploymentApiVersion')]",
       "name": "[parameters('nestedDeploymentNamePublicIp')]",
       "type": "Microsoft.Resources/deployments",
@@ -143,7 +150,7 @@
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "[variables('resourceDeploymentApiVersion')]",
       "name": "[parameters('nestedSecurityDeploymentName')]",
-      "resourceGroup": "ALAS-nsg",
+      "resourceGroup": "[parameters('existingNetworkRG')]",
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -162,7 +169,7 @@
       "apiVersion": "[variables('resourceDeploymentApiVersion')]",
       "name": "[parameters('nestedDeploymentNameVnet')]",
       "type": "Microsoft.Resources/deployments",
-      "resourceGroup": "ALAS-nsg",
+      "resourceGroup": "[parameters('existingNetworkRG')]",
       "dependsOn": [
         "[concat('Microsoft.Resources/deployments/', parameters('nestedSecurityDeploymentName'))]"
       ],
@@ -173,7 +180,6 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
-          "existingNetworkRG": "[parameters('existingNetworkRG')]",
           "vNetName": { "value": "[parameters('vNetName')]" },
           "vNetApiVersion": { "value": "[variables('vNetApiVersion')]" },
           "vNetRange": { "value": "[parameters('vNetRange')]" },
