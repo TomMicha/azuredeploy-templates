@@ -66,11 +66,14 @@
       },
       "dbzNetSGID": {
         "type": "string"
+      },
+      "bastionHostName": {
+        "type": "string"
       }
     },
     "variables": {
       "subnet1": "subnet1",
-      "subnet2": "AzureBastionSubnet",
+      "bastionSubnet": "AzureBastionSubnet",
       "subnet3dbz": "subnet3-dbz-public",
       "subnet4dbz": "subnet4-dbz-private",
       "subnet5": "subnet5",
@@ -125,7 +128,7 @@
               }
             },
             {
-              "name": "[variables('subnet2')]",
+              "name": "[variables('bastionSubnet')]",
               "properties": {
                 "addressPrefix": "[parameters('subnet2Range')]",
                 "networkSecurityGroup": {
@@ -218,6 +221,30 @@
             }
           ]
         }
+      },
+      {
+        "apiVersion": "2019-12-01",
+        "type": "Microsoft.Network/bastionHosts",
+        "name": "[parameters('bastionHostName')]",
+        "location": "[resourceGroup().location]",
+        "dependsOn": [
+          "[resourceId('Microsoft.Network/virtualNetworks', parameters('vNetName'))]"
+        ],
+        "properties": {
+          "ipConfigurations": [
+            {
+              "name": "IpConf",
+              "properties": {
+                "subnet": {
+                  "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vNetName'), variables('bastionSubnet'))]"
+                },
+                "publicIPAddress": {
+                  "id": "[resourceId('Microsoft.Network/publicIpAddresses', parameters('bastionHostName'))]"
+                }
+              }
+            }
+          ]
+        }
       }
     ],
     "outputs": {
@@ -227,7 +254,7 @@
       },
       "subnetID2": {
         "type": "string",
-        "value": "[variables('subnet2')]"
+        "value": "[variables('bastionSubnet')]"
       },
       "subnetID3dbzpub": {
         "type": "string",

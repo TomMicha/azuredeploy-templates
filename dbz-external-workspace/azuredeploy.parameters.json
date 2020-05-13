@@ -5,6 +5,9 @@
       "baseTemplateUri": {
         "value": "https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/dbz-external-workspace"
       },
+      "bastionHostName": {
+        "value": "ALASbastion"
+      },
       "nestedDeploymentNameVnet": {
         "value": "deploy-virtual-network"
       },
@@ -46,6 +49,12 @@
       },
       "nestedDeploymentDatabricks": {
         "value": "deploy-databricks-DS"
+      },
+      "sharedTemplatePublicIP":{
+        "value": "publicIP.json"
+      },
+      "nestedDeploymentNamePublicIP": {
+        "value": "deploy-publicIP"
       },
       "sharedTemplateNameDatabricks": {
         "value": "databricks.json"

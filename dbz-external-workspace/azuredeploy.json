@@ -8,6 +8,9 @@
         "description": "Base URI of template resources."
       }
     },
+    "bastionHostName": {
+      "type": "string"
+    },
     "deploymentType": {
       "type": "string",
       "allowedValues": [ "dev", "prod" ],
@@ -96,15 +99,39 @@
     },
     "sharedTemplateNameDatabricks": {
       "type": "string"
+    },
+    "sharedTemplatePublicIP":{
+      "type": "string"
+    },
+    "nestedDeploymentNamePublicIP": {
+      "type": "string"
     }
   },
   "variables": {
     "resourceDeploymentApiVersion": "2018-05-01",
     "vNetApiVersion": "2019-11-01",
-    "storageApiVersion": "2019-06-01",
-    "databricksApiVersion": "2018-04-01"
+    "databricksApiVersion": "2018-04-01",
+    "publicIPApiVersion": "2019-07-01",
+    "bastionPublicIP": "[concat(parameters('bastionHostName'),'-pip')]"
   },
   "resources": [
+    {
+      "apiVersion": "[variables('resourceDeploymentApiVersion')]",
+      "name": "[parameters('nestedDeploymentNamePublicIp')]",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('baseTemplateUri'), '/shared/', parameters('sharedTemplatePublicIP'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "publicIpName": { "value": "[variables('bastionPublicIP')]" },
+          "publicIpApiVersion": { "value": "[variables('publicIPApiVersion')]" },
+          "deploymentType": { "value": "[parameters('deploymentType')]" }
+        }
+      }
+    },
     {
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "[variables('resourceDeploymentApiVersion')]",
@@ -144,7 +171,8 @@
           "subnet5Range": { "value": "[parameters('subnet5Range')]" },
           "deploymentType": { "value": "[parameters('deploymentType')]" },
           "networkSecurityGroupID": { "value": "[reference(parameters('nestedSecurityDeploymentName')).outputs.networkSecurityGroupID.value]" },
-          "dbzNetSGID": {"value": "[reference(parameters('nestedSecurityDeploymentName')).outputs.dbzNetSGID.value]" }
+          "dbzNetSGID": {"value": "[reference(parameters('nestedSecurityDeploymentName')).outputs.dbzNetSGID.value]" },
+          "bastionHost": { "value": "[parameters('bastionHostName')]"}
         }
       }
     },
