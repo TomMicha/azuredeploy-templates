@@ -35,14 +35,14 @@
       "subnet2Range": {
         "value": "10.6.130.0/23"
       },
-      "subnet3Range": {
+      "subnet3Range": { 
         "value": "10.6.132.0/26"
       },
       "subnet4Range": {
         "value": "10.6.132.64/26"
       },
       "subnet5Range": {
-        "value": "10.6.133.0/21"
+        "value": "10.6.133.0/24"
       },
       "dbzWorkspaceNamePrefix": {
         "value": "ALAS-DS"
