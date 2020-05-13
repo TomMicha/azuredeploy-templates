@@ -15,8 +15,7 @@
       }
     },
     "variables": {
-        "mainNSGname": "[concat(parameters('networkSecurityGroupName'), substring(uniqueString('00xx8'),0,4), parameters('deploymentType'))]",
-        "nsgID": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('mainNSGname'))]",
+        "nsgID": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]",
         "dbzNetSGName": "[concat('ALAS-databricks-NSG',substring(uniqueString('00xx8'),0,4),'-dev')]",
         "dbzNetSGID": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('dbzNetSGName'))]"
     },
