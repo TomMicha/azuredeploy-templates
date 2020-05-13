@@ -239,7 +239,8 @@
                   "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vNetName'), variables('bastionSubnet'))]"
                 },
                 "publicIPAddress": {
-                  "id": "[resourceId('Microsoft.Network/publicIpAddresses', parameters('bastionHostName'))]"
+                  "id": "[resourceId('Microsoft.Network/publicIpAddresses', parameters('bastionHostName')
+                  )]"
                 }
               }
             }
