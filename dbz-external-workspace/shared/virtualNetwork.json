@@ -131,9 +131,6 @@
               "name": "[variables('bastionSubnet')]",
               "properties": {
                 "addressPrefix": "[parameters('subnet2Range')]",
-                "networkSecurityGroup": {
-                  "id": "[parameters('networkSecurityGroupID')]"
-                },
                 "serviceEndpoints": [
                   {
                     "service": "Microsoft.Sql",
