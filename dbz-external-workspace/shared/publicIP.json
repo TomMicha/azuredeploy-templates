@@ -24,7 +24,7 @@
       }
     },
     "variables": {
-      
+      "sku": "Standard"
     },
     "resources": [
       {
@@ -32,6 +32,9 @@
         "type": "Microsoft.Network/publicIPAddresses",
         "location": "[resourceGroup().location]",
         "apiVersion": "[parameters('publicIpApiVersion')]",
+        "sku": {
+          "name": "[variables('sku')]"
+        },
         "tags": {
           "displayName": "[parameters('publicIpName')]",
           "created": "tom",
