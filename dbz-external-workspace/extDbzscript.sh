@@ -12,7 +12,7 @@ az group create -n $dbzResourceGroup -l $location \
 
 # deploy dbz workspace (without cluster)
 az group deployment create \
-    --name $dbzDeploymentName \
+    --name $dbzDeployName \
     --resource-group $dbzResourceGroup \
     --template-uri $template \
     --parameters $templateParams \
