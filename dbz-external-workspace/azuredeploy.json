@@ -105,6 +105,12 @@
     },
     "nestedDeploymentNamePublicIP": {
       "type": "string"
+    },
+    "existingNetworkRG": {
+        "type": "string",
+        "metadata": {
+          "description": "reference to resource group where vnet and other resources located"
+        }
     }
   },
   "variables": {
@@ -143,6 +149,7 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
+          "existingNetworkRG": "[parameters('existingNetworkRG')]",
           "networkSecurityGroupName": { "value": "[parameters('networkSecurityGroupName')]"}
         }
       }
@@ -161,6 +168,7 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
+          "existingNetworkRG": "[parameters('existingNetworkRG')]",
           "vNetName": { "value": "[parameters('vNetName')]" },
           "vNetApiVersion": { "value": "[variables('vNetApiVersion')]" },
           "vNetRange": { "value": "[parameters('vNetRange')]" },
@@ -172,7 +180,8 @@
           "deploymentType": { "value": "[parameters('deploymentType')]" },
           "networkSecurityGroupID": { "value": "[reference(parameters('nestedSecurityDeploymentName')).outputs.networkSecurityGroupID.value]" },
           "dbzNetSGID": {"value": "[reference(parameters('nestedSecurityDeploymentName')).outputs.dbzNetSGID.value]" },
-          "bastionHostName": { "value": "[parameters('bastionHostName')]"}
+          "bastionHostName": { "value": "[parameters('bastionHostName')]"},
+          "publicIPID": { "value": "[reference(parameters('nestedDeploymentNamePublicIP')).outputs.publicIPID.value]"}
         }
       }
     },

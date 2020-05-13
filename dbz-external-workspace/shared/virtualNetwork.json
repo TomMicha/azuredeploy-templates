@@ -69,6 +69,12 @@
       },
       "bastionHostName": {
         "type": "string"
+      },
+      "existingNetworkRG": {
+          "type": "string"
+      },
+      "publicIPID": {
+        "type": "string"
       }
     },
     "variables": {
@@ -233,11 +239,10 @@
               "name": "IpConf",
               "properties": {
                 "subnet": {
-                  "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('vNetName'), variables('bastionSubnet'))]"
+                  "id": "[concat(variables('vNetID'), 'subnets/AzureBastionSubnet')]"
                 },
                 "publicIPAddress": {
-                  "id": "[resourceId('Microsoft.Network/publicIpAddresses', parameters('bastionHostName')
-                  )]"
+                  "id": "[parameters('publicIPID')]"
                 }
               }
             }

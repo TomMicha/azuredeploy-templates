@@ -12,11 +12,14 @@
         "metadata": {
           "description": "String to determine which network the VM is deployed to."
         }
+      },
+      "existingNetworkRG": {
+          "type": "string"
       }
     },
     "variables": {
-        "nsgID": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]",
-        "dbzNetSGName": "[concat('ALAS-databricks-NSG',substring(uniqueString('00xx8'),0,4),'-dev')]",
+        "nsgID": "[resourceId(parameters('existingNetworkRG'),'Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]",
+        "dbzNetSGName": "[concat('ALAS-DS-NSG',substring(uniqueString('00xx8'),0,4),'-dev')]",
         "dbzNetSGID": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('dbzNetSGName'))]"
     },
     "resources": [
