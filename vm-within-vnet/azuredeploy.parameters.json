@@ -1,33 +1,33 @@
 {
-    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-      "baseTemplateUri": {
-        "value": "https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/vm-within-vnet"
-      },
-      "existingVnetID": {
-        "value": "ALAS-VNetwork-pnh4fdev"
-      },
-      "existingNSGID": {
-        "value": "ALAS-NetSGpnh4dev"
-      },
-      "existingNetworkRG": {
-        "value": "ALAS-dataworkspace-dev"
-      },
-      "storageType": {
-        "value": "Standard_LRS"
-      },
-      "nestedDeploymentNameStorage": {
-        "value": "deploy-storage-account"
-      },
-      "sharedTemplateNameStorage": {
-        "value": "storageAccount.json"
-      },
-      "storageAccountNamePrefix": {
-        "value": "alasdia"
-      },
-      "targetSubscription": {
-        "value": "ba09e5b6-8d5c-4216-bcdc-ce0b594cc034"
-      }
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "baseTemplateUri": {
+      "value": "https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/vm-within-vnet"
+    },
+    "existingVnetID": {
+      "value": "ALAS-VNetwork-pnh4fdev"
+    },
+    "existingNSGID": {
+      "value": "ALAS-NetSGpnh4dev"
+    },
+    "existingNetworkRG": {
+      "value": "ALAS-dataworkspace-dev"
+    },
+    "storageType": {
+      "value": "Standard_LRS"
+    },
+    "nestedDeploymentNameStorage": {
+      "value": "deploy-storage-account"
+    },
+    "sharedTemplateNameStorage": {
+      "value": "storageAccount.json"
+    },
+    "storageAccountNamePrefix": {
+      "value": "alasdia"
+    },
+    "targetSubscription": {
+      "value": "ba09e5b6-8d5c-4216-bcdc-ce0b594cc034"
     }
   }
+}
