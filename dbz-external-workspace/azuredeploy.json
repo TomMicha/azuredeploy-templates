@@ -88,48 +88,6 @@
         "description": "IP range of fourth subnet."
       }
     },
-    "nestedDeploymentNameStorage": {
-      "type": "string",
-      "metadata": {
-        "description": "Name of the storage account deployment."
-      }
-    },
-    "sharedTemplateNameStorage": {
-      "type": "string",
-      "metadata": {
-        "description": "Template name for the storage account."
-      }
-    },
-    "storageType": {
-      "type": "string",
-      "metadata": {
-        "description": "Type of storage account."
-      }
-    },
-    "storageAccountNamePrefix": {
-      "type": "string",
-      "metadata": {
-        "description": "Prefix string for storage account name."
-      }
-    },
-    "nestedDeploymentNameDataLake": {
-      "type": "string",
-      "metadata": {
-        "description": "String name for Datalake deployment"
-      }
-    },
-    "sharedTemplateNameDataLake": {
-      "type": "string",
-      "metadata": {
-        "description": "String name for data lake template"
-      }
-    },
-    "DataLakeAccountNamePrefix": {
-      "type": "string",
-      "metadata": {
-        "description": "String name for Datalake-prefix"
-      }
-    },
     "dbzWorkspaceNamePrefix": {
       "type": "string"
     },
@@ -183,7 +141,7 @@
           "subnet2Range": { "value": "[parameters('subnet2Range')]" },
           "subnet3Range": { "value": "[parameters('subnet3Range')]" },
           "subnet4Range": { "value": "[parameters('subnet4Range')]" },
-          "subnet5Range": { "value": "[parameters('subnet4Range')]" },
+          "subnet5Range": { "value": "[parameters('subnet5Range')]" },
           "deploymentType": { "value": "[parameters('deploymentType')]" },
           "networkSecurityGroupID": { "value": "[reference(parameters('nestedSecurityDeploymentName')).outputs.networkSecurityGroupID.value]" },
           "dbzNetSGID": {"value": "[reference(parameters('nestedSecurityDeploymentName')).outputs.dbzNetSGID.value]" }
