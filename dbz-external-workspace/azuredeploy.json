@@ -110,7 +110,8 @@
         "type": "string",
         "metadata": {
           "description": "reference to resource group where vnet and other resources located"
-        }
+        },
+        "defaultValue": "dev"
     }
   },
   "variables": {
@@ -186,6 +187,9 @@
           "dbzNetSGID": {"value": "[reference(parameters('nestedSecurityDeploymentName')).outputs.dbzNetSGID.value]" },
           "bastionHostName": { "value": "[parameters('bastionHostName')]"},
           "publicIPID": { "value": "[reference(parameters('nestedDeploymentNamePublicIP')).outputs.publicIPID.value]"}
+        },
+        "debugSetting": {
+          "detailLevel": "requestContent,responseContent"
         }
       }
     },

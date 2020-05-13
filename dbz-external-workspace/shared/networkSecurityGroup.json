@@ -12,9 +12,6 @@
         "metadata": {
           "description": "String to determine which network the VM is deployed to."
         }
-      },
-      "existingNetworkRG": {
-          "type": "string"
       }
     },
     "variables": {

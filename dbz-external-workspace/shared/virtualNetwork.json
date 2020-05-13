@@ -70,9 +70,6 @@
       "bastionHostName": {
         "type": "string"
       },
-      "existingNetworkRG": {
-          "type": "string"
-      },
       "publicIPID": {
         "type": "string"
       }
