@@ -190,7 +190,7 @@
             {
               "name": "[variables('subnet5')]",
               "properties": {
-                "addressPrefix": "[parameters('subnet2Range')]",
+                "addressPrefix": "[parameters('subnet5Range')]",
                 "networkSecurityGroup": {
                   "id": "[parameters('networkSecurityGroupID')]"
                 },
