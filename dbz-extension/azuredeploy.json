@@ -96,7 +96,7 @@
     {
       "apiVersion": "[variables('resourceDeploymentApiVersion')]",
       "name": "[parameters('nestedDeploymentNamePublicIp')]",
-      "resourceGroup": "[parameters('existingNetworkRG')]",
+      "resourceGroup": "[parameters('bastionRG')]",
       "type": "Microsoft.Resources/deployments",
       "properties": {
         "mode": "Incremental",
@@ -157,7 +157,7 @@
     {
       "apiVersion": "[variables('resourceDeploymentApiVersion')]",
       "name": "[parameters('nestedDeploymentBastion')]",
-      "resourceGroup": "[parameters('existingNetworkRG')]",
+      "resourceGroup": "[parameters('bastionRG')]",
       "type": "Microsoft.Resources/deployments",
       "dependsOn": [
         "[concat('Microsoft.Resources/deployments/', parameters('nestedSecurityDeploymentName'))]"
