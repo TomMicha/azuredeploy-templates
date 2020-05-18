@@ -208,7 +208,6 @@
     {
       "apiVersion": "[variables('resourceDeploymentApiVersion')]",
       "name": "[parameters('nestedDeploymentDatabricks')]",
-      "resourceGroup": "[parameters('resourceGroupDS')]",
       "type": "Microsoft.Resources/deployments",
       "dependsOn": [
         "[concat('Microsoft.Resources/deployments/', parameters('nestedSecurityDeploymentName'))]",
