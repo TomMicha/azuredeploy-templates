@@ -1,0 +1,172 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "baseTemplateUri": {
+      "type": "string",
+      "metadata": {
+        "description": "Base URI of template resources."
+      }
+    },
+    "bastionHostName": {
+      "type": "string"
+    },
+    "deploymentType": {
+      "type": "string",
+      "allowedValues": [ "dev", "prod" ],
+      "defaultValue": "dev",
+      "metadata": {
+        "description": "String to determine which network the VM is deployed to."
+      }
+    },
+    "subnet7dbzpub": {
+      "type": "string"
+    },
+    "subnet8dbzpriv": {
+      "type": "string"
+    },
+    "sharedTemplateNSG": {
+      "type": "string",
+      "metadata": {
+        "description": "Template name for the virtual network."
+      }
+    },
+    "networkSecurityGroupName": {
+        "type": "string",
+        "metadata": {
+          "description": "Template name for the network security group."
+      }
+    },
+    "nestedSecurityDeploymentName": {
+      "type": "string",
+      "metadata": {
+        "description": "Template name for the NSG deployment."
+      }
+    },
+    "vNetName": {
+      "type": "string",
+      "metadata": {
+        "description": "Name of the virtual network."
+      }
+    },
+    "dbzWorkspaceNamePrefix": {
+      "type": "string"
+    },
+    "nestedDeploymentDatabricks": {
+      "type": "string"
+    },
+    "sharedTemplateNameDatabricks": {
+      "type": "string"
+    },
+    "sharedTemplatePublicIP":{
+      "type": "string"
+    },
+    "nestedDeploymentNamePublicIP": {
+      "type": "string"
+    },
+    "existingNetworkRG": {
+        "type": "string",
+        "metadata": {
+          "description": "reference to resource group where vnet and other resources located"
+        },
+        "defaultValue": "dev"
+    }
+  },
+  "variables": {
+    "resourceDeploymentApiVersion": "2018-05-01",
+    "vNetApiVersion": "2019-11-01",
+    "databricksApiVersion": "2018-04-01",
+    "publicIPApiVersion": "2019-07-01",
+    "bastionPublicIP": "[concat(parameters('bastionHostName'),'-pip')]",
+    "vNetID": "[resourceId(parameters('existingNetworkRG'),'Microsoft.Network/virtualNetworks/', parameters('vNetName'))]"
+  },
+  "resources": [
+    {
+      "apiVersion": "[variables('resourceDeploymentApiVersion')]",
+      "name": "[parameters('nestedDeploymentNamePublicIp')]",
+      "resourceGroup": "[parameters('existingNetworkRG')]",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('baseTemplateUri'), '/shared/', parameters('sharedTemplatePublicIP'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "publicIpName": { "value": "[variables('bastionPublicIP')]" },
+          "publicIpApiVersion": { "value": "[variables('publicIPApiVersion')]" },
+          "deploymentType": { "value": "[parameters('deploymentType')]" }
+        }
+      }
+    },
+    {
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "[variables('resourceDeploymentApiVersion')]",
+      "name": "[parameters('nestedSecurityDeploymentName')]",
+      "resourceGroup": "[parameters('existingNetworkRG')]",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('baseTemplateUri'), '/shared/', parameters('sharedTemplateNSG'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "networkSecurityGroupName": { "value": "[parameters('networkSecurityGroupName')]"}
+        },
+        "debugSetting": {
+          "detailLevel": "requestContent,responseContent"
+        }
+      }
+    },
+    {
+      "apiVersion": "[variables('resourceDeploymentApiVersion')]",
+      "name": "[parameters('nestedDeploymentDatabricks')]",
+      "type": "Microsoft.Resources/deployments",
+      "dependsOn": [
+        "[concat('Microsoft.Resources/deployments/', parameters('nestedSecurityDeploymentName'))]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('baseTemplateUri'), '/shared/', parameters('sharedTemplateNameDatabricks'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "dbzWorkspaceNamePrefix": { "value": "[parameters('dbzWorkspaceNamePrefix')]" },
+          "databricksApiVersion": { "value": "[variables('databricksApiVersion')]" },
+          "deploymentType": { "value": "[parameters('deploymentType')]" },
+          "subnetID7dbzpub": { "value": "[parameters('subnet7dbzpub')]"},
+          "subnetID8dbzpriv": { "value": "[parameters('subnet8dbzpriv')]"},
+          "vnetReferenceId": { "value": "[variables('vNetID')]"}
+        }
+      }
+    },
+    {
+        "apiVersion": "2019-12-01",
+        "type": "Microsoft.Network/bastionHosts",
+        "name": "[parameters('bastionHostName')]",
+        "location": "[resourceGroup().location]",
+        "dependsOn": [
+          "[resourceId('Microsoft.Network/virtualNetworks', parameters('vNetName'))]"
+        ],
+        "properties": {
+          "ipConfigurations": [
+            {
+              "name": "IpConf",
+              "properties": {
+                "subnet": {
+                  "id": "[concat(variables('vNetID'), '/subnets/AzureBastionSubnet')]"
+                },
+                "publicIPAddress": {
+                  "id": "[reference(parameters('nestedDeploymentNamePublicIP')).outputs.publicIPID.value]"
+                }
+              }
+            }
+          ]
+        }
+      }
+  ],
+  "outputs": {
+
+  }
+}

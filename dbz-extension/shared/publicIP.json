@@ -1,0 +1,54 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "publicIpName": {
+        "type": "string",
+        "metadata": {
+          "description": "Name of the Public IP resource."
+        }
+      },
+      "publicIpApiVersion": {
+        "type": "string",
+        "metadata": {
+          "description": "Azure API version for the Public IP resource."
+        }
+      },
+      "deploymentType": {
+        "type": "string",
+        "allowedValues": [ "dev", "prod" ],
+        "defaultValue": "dev",
+        "metadata": {
+          "description": "String to determine which network the VM is deployed to."
+        }
+      }
+    },
+    "variables": {
+      "sku": "Standard"
+    },
+    "resources": [
+      {
+        "name": "[parameters('publicIpName')]",
+        "type": "Microsoft.Network/publicIPAddresses",
+        "location": "[resourceGroup().location]",
+        "apiVersion": "[parameters('publicIpApiVersion')]",
+        "sku": {
+          "name": "[variables('sku')]"
+        },
+        "tags": {
+          "displayName": "[parameters('publicIpName')]",
+          "created": "tom",
+          "client": "alas"
+        },
+        "properties": {
+          "publicIPAllocationMethod": "Static"
+        }
+      }
+    ],
+    "outputs": {
+      "publicIpID": {
+        "type": "string",
+        "value": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIpName'))]"
+      }
+    }
+  }
