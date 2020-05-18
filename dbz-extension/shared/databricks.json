@@ -39,7 +39,7 @@
        }
     },
     "variables": {
-        "managedResourceGroupId": "[concat(subscription().id, '/resourceGroups/', variables('managedResourceGroupName'))]",
+        "managedResourceGroupId": "[concat(subscription().id, '/resourceGroups/', variables('managedResourceGroupName'),'-group')]",
         "managedResourceGroupName": "[concat(parameters('dbzWorkspaceNamePrefix'),'-',parameters('deploymentType'))]"
     },
     "resources": [
