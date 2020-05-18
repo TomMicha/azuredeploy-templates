@@ -64,10 +64,10 @@
             "value": "[parameters('vnetReferenceId')]"
           },
           "customPublicSubnetName": {
-            "value": "[concat(parameters('vnetReferenceId'),'subnets/',parameters('subnetID7dbzpub'))]"
+            "value": "[concat(parameters('vnetReferenceId'),'/subnets/',parameters('subnetID7dbzpub'))]"
           },
           "customPrivateSubnetName": {
-            "value": "[concat(parameters('vnetReferenceId'),'subnets/',parameters('subnetID8dbzpriv'))]"
+            "value": "[concat(parameters('vnetReferenceId'),'/subnets/',parameters('subnetID8dbzpriv'))]"
           }
         }
       }
