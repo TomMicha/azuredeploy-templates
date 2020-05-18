@@ -58,6 +58,15 @@
           "description": "IP range of first subnet."
         }
       },
+      "subnet6Range": {
+        "type": "string"
+      },
+      "subnet7Range": {
+        "type": "string"
+      },
+      "subnet8Range": {
+        "type": "string"
+      },
       "networkSecurityGroupID": {
         "type": "string",
         "metadata": {
@@ -76,10 +85,13 @@
     },
     "variables": {
       "subnet1": "subnet1",
-      "bastionSubnet": "AzureBastionSubnet",
+      "subnet2": "subnet2",
       "subnet3dbz": "subnet3-dbz-public",
       "subnet4dbz": "subnet4-dbz-private",
-      "subnet5": "subnet5",
+      "bastion5Subnet": "AzureBastionSubnet",
+      "firewall6Subnet": "AzureFirewallSubnet",
+      "subnet7dbz": "subnet7-dbz-public",
+      "subnet8dbz": "subnet8-dbz-private",
       "vNetID": "[resourceId('Microsoft.Network/virtualNetworks', parameters('vNetName'))]"
     },
     "resources": [
@@ -131,9 +143,12 @@
               }
             },
             {
-              "name": "[variables('bastionSubnet')]",
+              "name": "[variables('subnet2')]",
               "properties": {
                 "addressPrefix": "[parameters('subnet2Range')]",
+                "networkSecurityGroup": {
+                  "id": "[parameters('networkSecurityGroupID')]"
+                },
                 "serviceEndpoints": [
                   {
                     "service": "Microsoft.Sql",
@@ -191,12 +206,9 @@
               }
             },
             {
-              "name": "[variables('subnet5')]",
+              "name": "[variables('bastion5Subnet')]",
               "properties": {
                 "addressPrefix": "[parameters('subnet5Range')]",
-                "networkSecurityGroup": {
-                  "id": "[parameters('networkSecurityGroupID')]"
-                },
                 "serviceEndpoints": [
                   {
                     "service": "Microsoft.Sql",
@@ -218,10 +230,51 @@
                 }
                 ]
               }
+            },
+            {
+              "name": "[variables('firewall6Subnet')]",
+              "properties": {
+                "addressPrefix": "[parameters('subnet6Range')]"
+                
+              }
+            },
+            {
+            "name": "[variables('subnet7dbz')]",
+            "properties": {
+              "addressPrefix": "[parameters('subnet7Range')]",
+              "networkSecurityGroup": {
+                "id": "[parameters('dbzNetSGID')]"
+              },
+              "delegations": [
+                {
+                  "name": "databricks-delegated-public",
+                  "properties": {
+                    "serviceName": "Microsoft.Databricks/workspaces"
+                  }
+                }
+              ]
             }
-          ]
-        }
-      },
+          },
+          {
+            "name": "[variables('subnet8dbz')]",
+            "properties": {
+              "addressPrefix": "[parameters('subnet8Range')]",
+              "networkSecurityGroup": {
+                "id": "[parameters('dbzNetSGID')]"
+              },
+              "delegations": [
+                {
+                  "name": "databricks-delegated-private",
+                  "properties": {
+                    "serviceName": "Microsoft.Databricks/workspaces"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+      }, 
       {
         "apiVersion": "2019-12-01",
         "type": "Microsoft.Network/bastionHosts",
@@ -254,15 +307,15 @@
       },
       "subnetID2": {
         "type": "string",
-        "value": "[variables('bastionSubnet')]"
+        "value": "[variables('subnet2')]"
       },
-      "subnetID3dbzpub": {
+      "subnetID7dbzpub": {
         "type": "string",
-        "value": "[variables('subnet3dbz')]"
+        "value": "[variables('subnet7dbz')]"
       },
-      "subnetID4dbzpriv": {
+      "subnetID8dbzpriv": {
         "type": "string",
-        "value": "[variables('subnet4dbz')]"
+        "value": "[variables('subnet8dbz')]"
       },
       "vnetReferenceId": {
         "type": "string",

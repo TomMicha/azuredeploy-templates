@@ -20,10 +20,10 @@
         "vnetReferenceId": {
             "type": "string"
         },
-        "subnetID3dbzpub": {
+        "subnetID7dbzpub": {
             "type": "string"
         },
-        "subnetID4dbzpriv": {
+        "subnetID8dbzpriv": {
             "type": "string"
         },
         "deploymentType": {
@@ -40,7 +40,7 @@
     },
     "variables": {
         "managedResourceGroupId": "[concat(subscription().id, '/resourceGroups/', variables('managedResourceGroupName'))]",
-        "managedResourceGroupName": "[concat(parameters('dbzWorkspaceNamePrefix'),'-',substring(uniqueString('00xx8'),0,4),'-',parameters('deploymentType'))]",
+        "managedResourceGroupName": "[concat(parameters('dbzWorkspaceNamePrefix'),'-',parameters('deploymentType'))]",
         "vnetID": "[parameters('vnetReferenceId')]"
     },
     "resources": [
@@ -65,10 +65,10 @@
             "value": "[variables('vnetID')]"
           },
           "customPublicSubnetName": {
-            "value": "[parameters('subnetID3dbzpub')]"
+            "value": "[parameters('subnetID7dbzpub')]"
           },
           "customPrivateSubnetName": {
-            "value": "[parameters('subnetID4dbzpriv')]"
+            "value": "[parameters('subnetID8dbzpriv')]"
           }
         }
       }

@@ -86,10 +86,16 @@
       }
     },
     "subnet5Range": {
-      "type": "string",
-      "metadata": {
-        "description": "IP range of fourth subnet."
-      }
+      "type": "string"
+    },
+    "subnet6Range": {
+    "type": "string"
+    },
+    "subnet7Range": {
+    "type": "string"
+    },
+    "subnet8Range": {
+    "type": "string"
     },
     "dbzWorkspaceNamePrefix": {
       "type": "string"
@@ -123,15 +129,9 @@
   },
   "resources": [
     {
-      "type": "Microsoft.Resources/resourceGroups",
-      "apiVersion": "2018-05-01",
-      "location": "eastus",
-      "name": "[parameters('existingNetworkRG')]",
-      "properties": {}
-    },
-    {
       "apiVersion": "[variables('resourceDeploymentApiVersion')]",
       "name": "[parameters('nestedDeploymentNamePublicIp')]",
+      "resourceGroup": "[parameters('existingNetworkRG')]",
       "type": "Microsoft.Resources/deployments",
       "properties": {
         "mode": "Incremental",
@@ -188,6 +188,9 @@
           "subnet3Range": { "value": "[parameters('subnet3Range')]" },
           "subnet4Range": { "value": "[parameters('subnet4Range')]" },
           "subnet5Range": { "value": "[parameters('subnet5Range')]" },
+          "subnet6Range": { "value": "[parameters('subnet6Range')]" },
+          "subnet7Range": { "value": "[parameters('subnet7Range')]" },
+          "subnet8Range": { "value": "[parameters('subnet8Range')]" },
           "deploymentType": { "value": "[parameters('deploymentType')]" },
           "networkSecurityGroupID": { "value": "[reference(parameters('nestedSecurityDeploymentName')).outputs.networkSecurityGroupID.value]" },
           "dbzNetSGID": {"value": "[reference(parameters('nestedSecurityDeploymentName')).outputs.dbzNetSGID.value]" },
@@ -217,8 +220,8 @@
           "dbzWorkspaceNamePrefix": { "value": "[parameters('dbzWorkspaceNamePrefix')]" },
           "databricksApiVersion": { "value": "[variables('databricksApiVersion')]" },
           "deploymentType": { "value": "[parameters('deploymentType')]" },
-          "subnetID3dbzpub": { "value": "[reference(parameters('nestedDeploymentNameVnet')).outputs.subnetID3dbzpub.value]"},
-          "subnetID4dbzpriv": { "value": "[reference(parameters('nestedDeploymentNameVnet')).outputs.subnetID4dbzpriv.value]"},
+          "subnetID7dbzpub": { "value": "[reference(parameters('nestedDeploymentNameVnet')).outputs.subnetID7dbzpub.value]"},
+          "subnetID8dbzpriv": { "value": "[reference(parameters('nestedDeploymentNameVnet')).outputs.subnetID8dbzpriv.value]"},
           "vnetReferenceId": { "value": "[reference(parameters('nestedDeploymentNameVnet')).outputs.vnetReferenceId.value]"}
         }
       }

@@ -47,8 +47,17 @@
       "subnet5Range": {
         "value": "10.6.133.0/24"
       },
+      "subnet6Range": {
+        "value": "10.6.134.0/24"
+      },
+      "subnet7Range": {
+        "value": "10.6.135.0/26"
+      },
+      "subnet8Range": {
+        "value": "10.6.135.64/26"
+      },
       "dbzWorkspaceNamePrefix": {
-        "value": "ALAS-DS"
+        "value": "ALAS-DataScience-"
       },
       "nestedDeploymentDatabricks": {
         "value": "deploy-databricks-DS"
