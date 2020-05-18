@@ -8,6 +8,9 @@
       "bastionHostName": {
         "value": "ALASbastion"
       },
+      "bastionRG": {
+        "value": "ALAS-External-Workspace-dev"
+      },
       "subnet7dbzpub": {
         "value": "subnet7-dbz-public"
       },

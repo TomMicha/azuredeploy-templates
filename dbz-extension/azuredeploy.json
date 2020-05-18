@@ -70,7 +70,10 @@
           "description": "reference to resource group where vnet and other resources located"
         },
         "defaultValue": "dev"
-    }
+    },
+       "bastionRG": {
+        "type": "string"
+      }
   },
   "variables": {
     "resourceDeploymentApiVersion": "2018-05-01",
@@ -145,7 +148,7 @@
         "apiVersion": "2019-12-01",
         "type": "Microsoft.Network/bastionHosts",
         "name": "[parameters('bastionHostName')]",
-        "location": "[resourceGroup().location]",
+        "location": "[parameters('bastionRG')]",
         "dependsOn": [
         "[concat('Microsoft.Resources/deployments/', parameters('nestedSecurityDeploymentName'))]"
         ],
