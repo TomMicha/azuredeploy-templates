@@ -147,7 +147,7 @@
         "name": "[parameters('bastionHostName')]",
         "location": "[resourceGroup().location]",
         "dependsOn": [
-          "[resourceId('Microsoft.Network/virtualNetworks', parameters('vNetName'))]"
+        "[concat('Microsoft.Resources/deployments/', parameters('nestedSecurityDeploymentName'))]"
         ],
         "properties": {
           "ipConfigurations": [
