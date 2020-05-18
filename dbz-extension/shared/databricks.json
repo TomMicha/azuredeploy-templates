@@ -43,8 +43,7 @@
     },
     "variables": {
         "managedResourceGroupId": "[concat(subscription().id, '/resourceGroups/', variables('managedResourceGroupName'),'-storage')]",
-        "managedResourceGroupName": "[concat(parameters('dbzWorkspaceNamePrefix'),'-',parameters('deploymentType'))]",
-        "databricksGroup": "[concat(subscription().id, '/resourceGroups/','ALAS-databricks-6efx-dev')]"
+        "managedResourceGroupName": "[concat(parameters('dbzWorkspaceNamePrefix'),'-',parameters('deploymentType'))]"
     },
     "resources": [
     {
@@ -62,7 +61,7 @@
       },
       "comments": "The managed resource group specified will be locked after deployment.",
       "properties": {
-        "ManagedResourceGroupId": "[variables('databricksGroup')]",
+        "ManagedResourceGroupId": "[variables('managedResourceGroupId')]",
         "parameters": {
           "customVirtualNetworkId": {
             "value": "[parameters('vnetReferenceId')]"
