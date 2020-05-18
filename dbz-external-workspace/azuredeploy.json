@@ -188,8 +188,6 @@
           "vNetRange": { "value": "[parameters('vNetRange')]" },
           "subnet1Range": { "value": "[parameters('subnet1Range')]" },
           "subnet2Range": { "value": "[parameters('subnet2Range')]" },
-          "subnet3Range": { "value": "[parameters('subnet3Range')]" },
-          "subnet4Range": { "value": "[parameters('subnet4Range')]" },
           "subnet5Range": { "value": "[parameters('subnet5Range')]" },
           "subnet6Range": { "value": "[parameters('subnet6Range')]" },
           "subnet7Range": { "value": "[parameters('subnet7Range')]" },
