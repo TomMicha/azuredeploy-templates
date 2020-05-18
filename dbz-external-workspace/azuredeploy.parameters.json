@@ -18,19 +18,19 @@
         "value": "networkSecurityGroup.json"
       },
       "networkSecurityGroupName": {
-        "value": "mytestNSG-default"
+        "value": "ALAS-NetSGpnh4dev"
       },
       "nestedSecurityDeploymentName": {
         "value": "deploy-NSG"
       },
       "vNetName": {
-        "value": "virtual-network-01"
+        "value": "ALAS-VNetwork-pnh4fdev"
       },
       "vNetRange": {
         "value": "10.6.128.0/18"
       },
       "existingNetworkRG": {
-        "value": "ALAS-nsg"
+        "value": "ALAS-dataworkspace-dev"
       },
       "subnet1Range": {
         "value": "10.6.128.0/23"
@@ -39,10 +39,10 @@
         "value": "10.6.130.0/23"
       },
       "subnet3Range": { 
-        "value": "10.6.132.0/26"
+        "value": "10.0.3.0/26"
       },
       "subnet4Range": {
-        "value": "10.6.132.64/26"
+        "value": "10.0.3.64/26"
       },
       "subnet5Range": {
         "value": "10.6.133.0/24"
@@ -57,7 +57,7 @@
         "value": "10.6.135.64/26"
       },
       "dbzWorkspaceNamePrefix": {
-        "value": "ALAS-DataScience-"
+        "value": "ALAS-DataScience"
       },
       "nestedDeploymentDatabricks": {
         "value": "deploy-databricks-DS"
