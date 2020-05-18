@@ -73,15 +73,15 @@
           "description": "network security group identifier"
         }
       },
-      "dbzNetSGID": {
-        "type": "string"
-      },
       "bastionHostName": {
         "type": "string"
       },
       "publicIPID": {
         "type": "string"
-      }
+      },
+       "existingDbznsg": {
+            "type": "string"
+        }
     },
     "variables": {
       "subnet1": "subnet1",
@@ -176,7 +176,7 @@
               "properties": {
                 "addressPrefix": "[parameters('subnet3Range')]",
                 "networkSecurityGroup": {
-                  "id": "[parameters('dbzNetSGID')]"
+                  "id": "[parameters('existingDbznsg')]"
                 },
                 "delegations": [
                   {
@@ -193,7 +193,7 @@
               "properties": {
                 "addressPrefix": "[parameters('subnet4Range')]",
                 "networkSecurityGroup": {
-                  "id": "[parameters('dbzNetSGID')]"
+                  "id": "[parameters('existingDbznsg')]"
                 },
                 "delegations": [
                   {
@@ -243,7 +243,7 @@
             "properties": {
               "addressPrefix": "[parameters('subnet7Range')]",
               "networkSecurityGroup": {
-                "id": "[parameters('dbzNetSGID')]"
+                "id": "[parameters('existingDbznsg')]"
               },
               "delegations": [
                 {
@@ -260,7 +260,7 @@
             "properties": {
               "addressPrefix": "[parameters('subnet8Range')]",
               "networkSecurityGroup": {
-                "id": "[parameters('dbzNetSGID')]"
+                "id": "[parameters('existingDbznsg')]"
               },
               "delegations": [
                 {

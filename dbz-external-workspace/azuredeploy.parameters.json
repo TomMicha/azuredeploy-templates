@@ -23,6 +23,9 @@
       "nestedSecurityDeploymentName": {
         "value": "deploy-NSG"
       },
+      "existingDbznsg": {
+        "value": "ALAS-databricks-NSGpnh4-dev"
+      },
       "vNetName": {
         "value": "ALAS-VNetwork-pnh4fdev"
       },

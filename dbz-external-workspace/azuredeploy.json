@@ -118,6 +118,9 @@
           "description": "reference to resource group where vnet and other resources located"
         },
         "defaultValue": "dev"
+    },
+    "existingDbznsg": {
+        "type": "string"
     }
   },
   "variables": {
@@ -193,9 +196,9 @@
           "subnet8Range": { "value": "[parameters('subnet8Range')]" },
           "deploymentType": { "value": "[parameters('deploymentType')]" },
           "networkSecurityGroupID": { "value": "[reference(parameters('nestedSecurityDeploymentName')).outputs.networkSecurityGroupID.value]" },
-          "dbzNetSGID": {"value": "[reference(parameters('nestedSecurityDeploymentName')).outputs.dbzNetSGID.value]" },
           "bastionHostName": { "value": "[parameters('bastionHostName')]"},
-          "publicIPID": { "value": "[reference(parameters('nestedDeploymentNamePublicIP')).outputs.publicIPID.value]"}
+          "publicIPID": { "value": "[reference(parameters('nestedDeploymentNamePublicIP')).outputs.publicIPID.value]"},
+          "existingDbznsg": { "value": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('existingDbznsg'))]"}
         },
         "debugSetting": {
           "detailLevel": "requestContent,responseContent"

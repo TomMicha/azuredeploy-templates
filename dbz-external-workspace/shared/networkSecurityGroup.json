@@ -15,18 +15,9 @@
       }
     },
     "variables": {
-        "nsgID": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]",
-        "dbzNetSGName": "[concat('ALAS-DS-NSG',substring(uniqueString('00xx8'),0,4),'-dev')]",
-        "dbzNetSGID": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('dbzNetSGName'))]"
+        "nsgID": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]"
     },
     "resources": [
-         {
-            "apiVersion": "2019-06-01",
-            "type": "Microsoft.Network/networkSecurityGroups",
-            "location": "[resourceGroup().location]",
-            "name": "[variables('dbzNetSGName')]",
-            "properties": {}
-        },
         {
             "type": "Microsoft.Network/networkSecurityGroups",
             "apiVersion": "2019-11-01",
@@ -164,10 +155,6 @@
       "networkSecurityGroupID": {
         "type": "string",
             "value": "[variables('nsgID')]"
-      },
-      "dbzNetSGID": {
-          "type": "string",
-            "value": "[variables('dbzNetSGID')]"
       }
     }
 }
