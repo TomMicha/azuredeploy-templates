@@ -33,7 +33,7 @@
         "value": "10.6.128.0/18"
       },
       "existingNetworkRG": {
-        "value": "ALAS-dataworkspace-dev"
+        "value": "ALAS-nsg"
       },
       "subnet1Range": {
         "value": "10.6.128.0/23"
