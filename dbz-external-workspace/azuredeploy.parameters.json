@@ -18,16 +18,16 @@
         "value": "networkSecurityGroup.json"
       },
       "networkSecurityGroupName": {
-        "value": "ALAS-NetSGpnh4dev"
+        "value": "mytestNSG-default"
       },
       "nestedSecurityDeploymentName": {
         "value": "deploy-NSG"
       },
       "existingDbznsg": {
-        "value": "ALAS-databricks-NSGpnh4-dev"
+        "value": "ALAS-DS-NSGpnh4-dev"
       },
       "vNetName": {
-        "value": "ALAS-VNetwork-pnh4fdev"
+        "value": "virtual-network-01"
       },
       "vNetRange": {
         "value": "10.6.128.0/18"

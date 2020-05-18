@@ -121,9 +121,6 @@
     },
     "existingDbznsg": {
         "type": "string"
-    },
-    "resourceGroupDS": {
-      "type": "string"
     }
   },
   "variables": {
