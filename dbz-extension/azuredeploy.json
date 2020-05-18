@@ -79,9 +79,6 @@
       },
       "nestedDeploymentBastion": {
         "type": "string"
-      },
-      "existingDbzNsg": {
-        "type": "string"
       }
   },
   "variables": {
@@ -149,8 +146,7 @@
           "deploymentType": { "value": "[parameters('deploymentType')]" },
           "subnetID7dbzpub": { "value": "[parameters('subnet7dbzpub')]"},
           "subnetID8dbzpriv": { "value": "[parameters('subnet8dbzpriv')]"},
-          "vnetReferenceId": { "value": "[variables('vNetID')]"},
-          "existingDbzNsg": {"value": "[parameters('existingDbzNsg')]"}
+          "vnetReferenceId": { "value": "[variables('vNetID')]"}
         }
       }
     },
