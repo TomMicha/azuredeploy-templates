@@ -121,6 +121,9 @@
     },
     "existingDbznsg": {
         "type": "string"
+    },
+    "resourceGroupDS": {
+      "type": "string"
     }
   },
   "variables": {
@@ -198,7 +201,7 @@
           "networkSecurityGroupID": { "value": "[reference(parameters('nestedSecurityDeploymentName')).outputs.networkSecurityGroupID.value]" },
           "bastionHostName": { "value": "[parameters('bastionHostName')]"},
           "publicIPID": { "value": "[reference(parameters('nestedDeploymentNamePublicIP')).outputs.publicIPID.value]"},
-          "existingDbznsg": { "value": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('existingDbznsg'))]"}
+          "existingDbznsg": { "value": "[resourceId(parameters('existingNetworkRG'),'Microsoft.Network/networkSecurityGroups', parameters('existingDbznsg'))]"}
         },
         "debugSetting": {
           "detailLevel": "requestContent,responseContent"
@@ -208,6 +211,7 @@
     {
       "apiVersion": "[variables('resourceDeploymentApiVersion')]",
       "name": "[parameters('nestedDeploymentDatabricks')]",
+      "resourceGroup": "[parameters('resourceGroupDS')]",
       "type": "Microsoft.Resources/deployments",
       "dependsOn": [
         "[concat('Microsoft.Resources/deployments/', parameters('nestedSecurityDeploymentName'))]",
