@@ -1,0 +1,48 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "bastionHostName": {
+            "type": "string"
+        },
+        "vnetReferenceId": {
+            "type": "String"
+        },
+        "deploymentType": {
+            "type": "string",
+            "allowedValues": [ "dev", "prod" ],
+            "defaultValue": "dev",
+            "metadata": {
+            "description": "String to determine which network the VM is deployed to."
+            }
+      },
+      "publicIPID": {
+          "type": "string"
+      }
+    },
+    "variables": {
+
+    },
+    "resources": [
+        {
+        "apiVersion": "2020-03-01",
+        "type": "Microsoft.Network/bastionHosts",
+        "name": "[parameters('bastionHostName')]",
+        "location": "[resourceGroup().location]",
+        "properties": {
+        "ipConfigurations": [
+            {
+            "name": "IpConf",
+            "properties": {
+                "subnet": {
+                    "id": "[concat(parameters('vnetReferenceId'), '/subnets/AzureBastionSubnet')]"
+                },
+                "publicIPAddress": {
+                    "id": "[parameters('publicIPID')]"
+                    }
+                }
+            }
+        ]
+    }}
+    ]
+}

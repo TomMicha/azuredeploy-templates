@@ -73,6 +73,12 @@
     },
        "bastionRG": {
         "type": "string"
+      },
+      "sharedTemplateBastion": {
+        "type": "string"
+      },
+      "nestedDeploymentBastion": {
+        "type": "string"
       }
   },
   "variables": {
@@ -145,30 +151,27 @@
       }
     },
     {
-        "apiVersion": "2019-12-01",
-        "type": "Microsoft.Network/bastionHosts",
-        "name": "[parameters('bastionHostName')]",
-        "location": "[resourceGroup().location]",
-        "resourceGroup": "[parameters('existingNetworkRG')]",
-        "dependsOn": [
+      "apiVersion": "[variables('resourceDeploymentApiVersion')]",
+      "name": "[parameters('nestedDeploymentBastion')]",
+      "resourceGroup": "[parameters('existingNetworkRG')]",
+      "type": "Microsoft.Resources/deployments",
+      "dependsOn": [
         "[concat('Microsoft.Resources/deployments/', parameters('nestedSecurityDeploymentName'))]"
-        ],
-        "properties": {
-          "ipConfigurations": [
-            {
-              "name": "IpConf",
-              "properties": {
-                "subnet": {
-                  "id": "[concat(variables('vNetID'), '/subnets/AzureBastionSubnet')]"
-                },
-                "publicIPAddress": {
-                  "id": "[reference(parameters('nestedDeploymentNamePublicIP')).outputs.publicIPID.value]"
-                }
-              }
-            }
-          ]
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('baseTemplateUri'), '/shared/', parameters('sharedTemplateBastion'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "bastionHostName": {"value": "[parameters('bastionHostName')]"},
+          "deploymentType": { "value": "[parameters('deploymentType')]" },
+          "publicIPID": { "value": "[reference(parameters('nestedDeploymentNamePublicIP')).outputs.publicIPID.value]"},
+          "vnetReferenceId": { "value": "[variables('vNetID')]"}
         }
       }
+    }
   ],
   "outputs": {
 

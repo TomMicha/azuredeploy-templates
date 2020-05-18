@@ -11,6 +11,12 @@
       "bastionRG": {
         "value": "ALAS-External-Workspace-dev"
       },
+      "sharedTemplateBastion": {
+        "value": "bastion.json"
+      },
+      "nestedDeploymentBastion": {
+        "value": "deploy-bastion"
+      },
       "subnet7dbzpub": {
         "value": "subnet7-dbz-public"
       },
