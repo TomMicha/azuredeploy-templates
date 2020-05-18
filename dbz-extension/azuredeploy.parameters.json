@@ -18,16 +18,16 @@
         "value": "networkSecurityGroup.json"
       },
       "networkSecurityGroupName": {
-        "value": "mytestNSG-default"
+        "value": "ALAS-NetSGpnh4dev"
       },
       "nestedSecurityDeploymentName": {
         "value": "deploy-NSG"
       },
       "vNetName": {
-        "value": "virtual-network-01"
+        "value": "ALAS-VNetwork-pnh4fdev"
       },
       "existingNetworkRG": {
-        "value": "ALAS-nsg"
+        "value": "ALAS-dataworkspace-dev"
       },
       "dbzWorkspaceNamePrefix": {
         "value": "ALAS-DataScience"
