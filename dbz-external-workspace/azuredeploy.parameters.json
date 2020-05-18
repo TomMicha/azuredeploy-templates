@@ -41,6 +41,12 @@
       "subnet2Range": {
         "value": "10.6.130.0/23"
       },
+      "subnet3Range": { 
+        "value": "10.0.3.0/26"
+      },
+      "subnet4Range": {
+        "value": "10.0.3.64/26"
+      },
       "subnet5Range": {
         "value": "10.6.133.0/24"
       },

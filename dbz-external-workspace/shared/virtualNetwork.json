@@ -40,6 +40,18 @@
           "description": "IP range of second subnet."
         }
       },
+       "subnet3Range": {
+        "type": "string",
+        "metadata": {
+          "description": "IP range of third subnet."
+        }
+      },
+      "subnet4Range": {
+        "type": "string",
+        "metadata": {
+          "description": "IP range of fourth subnet."
+        }
+      },
       "subnet5Range": {
         "type": "string",
         "metadata": {
@@ -74,6 +86,8 @@
     "variables": {
       "subnet1": "subnet1",
       "subnet2": "subnet2",
+      "subnet3dbz": "subnet3-dbz-public",
+      "subnet4dbz": "subnet4-dbz-private",
       "bastion5Subnet": "AzureBastionSubnet",
       "firewall6Subnet": "AzureFirewallSubnet",
       "subnet7dbz": "subnet7-dbz-public",
@@ -154,6 +168,40 @@
                         "*"
                     ]
                 }
+                ]
+              }
+            },
+            {
+              "name": "[variables('subnet3dbz')]",
+              "properties": {
+                "addressPrefix": "[parameters('subnet3Range')]",
+                "networkSecurityGroup": {
+                  "id": "[parameters('existingDbznsg')]"
+                },
+                "delegations": [
+                  {
+                    "name": "databricks-delegated-public",
+                    "properties": {
+                      "serviceName": "Microsoft.Databricks/workspaces"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "[variables('subnet4dbz')]",
+              "properties": {
+                "addressPrefix": "[parameters('subnet4Range')]",
+                "networkSecurityGroup": {
+                  "id": "[parameters('existingDbznsg')]"
+                },
+                "delegations": [
+                  {
+                    "name": "databricks-delegated-private",
+                    "properties": {
+                      "serviceName": "Microsoft.Databricks/workspaces"
+                    }
+                  }
                 ]
               }
             },
