@@ -175,9 +175,14 @@
               "name": "[variables('subnet3dbz')]",
               "properties": {
                 "addressPrefix": "[parameters('subnet3Range')]",
-                "networkSecurityGroup": {
-                  "id": "[parameters('existingDbznsg')]"
-                },
+                "serviceEndpoints": [
+                  {
+                    "service": "Microsoft.Storage",
+                    "locations": [
+                        "eastus"
+                    ]
+                  }
+                ],
                 "delegations": [
                   {
                     "name": "databricks-delegated-public",
@@ -192,9 +197,14 @@
               "name": "[variables('subnet4dbz')]",
               "properties": {
                 "addressPrefix": "[parameters('subnet4Range')]",
-                "networkSecurityGroup": {
-                  "id": "[parameters('existingDbznsg')]"
-                },
+                "serviceEndpoints": [
+                  {
+                    "service": "Microsoft.Storage",
+                    "locations": [
+                        "eastus"
+                    ]
+                  }
+                ],
                 "delegations": [
                   {
                     "name": "databricks-delegated-private",
