@@ -44,7 +44,7 @@
     "variables": {
         "managedResourceGroupId": "[concat(subscription().id, '/resourceGroups/', variables('managedResourceGroupName'),'-storage')]",
         "managedResourceGroupName": "[concat(parameters('dbzWorkspaceNamePrefix'),'-',parameters('deploymentType'))]",
-        "databricksGroup": "[concat(subscription().id, '/resourceGroups/','ALAS-databricks-pnh4-dev')]"
+        "databricksGroup": "[concat(subscription().id, '/resourceGroups/','ALAS-databricks-6efx-dev')]"
     },
     "resources": [
     {
