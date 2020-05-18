@@ -148,7 +148,8 @@
         "apiVersion": "2019-12-01",
         "type": "Microsoft.Network/bastionHosts",
         "name": "[parameters('bastionHostName')]",
-        "location": "[parameters('bastionRG')]",
+        "location": "[resourceGroup().location]",
+        "resourceGroup": "[parameters('existingNetworkRG')]",
         "dependsOn": [
         "[concat('Microsoft.Resources/deployments/', parameters('nestedSecurityDeploymentName'))]"
         ],
