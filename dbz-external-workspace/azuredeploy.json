@@ -73,18 +73,6 @@
         "description": "IP range of second subnet."
       }
     },
-    "subnet3Range": {
-      "type": "string",
-      "metadata": {
-        "description": "IP range of thirdsubnet."
-      }
-    },
-    "subnet4Range": {
-      "type": "string",
-      "metadata": {
-        "description": "IP range of fourth subnet."
-      }
-    },
     "subnet5Range": {
       "type": "string"
     },
