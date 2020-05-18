@@ -36,6 +36,9 @@
        },
        "databricksApiVersion": {
            "type": "string"
+       },
+       "existingDbzNsg": {
+         "type": "string"
        }
     },
     "variables": {

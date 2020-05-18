@@ -11,6 +11,9 @@
       "bastionRG": {
         "value": "ALAS-External-Workspace-dev"
       },
+      "existingDbzNsg": {
+        "value": "ALAS-databricks-NSGpnh4-dev"
+      },
       "sharedTemplateBastion": {
         "value": "bastion.json"
       },
