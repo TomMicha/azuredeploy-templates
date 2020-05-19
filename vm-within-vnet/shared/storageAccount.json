@@ -44,7 +44,7 @@
       }
     },
     "variables": {
-      "storageName": "[concat(parameters('storageAccountNamePrefix'),substring(uniqueString('678XYT'),0,5), parameters('deploymentType'))]",
+      "storageName": "[concat(parameters('storageAccountNamePrefix'),substring(uniqueString('678XYT'),0,4), parameters('deploymentType'))]",
       "storageAccountReferenceId": "[resourceId('Microsoft.Storage/storageAccounts', variables('storageName'))]",
       "vNetApiVersion": "2019-11-01",
       "vnetID": "[resourceId(parameters('existingNetworkRG'),'Microsoft.Network/virtualNetworks/', parameters('vnetReferenceId'))]"
