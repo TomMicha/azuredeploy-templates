@@ -8,7 +8,7 @@ template="https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/maste
 templateParams="https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/vm-within-vnet/azuredeploy.parameters.json"
 
 # create secret and enable for template deployment
-az keyvault secret set --name externalVMPass --vault-name ALASDIA-keyvault-dev --value HBRgroup2020 --verbose
+az keyvault secret set --name externalVMPass --vault-name ALAS-keyvault-dev --value HBRgroup2020 --verbose
 az keyvault update --name ALAS-keyvault-dev --enabled-for-template-deployment true
 
 az group create -n $vmResourceGroup -l $location \
