@@ -87,7 +87,8 @@
     "databricksApiVersion": "2018-04-01",
     "publicIPApiVersion": "2019-07-01",
     "bastionPublicIP": "[concat(parameters('bastionHostName'),'-pip')]",
-    "vNetID": "[resourceId(parameters('existingNetworkRG'),'Microsoft.Network/virtualNetworks/', parameters('vNetName'))]"
+    "vNetID": "[resourceId(parameters('existingNetworkRG'),'Microsoft.Network/virtualNetworks/', parameters('vNetName'))]",
+    "networkingRG": "ALAS-Networking-dev"
   },
   "resources": [
     {
@@ -112,7 +113,7 @@
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "[variables('resourceDeploymentApiVersion')]",
       "name": "[parameters('nestedSecurityDeploymentName')]",
-      "resourceGroup": "[parameters('existingNetworkRG')]",
+      "resourceGroup": "[variables('networkingRG')]",
       "properties": {
         "mode": "Incremental",
         "templateLink": {
