@@ -34,7 +34,7 @@
           "description": "Username of the local admin account."
         }
       },
-      "externalVMPass": {
+      "vmAdminPassword": {
         "type": "securestring",
         "metadata": {
           "description": "Password for the local admin account."
@@ -110,7 +110,7 @@
           "osProfile": {
             "computerName": "[variables('vmName')]",
             "adminUsername": "[parameters('vmAdminUserName')]",
-            "adminPassword": "[parameters('externalVMPass')]"
+            "adminPassword": "[parameters('vmAdminPassword')]"
           },
           "storageProfile": {
             "imageReference": {
