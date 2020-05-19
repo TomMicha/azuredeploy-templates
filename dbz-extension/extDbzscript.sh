@@ -6,6 +6,12 @@ echo $2
 if [ $1 = dev ]
 then 
     echo $1 is running
+    templateParams="https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/dbz-extension/azuredeploy.parameters.dev.json"
+fi
+if [$1 = prod ]
+    templateParams="https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/dbz-extension/azuredeploy.parameters.prod.json"
+else
+    exit
 fi
 
 location="eastus"
@@ -14,7 +20,7 @@ dbzResourceGroup=ALAS-DataScience-dev
 dbzDeployName=ALAS-deploy-DS-dev
 
 template="https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/dbz-extension/azuredeploy.json"
-templateParams="https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/dbz-extension/azuredeploy.parameters.dev.json"
+
 
 # create extra networking group
 az group create -n $networkRG -l $location \

@@ -120,6 +120,7 @@
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
+          "bastionHostName": {"value": "[parameters('bastionHostName')]"},
           "networkSecurityGroupName": { "value": "[parameters('networkSecurityGroupName')]"}
         },
         "debugSetting": {
