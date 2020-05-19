@@ -3,16 +3,19 @@
 !!this should deploy VMs with network secuirty group, inside vnet, storage account (regular)
 
 current resources:
-NSG (attached to subnet1 and vnet)
+NSG (existing attached to subnet1 and vnet)
 VNET ( already created )
-storage account
+storage account (create additional for work group)
 Public IPs
-Network Interface
+Network Interface (attached to VMs in specified subnet)
+Data Science image VMs - will be accessible via bastion from other script
 
 
-# Instructions
-refactor resourceId pulling from each template vs 
-maybe remove vnet rules in storage
+# instructions
+see sh file
+can deploy to dev and prod per paramaters file. Change parameters to target locators and resources
+
+
 
 # REMOVE NETWORK SECURITY RULES ACLS
 resourceId(parameters('existingNetworkRG'),'Microsoft.Network/virtualNetworks/',
@@ -23,6 +26,8 @@ Get-AzMarketplaceterms -Publisher "microsoft-ads" -Product "windows-data-science
 $agreementTerms=Get-AzMarketplaceterms -Publisher "microsoft-ads" -Product "windows-data-science-vm" -Name "windows2016"
 
 Set-AzMarketplaceTerms -Publisher "microsoft-ads" -Product "windows-data-science-vm" -Name "windows2016" -Terms $agreementTerms -Accept
+
+
 
 list extras:
 reference(resourceId(parameters('existingNetworkRG'),'Microsoft.Network/virtualNetworks/subnets', parameters('existingVnetID'), variables('subnet1')),variables('vNetApiVersion'))

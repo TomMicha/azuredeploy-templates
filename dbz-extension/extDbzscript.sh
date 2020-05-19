@@ -1,18 +1,21 @@
 # script shell for databricks external space - redefine subnets add bastion
-echo $0
-echo $1
-echo $2
+echo Starting databricks extension script with networking configurations
 
-if [ $1 = dev ]
-then 
-    echo $1 is running
-    templateParams="https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/dbz-extension/azuredeploy.parameters.dev.json"
-fi
-if [$1 = prod ]
-    templateParams="https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/dbz-extension/azuredeploy.parameters.prod.json"
-else
-    exit
-fi
+case $1 in 
+    'dev')
+        echo Provided input, $1 is running
+        templateParams="https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/dbz-extension/azuredeploy.parameters.dev.json"
+        ;;
+    'prod')
+        echo Provided input, $1 is running
+        templateParams="https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/dbz-extension/azuredeploy.parameters.prod.json"
+        ;;
+    *)
+        echo Invalid input, must choose dev or prod parameters
+        exit 1
+        ;;
+esac
+
 
 location="eastus"
 networkRG=ALAS-Networking-dev

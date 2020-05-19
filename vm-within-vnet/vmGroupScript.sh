@@ -1,11 +1,29 @@
 #!/bin/bash
 #create key vault secret for deployment
+echo $1
+
+echo Starting databricks extension script with networking configurations
+
+case $1 in 
+    'dev')
+        echo Provided input, $1 is running
+        templateParams="https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/vm-within-vnet/azuredeploy.parameters.dev.json"
+        ;;
+    'prod')
+        echo Provided input, $1 is running
+        templateParams="https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/vm-within-vnet/azuredeploy.parameters.prod.json"
+        ;;
+    *)
+        echo Invalid input, must choose dev or prod parameters
+        exit 1
+        ;;
+esac
+
 location="eastus"
 vmResourceGroup=ALAS-External-Workspace-dev
 vmDeployName=ALAS-deployWorkspace-dev
 
 template="https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/vm-within-vnet/azuredeploy.json"
-templateParams="https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/vm-within-vnet/azuredeploy.parameters.json"
 
 # create secret and enable for template deployment
 az keyvault secret set --name externalVMPass --vault-name ALAS-keyvault-dev --value HBRgroup2020 --verbose

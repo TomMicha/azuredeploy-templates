@@ -1,0 +1,77 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "baseTemplateUri": {
+      "value": "https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/vm-within-vnet"
+    },
+    "existingVnetID": {
+      "value": "ALAS-VNetwork-pnh4fdev"
+    },
+    "existingNSGID": {
+      "value": "ALAS-NetSGpnh4dev"
+    },
+    "existingNetworkRG": {
+      "value": "ALAS-dataworkspace-dev"
+    },
+    "sharedTemplateNameNic": { 
+      "value": "networkInterface.json"
+    },
+    "nestedDeploymentNameNic": {
+      "value": "deploy-NIC"
+    },
+    "nicName": {
+      "value": "vm-nic-dev"
+    },
+    "storageType": {
+      "value": "Standard_LRS"
+    },
+    "nestedDeploymentNameStorage": {
+      "value": "deploy-storage-account"
+    },
+    "sharedTemplateNameStorage": {
+      "value": "storageAccount.json"
+    },
+    "storageAccountNamePrefix": {
+      "value": "alasdia"
+    },
+    "publicIpNamePrefix": {
+      "value": "ip-"
+    },
+    "sharedTemplatePublicIP":{
+      "value": "publicIP.json"
+    },
+    "nestedDeploymentNamePublicIP": {
+      "value": "deploy-publicIP"
+    },
+    "vmWindowsOSVersion": {
+      "value": "windows2019"
+    },
+    "vmAdminPassword": { 
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/5d1dcab8-9567-447d-a603-91d4a1afaeb0/resourceGroups/ALAS-keyvaultgroup-dev/providers/Microsoft.KeyVault/vaults/ALASDIA-keyvault-dev"
+        },
+        "secretName": "externalVMPass"
+      }
+    },
+    "vmAdminUserName": {
+      "value": "vmAdmin"
+    },
+    "vmSize": {
+      "value": "Standard_B8ms"
+    },
+    "vmNamePrefix": {
+      "value": "ALAS-vm"
+    },
+    "sharedTemplateNameVM": {
+      "value": "virtualMachine.json"
+    },
+    "nestedDeploymentNameVM": {
+      "value": "deploy-virtual-machine"
+    },
+    "targetSubscription": {
+      "value": "5d1dcab8-9567-447d-a603-91d4a1afaeb0"
+    }
+  }
+}
