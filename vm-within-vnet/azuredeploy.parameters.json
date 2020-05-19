@@ -59,7 +59,7 @@
       "value": "vmAdmin"
     },
     "vmSize": {
-      "value": "A1_v2"
+      "value": "Standard_B1ms"
     },
     "vmNamePrefix": {
       "value": "ALAS-vm"
