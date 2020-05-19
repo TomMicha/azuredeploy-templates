@@ -6,13 +6,22 @@
       "value": "https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/vm-within-vnet"
     },
     "existingVnetID": {
-      "value": "ALAS-VNetwork-pnh4fdev"
+      "value": "virtual-network-01"
     },
     "existingNSGID": {
-      "value": "ALAS-NetSGpnh4dev"
+      "value": "mytestNSG-default"
     },
     "existingNetworkRG": {
-      "value": "ALAS-dataworkspace-dev"
+      "value": "ALAS-nsg"
+    },
+    "sharedTemplateNameNic": { 
+      "value": "networkInterface.json"
+    },
+    "nestedDeploymentNameNic": {
+      "value": "deploy-NIC"
+    },
+    "nicName": {
+      "value": "vm-nic-dev"
     },
     "storageType": {
       "value": "Standard_LRS"
@@ -25,6 +34,41 @@
     },
     "storageAccountNamePrefix": {
       "value": "alasdia"
+    },
+    "publicIpNamePrefix": {
+      "value": "ip-"
+    },
+    "sharedTemplatePublicIP":{
+      "value": "publicIP.json"
+    },
+    "nestedDeploymentNamePublicIP": {
+      "value": "deploy-publicIP"
+    },
+    "vmWindowsOSVersion": {
+      "value": "windows2016"
+    },
+    "vmAdminPassword": { 
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/ba09e5b6-8d5c-4216-bcdc-ce0b594cc034/resourceGroups/ALAS-keyvaultgroup-dev/providers/Microsoft.KeyVault/vaults/ALAS-keyvault-dev"
+        },
+        "secretName": "externalVMPass"
+      }
+    },
+    "vmAdminUserName": {
+      "value": "vmAdmin"
+    },
+    "vmSize": {
+      "value": "D4s_v3"
+    },
+    "vmNamePrefix": {
+      "value": "ALAS-vm"
+    },
+    "sharedTemplateNameVM": {
+      "value": "virtualMachine.json"
+    },
+    "nestedDeploymentNameVM": {
+      "value": "deploy-virtual-machine"
     },
     "targetSubscription": {
       "value": "ba09e5b6-8d5c-4216-bcdc-ce0b594cc034"

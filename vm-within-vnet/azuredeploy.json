@@ -94,7 +94,7 @@
         "description": "VM admin user name."
       }
     },
-    "externalVMPass": { 
+    "vmAdminPassword": { 
       "type": "securestring",
       "metadata": {
         "description": "Password for local admin account"
@@ -150,10 +150,31 @@
     "resourceDeploymentApiVersion": "2018-05-01",
     "vNetApiVersion": "2019-11-01",
     "storageApiVersion": "2019-06-01",
+    "nicApiVersion": "2019-07-01",
+    "vmApiVersion": "2019-07-01",
     "nsgApiVersion": "2019-11-01",
-    "publicIPApiVersion": "2015-06-15"
+    "publicIPApiVersion": "2015-06-15",
+    "vmImagePublisher": "microsoft-dsvm",
+    "vmImageOffer": "dsvm-win-2019"
   },
   "resources": [
+    {
+      "apiVersion": "[variables('resourceDeploymentApiVersion')]",
+      "name": "[parameters('nestedDeploymentNamePublicIp')]",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('baseTemplateUri'), '/shared/', parameters('sharedTemplatePublicIP'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "publicIpNamePrefix": { "value": "[parameters('publicIpNamePrefix')]" },
+          "publicIpApiVersion": { "value": "[variables('publicIPApiVersion')]" },
+          "deploymentType": { "value": "[parameters('deploymentType')]" }
+        }
+      }
+    },
      {
       "apiVersion": "[variables('resourceDeploymentApiVersion')]",
       "name": "[parameters('nestedDeploymentNameNic')]",
@@ -197,6 +218,39 @@
           "deploymentType": { "value": "[parameters('deploymentType')]" },
           "subnetID": { "value": "[variables('subnet1')]"},
           "vnetReferenceId": { "value": "[parameters('existingVnetID')]" }
+        }
+      }
+    },
+    {
+      "apiVersion": "[variables('resourceDeploymentApiVersion')]",
+      "name": "[parameters('nestedDeploymentNameVM')]",
+      "type": "Microsoft.Resources/deployments",
+      "dependsOn": [
+        "[concat('Microsoft.Resources/deployments/', parameters('nestedDeploymentNameNic'))]",
+        "[concat('Microsoft.Resources/deployments/', parameters('nestedDeploymentNameStorage'))]"
+      ],
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(parameters('baseTemplateUri'), '/shared/', parameters('sharedTemplateNameVM'))]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "publicIpID": { "value": "[reference(parameters('nestedDeploymentNamePublicIP')).outputs.publicIpID.value]"},
+          "existingNetworkRG": { "value": "[parameters('existingNetworkRG')]"},
+          "vmNamePrefix": { "value": "[parameters('vmNamePrefix')]" },
+          "vmApiVersion": { "value": "[variables('vmApiVersion')]" },
+          "deploymentType": { "value": "[parameters('deploymentType')]" },
+          "vmSize": { "value": "[parameters('vmSize')]" },
+          "vmAdminUserName": { "value": "[parameters('vmAdminUserName')]" },
+          "vmAdminPassword": { "value": "[parameters('vmAdminPassword')]" },
+          "vmImagePublisher": { "value": "[variables('vmImagePublisher')]" },
+          "vmImageOffer": { "value": "[variables('vmImageOffer')]" },
+          "vmWindowsOSVersion": { "value": "[parameters('vmWindowsOSVersion')]" },
+          "storageAccountName": { "value": "[reference(parameters('nestedDeploymentNameStorage')).outputs.storageAccountName.value]" },
+          "vmNic": { "value": "[reference(parameters('nestedDeploymentNameNic')).outputs.vmNic.value]" },
+          "vnetReferenceId": { "value": "[parameters('existingVnetID')]" },
+          "subnetId": { "value": "[variables('subnet1')]"}
         }
       }
     }
