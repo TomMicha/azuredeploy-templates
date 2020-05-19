@@ -1,4 +1,11 @@
 # script shell for databricks external space - redefine subnets add bastion
+echo $0
+echo $1
+echo $2
+
+if ($1 = 1)
+echo "if block"
+fi
 
 location="eastus"
 networkRG=ALAS-Networking-dev
@@ -6,7 +13,7 @@ dbzResourceGroup=ALAS-DataScience-dev
 dbzDeployName=ALAS-deploy-DS-dev
 
 template="https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/dbz-extension/azuredeploy.json"
-templateParams="https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/dbz-extension/azuredeploy.parameters.json"
+templateParams="https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/dbz-extension/azuredeploy.parameters.dev.json"
 
 # create extra networking group
 az group create -n $networkRG -l $location \

@@ -6,7 +6,7 @@
         "value": "https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/dbz-extension"
       },
       "bastionHostName": {
-        "value": "ALASbastion"
+        "value": "bastion"
       },
       "bastionRG": {
         "value": "ALAS-External-Workspace-dev"
@@ -27,16 +27,16 @@
         "value": "networkSecurityGroup.json"
       },
       "networkSecurityGroupName": {
-        "value": "ALAS-NetSGpnh4dev"
+        "value": "mytestNSG-default"
       },
       "nestedSecurityDeploymentName": {
         "value": "deploy-NSG"
       },
       "vNetName": {
-        "value": "ALAS-VNetwork-pnh4fdev"
+        "value": "virtual-network-01"
       },
       "existingNetworkRG": {
-        "value": "ALAS-dataworkspace-dev"
+        "value": "ALAS-nsg"
       },
       "dbzWorkspaceNamePrefix": {
         "value": "ALAS-DataScience"

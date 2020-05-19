@@ -1,0 +1,57 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "baseTemplateUri": {
+        "value": "https://raw.githubusercontent.com/TomMicha/azuredeploy-templates/master/dbz-extension"
+      },
+      "bastionHostName": {
+        "value": "bastion"
+      },
+      "bastionRG": {
+        "value": "ALAS-External-Workspace-dev"
+      },
+      "sharedTemplateBastion": {
+        "value": "bastion.json"
+      },
+      "nestedDeploymentBastion": {
+        "value": "deploy-bastion"
+      },
+      "subnet7dbzpub": {
+        "value": "subnet7-dbz-public"
+      },
+      "subnet8dbzpriv": {
+        "value": "subnet8-dbz-private"
+      },
+      "sharedTemplateNSG": {
+        "value": "networkSecurityGroup.json"
+      },
+      "networkSecurityGroupName": {
+        "value": "ALAS-NetSGpnh4dev"
+      },
+      "nestedSecurityDeploymentName": {
+        "value": "deploy-NSG"
+      },
+      "vNetName": {
+        "value": "ALAS-VNetwork-pnh4fdev"
+      },
+      "existingNetworkRG": {
+        "value": "ALAS-dataworkspace-dev"
+      },
+      "dbzWorkspaceNamePrefix": {
+        "value": "ALAS-DataScience"
+      },
+      "nestedDeploymentDatabricks": {
+        "value": "deploy-databricks-DS"
+      },
+      "sharedTemplatePublicIP":{
+        "value": "publicIP.json"
+      },
+      "nestedDeploymentNamePublicIP": {
+        "value": "deploy-publicIP"
+      },
+      "sharedTemplateNameDatabricks": {
+        "value": "databricks.json"
+      }
+    }
+  }
