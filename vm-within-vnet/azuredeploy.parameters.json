@@ -50,7 +50,7 @@
     "vmAdminPassword": { 
       "reference": {
         "keyVault": {
-          "id": "/subscriptions/ba09e5b6-8d5c-4216-bcdc-ce0b594cc034/resourceGroups/ALAS-keyvaultgroup-dev/providers/Microsoft.KeyVault/vaults/ALAS-keyvault-dev"
+          "id": "/subscriptions/ba09e5b6-8d5c-4216-bcdc-ce0b594cc034/resourceGroups/ALAS-keyvault-dev/providers/Microsoft.KeyVault/vaults/ALAS-keyvault-dev"
         },
         "secretName": "externalVMPass"
       }
