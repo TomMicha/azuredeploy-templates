@@ -12,12 +12,86 @@
         "metadata": {
           "description": "String to determine which network the VM is deployed to."
         }
+      },
+      "bastionHostName": {
+          "type": "string"
       }
     },
     "variables": {
-        "nsgID": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]"
+        "nsgID": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]",
+        "bastionName": "[concat(parameters('bastionHostName'),'-nsg')]"
     },
     "resources": [
+        {
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "apiVersion": "2020-03-01",
+            "name": "[variables('bastionName')]",
+            "location": "eastus",
+            "tags": {
+                "client": "alas",
+                "created": "tom"
+            },
+            "properties": {
+                "securityRules": [
+                    {
+                        "name": "AllowOutbound443",
+                        "properties": {
+                            "description": "bastion rule required",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "AzureCloud",
+                            "access": "Allow",
+                            "priority": 100,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "AllowGateWayInBound",
+                        "properties": {
+                            "description": "bastion required rule",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "GatewayManager",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 100,
+                            "direction": "Inbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "AllowRDPSSH",
+                        "properties": {
+                            "description": "bastion required rule",
+                            "protocol": "*",
+                            "sourcePortRange": "*",
+                            "sourceAddressPrefix": "*",
+                            "destinationAddressPrefix": "VirtualNetwork",
+                            "access": "Allow",
+                            "priority": 110,
+                            "direction": "Outbound",
+                            "sourcePortRanges": [],
+                            "destinationPortRanges": [
+                                "3389",
+                                "22"
+                            ],
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    }
+                ]
+            }
+        },
         {
             "type": "Microsoft.Network/networkSecurityGroups",
             "apiVersion": "2019-11-01",
@@ -82,6 +156,77 @@
                         }
                     }
                 ]
+            }
+        },
+        {
+            "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+            "apiVersion": "2020-03-01",
+            "name": "[concat(variables('bastionName'), '/AllowGateWayInBound')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', variables('bastionName'))]"
+            ],
+            "properties": {
+                "description": "bastion required rule",
+                "protocol": "*",
+                "sourcePortRange": "*",
+                "destinationPortRange": "443",
+                "sourceAddressPrefix": "GatewayManager",
+                "destinationAddressPrefix": "*",
+                "access": "Allow",
+                "priority": 100,
+                "direction": "Inbound",
+                "sourcePortRanges": [],
+                "destinationPortRanges": [],
+                "sourceAddressPrefixes": [],
+                "destinationAddressPrefixes": []
+            }
+        },
+        {
+            "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+            "apiVersion": "2020-03-01",
+            "name": "[concat(variables('bastionName'), '/AllowOutbound443')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', variables('bastionName'))]"
+            ],
+            "properties": {
+                "description": "bastion rule required",
+                "protocol": "*",
+                "sourcePortRange": "*",
+                "destinationPortRange": "443",
+                "sourceAddressPrefix": "*",
+                "destinationAddressPrefix": "AzureCloud",
+                "access": "Allow",
+                "priority": 100,
+                "direction": "Outbound",
+                "sourcePortRanges": [],
+                "destinationPortRanges": [],
+                "sourceAddressPrefixes": [],
+                "destinationAddressPrefixes": []
+            }
+        },
+        {
+            "type": "Microsoft.Network/networkSecurityGroups/securityRules",
+            "apiVersion": "2020-03-01",
+            "name": "[concat(variables('bastionName'), '/AllowRDPSSH')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkSecurityGroups', variables('bastionName'))]"
+            ],
+            "properties": {
+                "description": "bastion required rule",
+                "protocol": "*",
+                "sourcePortRange": "*",
+                "sourceAddressPrefix": "*",
+                "destinationAddressPrefix": "VirtualNetwork",
+                "access": "Allow",
+                "priority": 110,
+                "direction": "Outbound",
+                "sourcePortRanges": [],
+                "destinationPortRanges": [
+                    "3389",
+                    "22"
+                ],
+                "sourceAddressPrefixes": [],
+                "destinationAddressPrefixes": []
             }
         },
         {
