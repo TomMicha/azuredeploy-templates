@@ -3,8 +3,9 @@ echo $0
 echo $1
 echo $2
 
-if ($1 = 1)
-echo "if block"
+if [ $1 = dev ]
+then 
+    echo $1 is running
 fi
 
 location="eastus"
